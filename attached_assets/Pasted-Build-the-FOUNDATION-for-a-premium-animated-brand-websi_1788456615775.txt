@@ -1,0 +1,177 @@
+Build the FOUNDATION for a premium animated brand website for a Saudi snack company called “GG Snacks”, based in Jeddah, Saudi Arabia.
+
+IMPORTANT:
+Do NOT build the entire finished website yet.
+This first step is only to create a clean scalable project foundation, design system, navigation, placeholder sections, product data structure, and routing.
+
+BRAND DIRECTION:
+GG Snacks has a premium gaming / cyberpunk / esports-inspired identity.
+The site should feel bold, modern, dark, metallic, immersive, and energetic.
+
+Visual base:
+- Near-black background
+- Graphite / gunmetal surfaces
+- Chrome / metallic silver details
+- Neon accent colors
+- Strong contrast
+- Premium gaming aesthetic
+- Avoid generic corporate website styling
+- Avoid excessive gradients
+- Avoid cartoonish gaming design
+- Avoid cheap-looking RGB effects
+
+MAIN PRIORITY:
+The website will eventually use advanced smooth motion and strong visuals.
+For now, prepare the project structure so animations can be added cleanly later.
+
+TECHNICAL REQUIREMENTS:
+- Use React with a modern production-ready structure
+- Use TypeScript
+- Use Tailwind CSS
+- Use reusable components
+- Use responsive design from the beginning
+- Prepare GSAP integration for future scroll-based animations
+- Use clean semantic HTML
+- Keep performance in mind
+- Do not add unnecessary heavy libraries
+
+CREATE THESE ROUTES:
+/
+ /products
+ /about
+ /quality
+ /distribution
+ /contact
+ /rate/:productSlug/:flavorSlug
+
+HOMEPAGE PLACEHOLDER STRUCTURE:
+1. Hero
+2. Product Worlds
+3. Flavor Experience
+4. About GG Snacks
+5. Quality
+6. Rate Your Snack CTA
+7. Distribution CTA
+8. Footer
+
+Do NOT design these sections in full yet.
+Create polished dark placeholders with proper spacing and hierarchy only.
+
+NAVIGATION:
+- GG Snacks logo placeholder on the left
+- Home
+- Products
+- About
+- Quality
+- Distribution
+- Rate Your Snack
+- Contact
+- Language switch placeholder
+- Responsive mobile menu
+
+PRODUCT DATA ARCHITECTURE:
+Create a separate structured data file for products.
+
+Current product families:
+- LOOTS Corn
+- LOOTS Sunflower
+- TRIGGER
+- X-STIX
+- POP-G
+
+Each product family must support:
+- id
+- slug
+- name
+- category
+- description
+- image
+- accentColor
+- flavors
+
+Each flavor must support:
+- id
+- slug
+- name
+- image
+- accentColor
+- ratingPageUrl
+
+Do not invent missing flavors or product information.
+Use clearly labeled placeholder values where information is missing.
+
+QR RATING ARCHITECTURE:
+Each product + flavor combination must have a permanent unique rating URL.
+
+Example:
+ /rate/loots-corn/cheese
+ /rate/loots-corn/hot
+ /rate/x-stix/bbq
+
+The rating page must automatically identify the product and flavor from the URL.
+
+For this first step, create only the rating page shell with:
+- product image placeholder
+- product name
+- flavor name
+- heading: “HOW WAS YOUR SNACK?”
+- 5 emoji rating options
+- optional comment textarea
+- submit button
+
+Do NOT implement a database yet.
+Do NOT implement dashboard functionality yet.
+Do NOT generate QR codes yet.
+Do NOT implement final animations yet.
+
+DESIGN SYSTEM:
+Create reusable tokens / variables for:
+- background
+- surface
+- chrome / silver
+- text primary
+- text secondary
+- neon accents
+- border
+- glow
+- spacing
+- border radius
+
+Suggested base colors:
+- #050505
+- #0B0B0D
+- #141417
+- metallic silver / chrome
+- white text
+- flavor-specific accents
+
+Typography:
+Use a bold futuristic display font for headings and a highly readable sans-serif for body text.
+Do not overuse futuristic fonts.
+
+UX:
+- Desktop, tablet, and mobile responsive
+- Clear focus states
+- Reduced-motion compatibility
+- Good contrast
+- Fast loading
+- No fake content claims about the company
+
+ASSETS:
+We do not have final product PNGs yet.
+Use neutral placeholders only.
+Do not generate fake product images.
+
+CONTACT:
+Contact details are not available yet.
+Use placeholders only.
+
+LANGUAGE:
+Prepare the architecture so Arabic and English can both be supported later.
+Do not implement full translations yet.
+
+FINAL RESULT FOR THIS STEP:
+I want a clean working foundation that runs successfully and is easy to extend.
+Do NOT try to impress by overbuilding.
+Do NOT create the final visual design yet.
+Do NOT spend time generating unnecessary pages or content.
