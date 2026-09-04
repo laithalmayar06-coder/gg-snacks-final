@@ -1,0 +1,46 @@
+:root {
+  --background: 220 14% 4%;
+  --foreground: 210 22% 94%;
+  --primary: 184 84% 48%;
+  --primary-foreground: 220 25% 5%;
+  --accent: 39 100% 64%;
+  --accent-foreground: 220 25% 5%;
+  --muted-foreground: 215 10% 62%;
+  --border: 215 12% 18%;
+  --card: 220 13% 7%;
+  --card-foreground: 210 22% 94%;
+  --radius: 0.25rem;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-mono: 'Space Mono', monospace;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+.font-display {
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.font-mono-brand {
+  font-family: 'Space Mono', monospace;
+}
+
+.page-reveal {
+  animation: page-reveal 0.45s ease-out both;
+}
+
+@keyframes page-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-reveal {
+    animation: none;
+  }
+}

@@ -1,6 +1,7 @@
-import { ArrowDown, ArrowUpRight, Box, Radio, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowUpRight, Box, ShieldCheck, Zap } from 'lucide-react';
 import { Link } from 'wouter';
 import { products } from '@/data/products';
+import { HeroSection } from '@/components/hero-section';
 import { CtaBand, PageMeta, PlaceholderSection, SectionLabel } from '@/components/page-primitives';
 import { SiteFooter } from '@/components/site-shell';
 
@@ -8,35 +9,7 @@ export default function HomePage() {
   return (
     <main className="page-reveal">
       <PageMeta title="The next round starts here" description="GG Snacks is a premium Saudi snack brand foundation from Jeddah." />
-      <section className="relative flex min-h-[calc(100dvh-76px)] items-end overflow-hidden border-b border-white/10 bg-[#08090b]">
-        <div className="absolute right-[-10%] top-[14%] h-[420px] w-[420px] rounded-full border border-primary/10 sm:h-[620px] sm:w-[620px]" />
-        <div className="absolute right-[3%] top-[26%] h-[280px] w-[280px] rounded-full border border-primary/15 sm:h-[420px] sm:w-[420px]" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-primary/[0.06] to-transparent" />
-        <div className="relative mx-auto grid w-full max-w-[1440px] gap-12 px-5 pb-12 pt-24 sm:px-8 sm:pb-20 lg:grid-cols-[1fr_0.44fr] lg:items-end lg:px-12">
-          <div>
-            <SectionLabel index="01">Jeddah / Saudi Arabia</SectionLabel>
-            <h1 className="max-w-5xl font-display text-[5.2rem] font-extrabold uppercase leading-[0.8] tracking-[-0.04em] text-foreground sm:text-[8.8rem] lg:text-[11rem]">
-              The next<br /><span className="text-primary">round</span><br />starts here<span className="text-accent">.</span>
-            </h1>
-            <p className="mt-8 max-w-md text-base leading-7 text-muted-foreground sm:text-lg">A premium snack world in progress. Built for the pause between plays, with room for a sharper identity.</p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Link href="/products" data-testid="link-hero-products" className="inline-flex items-center gap-3 bg-primary px-6 py-4 text-xs font-bold uppercase tracking-[0.15em] text-primary-foreground transition-transform hover:-translate-y-0.5">
-                Explore product worlds <ArrowUpRight size={16} aria-hidden="true" />
-              </Link>
-              <Link href="/rate/loots-corn/flavor-pending" data-testid="link-hero-rate" className="inline-flex items-center gap-3 border border-white/20 px-6 py-4 text-xs font-bold uppercase tracking-[0.15em] text-foreground hover:border-primary hover:text-primary">
-                Rate your snack
-              </Link>
-            </div>
-          </div>
-          <div className="hidden lg:block">
-            <div className="border-l border-white/15 pl-6">
-              <div className="mb-8 flex items-center gap-2 font-mono-brand text-[10px] uppercase tracking-[0.2em] text-primary"><Radio size={14} aria-hidden="true" /> Signal detected</div>
-              <p className="text-sm leading-6 text-muted-foreground">The visual campaign is loading. This foundation keeps every future layer modular, fast, and ready for motion.</p>
-              <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-4 font-mono-brand text-[9px] uppercase tracking-[0.14em] text-white/35"><span>Scroll to sync</span><ArrowDown size={14} aria-hidden="true" /></div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       <section className="border-b border-white/10 py-16 sm:py-24">
         <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">

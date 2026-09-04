@@ -1,0 +1,90 @@
+Now redesign ONLY the homepage HERO section.
+
+Do not modify the rest of the website yet.
+
+GOAL:
+Create a premium, high-impact, gaming-inspired hero section for GG Snacks.
+
+STYLE:
+- Dark near-black background
+- Metallic / gunmetal atmosphere
+- Chrome / silver highlights
+- Neon cyan as the temporary primary accent
+- Premium esports / cyberpunk feeling
+- Cinematic, modern and clean
+- Not childish
+- Not generic
+- Not overly colorful
+- Avoid template-looking layouts
+
+LAYOUT:
+Full-screen hero, approximately 100vh.
+
+Left side:
+Small label:
+JEDDAH / SAUDI ARABIA
+
+Large headline:
+LEVEL UP
+YOUR SNACK.
+
+Supporting text:
+A short temporary brand statement for GG Snacks.
+Keep it concise and premium.
+
+CTA buttons:
+EXPLORE PRODUCTS
+RATE YOUR SNACK
+
+Right side:
+Create a large PRODUCT VISUAL PLACEHOLDER area.
+Do NOT generate a fake snack package.
+Use an abstract outlined placeholder representing where the real product PNG will later be placed.
+
+BACKGROUND VISUALS:
+Add subtle futuristic gaming-style geometry:
+- large thin circles
+- technical grid lines
+- small interface marks
+- subtle glow
+- metallic texture feeling using CSS only
+
+Do not use external background images.
+
+ANIMATION:
+This is very important.
+
+Add smooth premium entrance animation:
+- headline reveals upward
+- small label fades in
+- buttons animate in slightly later
+- background circles slowly move or rotate
+- product placeholder gently floats
+- subtle mouse parallax on desktop
+
+Use GSAP where appropriate.
+
+Animations must feel smooth and expensive, not flashy.
+
+SCROLL:
+Add a subtle animated scroll indicator at the bottom of the hero.
+
+RESPONSIVE:
+The hero must look excellent on desktop and mobile.
+On mobile:
+- stack content vertically
+- reduce animation complexity
+- keep text readable
+- preserve the premium visual feeling
+
+PERFORMANCE:
+Do not add heavy assets.
+Use CSS and GSAP only.
+Respect prefers-reduced-motion.
+
+IMPORTANT:
+Do not redesign the navigation.
+Do not change other homepage sections.
+Do not add product images yet.
+Do not create new pages.
+Focus only on making the HERO visually impressive and polished.
