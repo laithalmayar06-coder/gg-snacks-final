@@ -1,0 +1,80 @@
+Refine ONLY the existing homepage hero section.
+
+Do not redesign the whole site.
+Do not touch other sections or routes.
+
+The current hero is functional, but it still feels too generic.
+Make it feel much more like a premium gaming snack brand.
+
+KEEP:
+- Current dark base
+- Current cyan accent
+- Existing buttons
+- Existing navigation
+- Existing layout structure
+- Existing GSAP setup
+
+IMPROVE THE HERO VISUALLY:
+
+1. BACKGROUND
+- Make the background deeper and more cinematic.
+- Use layered dark gradients, subtle metallic texture, thin futuristic grid lines, HUD-style geometry, and soft neon glow.
+- Avoid bright empty areas.
+- Avoid a flat black background.
+
+2. PRODUCT FOCUS AREA
+- Make the right side feel like a real hero product stage even without a product image.
+- Create a strong vertical product silhouette placeholder.
+- Add a soft neon rim light around the placeholder.
+- Add a subtle circular energy-ring or scanner-style effect behind it.
+- Keep it abstract so a real product PNG can replace it later.
+
+3. HEADLINE
+Use:
+LEVEL UP
+YOUR SNACK.
+
+Make the headline larger, heavier, and more premium.
+Use strong visual hierarchy.
+“YOUR SNACK.” can use the cyan accent subtly.
+
+4. MICRO DETAILS
+Add small gaming-inspired UI elements such as:
+- tiny coordinates
+- thin technical lines
+- subtle corner markers
+- small status indicators
+- minimal HUD labels
+
+Keep them restrained and premium.
+
+5. MOTION
+Enhance existing animations:
+- slow floating product placeholder
+- very subtle mouse parallax
+- slow rotating/scanning rings
+- soft glow breathing effect
+- gentle background motion
+- smooth text entrance
+
+No fast movement.
+No flashy RGB.
+No excessive effects.
+
+6. BALANCE
+Make the hero feel visually rich but not crowded.
+The focal points should be:
+1. headline
+2. product placeholder
+3. CTA buttons
+
+7. MOBILE
+Keep the mobile version clean and premium.
+Reduce decorative geometry and heavy motion on smaller screens.
+
+IMPORTANT:
+Do not add real product images yet.
+Do not create new sections.
+Do not change routes.
+Do not add new dependencies.
+Only refine the existing hero styling and motion.

@@ -9,7 +9,8 @@ const heroStyles = `
     background:
       radial-gradient(circle at 72% 46%, rgba(54, 210, 220, .085), transparent 28%),
       radial-gradient(circle at 15% 90%, rgba(168, 178, 184, .05), transparent 30%),
-      #07090b;
+      linear-gradient(120deg, rgba(255, 255, 255, .018), transparent 40%),
+      linear-gradient(180deg, #080b0d 0%, #050607 100%);
   }
   .hero-section::before {
     content: "";
@@ -22,6 +23,7 @@ const heroStyles = `
       linear-gradient(rgba(183, 198, 204, .045) 1px, transparent 1px),
       linear-gradient(90deg, rgba(183, 198, 204, .045) 1px, transparent 1px);
     background-size: 72px 72px;
+    animation: hero-grid-drift 34s linear infinite;
     mask-image: linear-gradient(90deg, black, transparent 88%);
   }
   .hero-section::after {
@@ -37,6 +39,8 @@ const heroStyles = `
   .hero-glow {
     background: radial-gradient(circle, rgba(55, 226, 232, .12), rgba(55, 226, 232, 0) 68%);
     filter: blur(10px);
+    animation: hero-glow-breathe 6.8s ease-in-out infinite;
+    will-change: transform, opacity;
   }
   .hero-ring {
     border: 1px solid rgba(174, 191, 198, .16);
@@ -55,8 +59,10 @@ const heroStyles = `
   }
   .hero-product-outline {
     border: 1px solid rgba(203, 213, 217, .38);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .035), rgba(53, 224, 228, .025) 52%, rgba(0, 0, 0, .16));
     box-shadow: 0 0 0 1px rgba(53, 224, 228, .06), inset 0 0 42px rgba(100, 112, 119, .055);
     clip-path: polygon(16% 0, 84% 0, 100% 16%, 92% 88%, 78% 100%, 22% 100%, 8% 88%, 0 16%);
+    filter: drop-shadow(0 0 18px rgba(53, 224, 228, .16));
   }
   .hero-scanline {
     animation: hero-scanline 3.8s ease-in-out infinite;
@@ -70,6 +76,14 @@ const heroStyles = `
     background-clip: text;
     color: transparent;
   }
+  @keyframes hero-grid-drift {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 72px 36px, 72px 36px; }
+  }
+  @keyframes hero-glow-breathe {
+    0%, 100% { opacity: .68; transform: scale(.98); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
   @keyframes hero-scanline {
     0%, 100% { opacity: .2; transform: translateY(-88px); }
     50% { opacity: .64; transform: translateY(88px); }
@@ -81,10 +95,11 @@ const heroStyles = `
   @media (max-width: 767px) {
     .hero-section::before { background-size: 48px 48px; mask-image: linear-gradient(180deg, black, transparent 82%); }
     .hero-ring { opacity: .72; }
+    .hero-ring-three { display: none; }
     .hero-scanline, .hero-scroll-dot { animation-duration: 3.6s; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-scanline, .hero-scroll-dot { animation: none; }
+    .hero-section::before, .hero-glow, .hero-scanline, .hero-scroll-dot { animation: none; }
   }
 `;
 
@@ -248,6 +263,10 @@ export function HeroSection() {
           <div className="pointer-events-none absolute left-[2%] top-[18%] hidden items-center gap-2 font-mono-brand text-[9px] uppercase tracking-[.16em] text-white/30 sm:flex">
             <Crosshair size={13} className="text-primary/70" aria-hidden="true" />
             <span>Signal locked</span>
+          </div>
+          <div className="pointer-events-none absolute right-[7%] top-[8%] hidden flex-col items-end gap-1 font-mono-brand text-[8px] uppercase tracking-[.18em] text-white/25 sm:flex">
+            <span className="text-primary/60">Grid 21 / Sector 39</span>
+            <span>Stage / Ready</span>
           </div>
           <div className="pointer-events-none absolute bottom-[11%] right-[3%] hidden items-center gap-2 font-mono-brand text-[9px] uppercase tracking-[.16em] text-white/25 sm:flex">
             <span>Replace with final asset</span>
