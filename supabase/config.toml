@@ -1,0 +1,4 @@
+[functions.ratings-dashboard]
+# The handler validates every bearer token with Supabase Auth getUser().
+# This supports modern signing keys without the legacy gateway JWT verifier.
+verify_jwt = false
