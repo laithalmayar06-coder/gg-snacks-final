@@ -11,6 +11,12 @@ const { renderToString } = require('react-dom/server')
 const { MemoryRouter, Routes, Route } = require('react-router')
 const { LanguageProvider } = require('../src/i18n/LanguageContext.tsx')
 const cases = [
+  ['/admin/products', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
+  ['/admin/flavors', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
+  ['/admin/stores', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
+  ['/admin/content', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
+  ['/admin/tournament', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
+  ['/admin/contact', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
   ['/arena', '/arena', 'PublicPage', 'gg-app-preview'],
   ['/tournaments', '/tournaments', 'PublicPage', 'event-details'],
   ['/find-gg', '/find-gg', 'PublicPage', 'store-results'],

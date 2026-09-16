@@ -9,12 +9,14 @@ import { siteContent } from '../data/siteContent'
 import { homepageContent } from '../data/homepage'
 import { publicNavigation, secondaryNavigation } from '../data/publicContent'
 import SiteContactValue, { SocialLinks } from './SiteContactValue'
+import { useCms } from '../cms/CmsProvider'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ContactFooter() {
   const { t, language } = useLanguage()
   const copy = homepageContent[language]
+  const managedContact = useCms().contact_settings?.[0]
   const root = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -39,7 +41,7 @@ export default function ContactFooter() {
         <dl className="contact-details">{contactItems.map((key, index) => <div key={key}>
           <dt><span aria-hidden="true" dir="ltr">{String(index + 1).padStart(2, '0')}</span>{t.contactItemLabels[key]}</dt>
           <dd><SiteContactValue kind={key} /></dd>
-        </div>)}{siteContent.contact.phone && <div><dt>{t.contactPhone}</dt><dd><SiteContactValue kind="phone" /></dd></div>}</dl>
+        </div>)}{(managedContact?.phone || siteContent.contact.phone) && <div><dt>{t.contactPhone}</dt><dd><SiteContactValue kind="phone" /></dd></div>}</dl>
       </div>
       <form className="contact-preview" aria-labelledby="contact-preview-title" aria-describedby="contact-preview-note" onSubmit={event => event.preventDefault()}>
         <div className="contact-preview-header"><h3 id="contact-preview-title">{t.contactFormTitle}</h3><span aria-hidden="true" dir="ltr">09 / GG</span></div>

@@ -1,11 +1,19 @@
 import { useState, type FormEvent } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { stores, onlineStores, filterStores } from '../data/stores'
+import { stores as fallbackStores, onlineStores, filterStores } from '../data/stores'
 import { safeWebUrl } from '../data/siteLinks'
 import { pageCopy } from '../data/publicContent'
 import { visualCopy } from '../data/visualCopy'
+import { useCms } from '../cms/CmsProvider'
+import { localized, textValue } from '../cms/publicCatalog'
 
 export default function StoreFinder() {
+  const managedStores = useCms().stores
+  const stores = managedStores ? managedStores.map(row => ({
+    id: String(row.id), name: localized(row, 'name')!, city: localized(row, 'city')!, district: localized(row, 'district')!,
+    address: localized(row, 'address'), onlineUrl: textValue(row,'online_url') || null, mapUrl: textValue(row,'map_url') || null,
+    latitude: typeof row.latitude === 'number' ? row.latitude : null, longitude: typeof row.longitude === 'number' ? row.longitude : null, isPlaceholder: false,
+  })) : fallbackStores
   const { language } = useLanguage()
   const c = pageCopy[language]
   const [city, setCity] = useState('')

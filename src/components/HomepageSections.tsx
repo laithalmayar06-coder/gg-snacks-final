@@ -1,15 +1,18 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { Link } from 'react-router'
 import { useLanguage } from '../i18n/LanguageContext'
-import { homepageContent, homepageFamilyOrder } from '../data/homepage'
+import { homepageContent } from '../data/homepage'
 import { familyWorlds, homepageMedia } from '../data/homepageVisuals'
 import { visualCopy } from '../data/visualCopy'
 import { pageTitles } from '../data/publicContent'
-import { getProduct, type ProductFamily } from '../data/products'
+import type { ManagedFamily as ProductFamily } from '../cms/publicCatalog'
+import { useCatalog, localized, textValue } from '../cms/publicCatalog'
+import { useCms } from '../cms/CmsProvider'
+import { cmsPublicCopy } from '../cms/copy'
 import ProductImage from './ProductImage'
 import VisualSlot from './VisualSlot'
 
-export const homeFamilies = homepageFamilyOrder.map(slug => getProduct(slug)).filter((family): family is ProductFamily => Boolean(family))
+export function useHomeFamilies() { return useCatalog().filter(family => family.isActive !== false) }
 export function worldStyle(family: ProductFamily): CSSProperties {
   const world = familyWorlds[family.slug]
   return { '--family-accent': world?.accent ?? family.accentColor, '--family-secondary': world?.secondary ?? family.accentColor } as CSSProperties
@@ -22,13 +25,14 @@ export function SectionHeading({ id, label, title, children }: { id: string; lab
 export function FamilyAsset({ family, priority = false }: { family: ProductFamily; priority?: boolean }) {
   const { language } = useLanguage()
   return <div className="gg-asset-slot" data-world={familyWorlds[family.slug]?.theme} style={worldStyle(family)}>
-    <ProductImage src={family.image} alt={family.name} loading={priority ? 'eager' : 'lazy'}>
-      <div className="gg-asset-placeholder"><span aria-hidden="true">+</span><strong dir="ltr">{family.name}</strong><span>{homepageContent[language].preview}</span></div>
+    <ProductImage src={family.image} alt={family.localizedName?.[language] ?? family.name} loading={priority ? 'eager' : 'lazy'}>
+      <div className="gg-asset-placeholder"><span aria-hidden="true">+</span><strong dir="auto">{family.localizedName?.[language] ?? family.name}</strong><span>{homepageContent[language].preview}</span></div>
     </ProductImage>
   </div>
 }
 
 export function FeaturedProducts() {
+  const homeFamilies = useHomeFamilies()
   const { language } = useLanguage()
   const c = homepageContent[language]
   const v = visualCopy[language]
@@ -36,7 +40,7 @@ export function FeaturedProducts() {
     <SectionHeading id="featured-title" label={c.featuredLabel} title={c.featured}>{c.featuredIntro}</SectionHeading>
     <div className="gg-featured-grid">{homeFamilies.map((family, index) => <Link className="gg-featured-card" style={worldStyle(family)} to={`/products/${family.slug}`} key={family.id}>
       <span className="gg-feature-index" aria-hidden="true">0{index + 1}</span>
-      <div className="gg-featured-title"><p className="gg-kicker">{v.family}</p><h3 dir="ltr">{family.name}</h3><p>{v.flavours}</p></div>
+      <div className="gg-featured-title"><p className="gg-kicker">{v.family}</p><h3 dir="auto">{family.localizedName?.[language] ?? family.name}</h3><p>{v.flavours}</p></div>
       <FamilyAsset family={family} />
       <div className="gg-featured-action"><p>{v.flavourPending}</p><span className="gg-text-link">{c.viewFamily}<span aria-hidden="true">↗</span></span></div>
     </Link>)}</div>
@@ -55,15 +59,16 @@ export function ArenaTeaser({ showPageLink = true }: { showPageLink?: boolean })
 }
 
 export function TournamentsTeaser({ showPageLink = true }: { showPageLink?: boolean }) {
+  const managed = useCms().tournament_content?.[0]
   const { language } = useLanguage()
   const c = homepageContent[language]
   const v = visualCopy[language]
   return <section id="gg-tournaments" className="gg-section gg-tournaments" aria-labelledby="tournaments-title">
-    <SectionHeading id="tournaments-title" label={c.tournamentsLabel} title={c.tournaments} />{showPageLink && <Link className="gg-text-link" to="/tournaments">{pageTitles['/tournaments'][language]}<span aria-hidden="true">↗</span></Link>}
+    <SectionHeading id="tournaments-title" label={c.tournamentsLabel} title={localized(managed, 'title')?.[language] || c.tournaments} />{showPageLink && <Link className="gg-text-link" to="/tournaments">{pageTitles['/tournaments'][language]}<span aria-hidden="true">↗</span></Link>}
     <div className="gg-event-layout">
       <VisualSlot src={homepageMedia.tournament} label={v.event} className="gg-event-stage"><span className="gg-event-year" aria-hidden="true">2027</span><span className="gg-event-platform" aria-hidden="true">+</span></VisualSlot>
-      <div><ol className="gg-schedule">{[c.registration, c.firstTournament].map((text, index) => <li key={text}><span className="gg-step" aria-hidden="true">0{index + 1}</span><h3>{text}</h3></li>)}</ol>
-        <div className="gg-countdown" role="group" aria-label={v.countdown}><div>{v.units.map(unit => <span key={unit}><strong aria-hidden="true">—</strong><span>{unit}</span></span>)}</div><p>{v.datePending}</p></div>
+      <div><ol className="gg-schedule">{[textValue(managed, 'registration_date') ? `${cmsPublicCopy[language].registration} ${new Date(`${managed?.registration_date}T12:00:00Z`).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-GB', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' })}` : c.registration, textValue(managed, 'tournament_date') ? `${cmsPublicCopy[language].event} ${new Date(`${managed?.tournament_date}T12:00:00Z`).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-GB', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' })}` : c.firstTournament].map((text, index) => <li key={text}><span className="gg-step" aria-hidden="true">0{index + 1}</span><h3>{text}</h3></li>)}</ol>
+        <p className="gg-body">{localized(managed, 'description')?.[language]}</p><span className="gg-badge">{cmsPublicCopy[language][(textValue(managed, 'status') || 'coming-soon') as 'coming-soon' | 'announced' | 'completed']}</span><div className="gg-countdown" role="group" aria-label={v.countdown}><div>{v.units.map(unit => <span key={unit}><strong aria-hidden="true">—</strong><span>{unit}</span></span>)}</div><p>{v.datePending}</p></div>
       </div>
     </div>
   </section>

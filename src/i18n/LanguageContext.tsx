@@ -1,12 +1,26 @@
 import { createContext, useContext, useLayoutEffect, useState, type ReactNode } from 'react'
 import { translations, type Language } from './translations'
 import { siteContent } from '../data/siteContent'
+import { useCms } from '../cms/CmsProvider'
+import { cmsText } from '../cms/publicCatalog'
 
 const LanguageContext = createContext<{ language: Language; setLanguage: (value: Language) => void; t: typeof translations.en } | null>(null)
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
     try { return localStorage.getItem('gg-language') === 'ar' ? 'ar' : 'en' } catch { return 'en' }
   })
+  const cms = useCms()
+  const base = translations[language]
+  const aboutHeading = cmsText(cms, 'about', 'title', language)
+  const current = {
+    ...base,
+    universeDescription: cmsText(cms, 'about', 'body', language) ?? base.universeDescription,
+    universeHeadline: aboutHeading ? [aboutHeading] : base.universeHeadline,
+    whyFeatures: base.whyFeatures.map((feature, index) => ({
+      title: cmsText(cms, `why-${index + 1}`, 'title', language) ?? feature.title,
+      description: cmsText(cms, `why-${index + 1}`, 'body', language) ?? feature.description,
+    })),
+  }
   useLayoutEffect(() => {
     document.documentElement.lang = language
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr'
@@ -20,7 +34,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
     try { localStorage.setItem('gg-language', language) } catch { /* Language still works when storage is unavailable. */ }
   }, [language])
-  return <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>{children}</LanguageContext.Provider>
+  return <LanguageContext.Provider value={{ language, setLanguage, t: current }}>{children}</LanguageContext.Provider>
 }
 export function useLanguage() {
   const context = useContext(LanguageContext)

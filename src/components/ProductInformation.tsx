@@ -1,4 +1,5 @@
-import type { ProductFamily } from '../data/products'
+import type { ManagedFamily as ProductFamily } from '../cms/publicCatalog'
+import { cmsPublicCopy } from '../cms/copy'
 import { useLanguage } from '../i18n/LanguageContext'
 
 export default function ProductInformation({ product }: { product: ProductFamily }) {
@@ -6,5 +7,5 @@ export default function ProductInformation({ product }: { product: ProductFamily
   const values = [product.packageSize?.[language], product.ingredients?.[language],
     product.nutrition ? <><span>{product.nutrition.basis[language]}</span><ul>{product.nutrition.entries.map((entry, index) => <li key={index}>{entry.label[language]}: {entry.value[language]}</li>)}</ul></> : null,
     product.longDescription?.[language]]
-  return <section className="family-info" aria-labelledby="family-info-title"><h2 id="family-info-title">{t.catalogueInfo}</h2><dl>{t.catalogueInfoLabels.map((label, index) => <div key={label}><dt>{label}</dt><dd>{values[index] || t.catalogueInfoPending}</dd></div>)}</dl></section>
+  return <section className="family-info" aria-labelledby="family-info-title"><h2 id="family-info-title">{t.catalogueInfo}</h2><dl>{t.catalogueInfoLabels.map((label, index) => <div key={label}><dt>{label}</dt><dd>{values[index] || t.catalogueInfoPending}</dd></div>)}{product.allergens && <div><dt>{cmsPublicCopy[language].allergens}</dt><dd>{product.allergens[language]}</dd></div>}</dl></section>
 }

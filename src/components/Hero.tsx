@@ -3,10 +3,11 @@ import gsap from 'gsap'
 import { Link } from 'react-router'
 import { useLanguage } from '../i18n/LanguageContext'
 import { homepageContent } from '../data/homepage'
-import { FamilyAsset, homeFamilies } from './HomepageSections'
+import { FamilyAsset, useHomeFamilies } from './HomepageSections'
 import BrandMark from './BrandMark'
 
 export default function Hero() {
+  const homeFamilies = useHomeFamilies().slice(0, 4)
   const { language, t } = useLanguage()
   const c = homepageContent[language]
   const root = useRef<HTMLElement>(null)
