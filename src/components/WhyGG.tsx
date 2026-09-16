@@ -23,7 +23,7 @@ export default function WhyGG() {
   }, [])
 
   return <section ref={root} id="why-gg" className="why-gg" aria-labelledby="why-gg-title">
-    <header className="why-gg-heading"><div><p>{t.whyLabel}</p><h2 id="why-gg-title">{t.whyTitle}</h2></div><span aria-hidden="true" dir="ltr">04 / GG</span></header>
+    <header className="why-gg-heading"><div><p>{t.whyLabel}</p><h2 id="why-gg-title">{t.whyTitle}</h2></div><span aria-hidden="true" dir="ltr">05 / GG</span></header>
     {siteContent.whyGG.intro && <p>{siteContent.whyGG.intro[language]}</p>}
     <ul className="why-gg-features">
       {t.whyFeatures.map((feature, index) => <li className="why-gg-feature" key={feature.title}>

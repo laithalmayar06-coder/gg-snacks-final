@@ -41,7 +41,7 @@ export default function GGUniverse() {
       <ul className="universe-identity">{t.universeIdentity.map((item, index) => <li key={item}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ul>
     </div>
     <figure className="universe-media" aria-labelledby="universe-media-caption">
-      <div className="universe-media-header"><span>{t.location}</span><span aria-hidden="true" dir="ltr">03 / GG</span></div>
+      <div className="universe-media-header"><span>{t.location}</span><span aria-hidden="true" dir="ltr">04 / GG</span></div>
       <div className="universe-media-space" aria-hidden="true">
         <div className="universe-scan" />
         <i className="universe-corner universe-corner--tl" /><i className="universe-corner universe-corner--tr" />

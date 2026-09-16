@@ -76,11 +76,11 @@ export const siteContent: SiteContent = { company, ...{
     },
     "heading": {
       "en": [
-        "BUILT IN JEDDAH.",
-        "MADE TO PLAY."
+        "MEET GG.",
+        "ROOTED IN PLAY."
       ],
       "ar": [
-        "صُنعت في جدة.",
+        "تعرّف على جي جي.",
         "بروح اللعب."
       ]
     },
@@ -103,8 +103,8 @@ export const siteContent: SiteContent = { company, ...{
       "ar": "قريبًا"
     },
     "mediaCaption": {
-      "en": "A future look at our production world.",
-      "ar": "نظرة قادمة إلى عالم الإنتاج لدينا."
+      "en": "A future look inside the GG world.",
+      "ar": "نظرة قادمة إلى عالم جي جي."
     }
   },
   "whyGG": {
@@ -120,8 +120,8 @@ export const siteContent: SiteContent = { company, ...{
     "cards": [
       {
         "title": {
-          "en": "BOLD FLAVOR IDENTITY",
-          "ar": "هوية نكهات جريئة"
+          "en": "Bold Flavours",
+          "ar": "نكهات جريئة"
         },
         "description": {
           "en": "Flavor with a personality of its own.",
@@ -130,18 +130,18 @@ export const siteContent: SiteContent = { company, ...{
       },
       {
         "title": {
-          "en": "DISTINCT PRODUCT WORLDS",
-          "ar": "عوالم منتجات مميزة"
+          "en": "Quality First",
+          "ar": "الجودة أولًا"
         },
         "description": {
-          "en": "LOOTS. TRIGGER. X-STIX. POP-G. Each with its own visual identity.",
-          "ar": "LOOTS وTRIGGER وX-STIX وPOP-G. لكل منها هويتها البصرية."
+          "en": "Our focus: care in the details, from the snack to the experience.",
+          "ar": "اهتمامنا بالتفاصيل، من السناك إلى التجربة."
         }
       },
       {
         "title": {
-          "en": "GAMING-INSPIRED DESIGN",
-          "ar": "تصميم مستوحى من الألعاب"
+          "en": "Made for Gamers",
+          "ar": "صُممت للاعبين"
         },
         "description": {
           "en": "A visual language inspired by the world of play.",
@@ -150,12 +150,12 @@ export const siteContent: SiteContent = { company, ...{
       },
       {
         "title": {
-          "en": "FROM JEDDAH",
-          "ar": "من جدة"
+          "en": "Real Value",
+          "ar": "قيمة حقيقية"
         },
         "description": {
-          "en": "A snack brand based in Jeddah, Saudi Arabia.",
-          "ar": "علامة سناك مقرها جدة، المملكة العربية السعودية."
+          "en": "Our aim: make every snack break feel worthwhile.",
+          "ar": "هدفنا أن تكون كل استراحة سناك تجربة تستحق."
         }
       }
     ]

@@ -34,6 +34,19 @@ for (const language of ['en', 'ar']) {
       assert.equal((html.match(/<main\b/g) ?? []).length, 1)
       assert.ok(html.indexOf('</main>') < html.indexOf('<footer'))
       assert.ok(html.includes('to=') === false)
+      const sections = ['home-hero', 'product-worlds', 'featured-products', 'gg-universe', 'why-gg', 'gg-arena', 'gg-tournaments', 'find-gg', 'contact']
+      let previous = -1
+      for (const id of sections) {
+        const position = html.indexOf(`id="${id}"`)
+        assert.ok(position > previous, `${language}: missing or misplaced homepage section ${id}`)
+        previous = position
+      }
+      for (const slug of ['pop-g', 'trigger', 'loots', 'x-stix']) assert.ok(html.includes(`href="/products/${slug}"`))
+      assert.ok(html.includes('id="rate-your-snack"'), 'Keep the existing rating entry anchor')
+      assert.ok(/id="gg-city"[^>]*disabled/.test(html))
+      assert.ok(/id="gg-district"[^>]*disabled/.test(html))
+      assert.ok(html.includes(language === 'en' ? 'SNACKS BUILT' : 'سناكات صُممت'))
+
     }
     if (page === 'RateSnack' && !url.includes('invalid')) {
       assert.equal((html.match(/type="radio"/g) ?? []).length, 5)

@@ -1,0 +1,31 @@
+/* Reusable brand tokens. Presentation classes are opt-in to protect existing app screens. */
+:root {
+  --gg-void: #06080E;
+  --gg-navy: #101722;
+  --gg-silver: #F4F7FA;
+  --gg-cyan: #00CFFF;
+  --gg-magenta: #FF197B;
+  --gg-muted: #aebbc9;
+  --gg-border: #899cb533;
+  --gg-metal: linear-gradient(125deg, #f4f7fa 10%, #a5b6cb 40%, #e7f7ff 57%, #adb2c9 80%, #f4f7fa);
+  --gg-space: clamp(64px, 7vw, 112px);
+  --gg-gutter: max(6%, calc((100% - 1400px) / 2));
+}
+.gg-section { padding: var(--gg-space) var(--gg-gutter); border-top: 1px solid var(--gg-border); background: var(--gg-void); }
+.gg-section-heading { margin-bottom: 36px; max-width: 740px; }
+.gg-section h2, .gg-display { font: 700 clamp(40px, 5vw, 76px)/1.05 'Barlow Condensed', sans-serif; margin: 0; letter-spacing: -.02em; }
+.gg-kicker { margin: 0 0 18px; color: var(--gg-cyan); font-size: 12px; letter-spacing: .16em; line-height: 1.7; }
+.gg-body { font-size: 16px; line-height: 1.8; color: var(--gg-muted); max-width: 560px; }
+.gg-card { background: var(--gg-navy); border: 1px solid var(--gg-border); min-width: 0; transition: border-color .2s, background .2s; }
+.gg-button { display: inline-flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 52px; padding: 16px 22px; border: 1px solid transparent; font: inherit; font-size: 14px; font-weight: 700; line-height: 1.5; text-align: start; transition: background .2s, border-color .2s; }
+.gg-button-primary { color: var(--gg-void); background: var(--gg-cyan); }
+.gg-button-outline { color: var(--gg-silver); border-color: #899cb56b; background: transparent; }
+.gg-button-primary:hover { background: #71e4ff; }
+.gg-button-outline:hover { border-color: var(--gg-cyan); background: #00cfff0a; }
+.gg-button:disabled, .home-redesign select:disabled { cursor: not-allowed; color: #aebbc9; border-color: var(--gg-border); background: #18202d; }
+.home-redesign :is(a, button, select, input, textarea):focus-visible { outline: 2px solid var(--gg-cyan); outline-offset: 5px; }
+.gg-badge { display: inline-flex; padding: 10px 16px; border: 1px solid #00cfff66; color: var(--gg-cyan); font-size: 12px; letter-spacing: .1em; }
+.gg-text-link { min-height: 44px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+[dir='rtl'] .gg-section h2, [dir='rtl'] .gg-display { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(32px, 4vw, 56px); line-height: 1.5; letter-spacing: 0; }
+[dir='rtl'] .gg-kicker, [dir='rtl'] .gg-badge { letter-spacing: 0; }
+@media (prefers-reduced-motion: reduce) { .gg-card, .gg-button { transition: none; } }

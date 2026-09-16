@@ -6,12 +6,14 @@ import { contactItems, footerLinks } from '../data/contact'
 import { useLanguage } from '../i18n/LanguageContext'
 import '../styles/contact-footer.css'
 import { siteContent } from '../data/siteContent'
+import { homepageContent } from '../data/homepage'
 import SiteContactValue, { SocialLinks } from './SiteContactValue'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ContactFooter() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const copy = homepageContent[language]
   const root = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -32,13 +34,14 @@ export default function ContactFooter() {
         <h2 id="contact-title">{t.contactTitle}</h2>
         <p className="contact-intro">{t.contactIntro}</p>
         <p className="contact-description">{t.contactDescription}</p>
+        <div className="gg-enquiry-types"><h3>{copy.contactCategories}</h3><ul>{copy.enquiries.map(item => <li key={item}>{item}</li>)}</ul></div>
         <dl className="contact-details">{contactItems.map((key, index) => <div key={key}>
           <dt><span aria-hidden="true" dir="ltr">{String(index + 1).padStart(2, '0')}</span>{t.contactItemLabels[key]}</dt>
           <dd><SiteContactValue kind={key} /></dd>
         </div>)}{siteContent.contact.phone && <div><dt>{t.contactPhone}</dt><dd><SiteContactValue kind="phone" /></dd></div>}</dl>
       </div>
       <form className="contact-preview" aria-labelledby="contact-preview-title" aria-describedby="contact-preview-note" onSubmit={event => event.preventDefault()}>
-        <div className="contact-preview-header"><h3 id="contact-preview-title">{t.contactFormTitle}</h3><span aria-hidden="true" dir="ltr">06 / GG</span></div>
+        <div className="contact-preview-header"><h3 id="contact-preview-title">{t.contactFormTitle}</h3><span aria-hidden="true" dir="ltr">09 / GG</span></div>
         <p id="contact-preview-note" className="contact-preview-note">{t.contactFormNote}</p>
         <div className="contact-field"><label htmlFor="contact-name">{t.contactName}</label><input id="contact-name" type="text" readOnly placeholder={t.contactName} /></div>
         <div className="contact-field"><label htmlFor="contact-reply">{t.contactReply}</label><input id="contact-reply" type="text" readOnly placeholder={t.contactReply} /></div>
