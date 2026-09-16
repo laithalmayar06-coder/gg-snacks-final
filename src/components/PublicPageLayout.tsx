@@ -1,3 +1,4 @@
+import { usePublicMotion } from '../hooks/usePublicMotion'
 import { useEffect, type ReactNode } from 'react'
 import Navigation from './Navigation'
 import { SiteFooter } from './ContactFooter'
@@ -8,13 +9,16 @@ import '../styles/homepage.css'
 import '../styles/phase2.css'
 import '../styles/public-pages.css'
 
+import '../styles/phase5.css'
+
 export default function PublicPageLayout({ title, children }: { title: string; children: ReactNode }) {
   const { language, t } = useLanguage()
+  const motionRoot = usePublicMotion(title + language)
   useEffect(() => {
     document.title = `${title} | ${t.brandName}`
     return () => { document.title = t.title }
   }, [title, t.brandName, t.title])
-  return <div className="site-shell home-redesign public-page">
+  return <div ref={motionRoot} className="site-shell home-redesign phase-five public-page">
     <a className="skip-link" href="#main-content">{t.skip}</a><Navigation />
     <main id="main-content" tabIndex={-1}>
       <header className="public-page-hero"><p className="gg-kicker">{pageCopy[language].overview}</p><h1>{title}</h1></header>

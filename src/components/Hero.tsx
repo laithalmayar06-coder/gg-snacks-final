@@ -13,15 +13,23 @@ export default function Hero() {
   const root = useRef<HTMLElement>(null)
   useLayoutEffect(() => {
     const media = gsap.matchMedia()
-    // Finite entrance and light movement; mobile and reduced motion stay static.
+    // Reveal quickly; ambient transforms run only while the hero is visible.
     media.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
       gsap.timeline({ defaults: { ease: 'power2.out' } })
-        .from('.gg-hero-portal', { opacity: 0, duration: .55 })
-        .from('.gg-hero-logo', { opacity: 0, duration: .4 }, .15)
-        .from('.gg-hero-family', { opacity: 0, y: 12, duration: .6, stagger: .08 }, .3)
-        .from('.headline-line', { opacity: 0, y: 20, duration: .65, stagger: .1 }, .45)
+        .from('.gg-hero-portal', { opacity: 0, scale: .94, rotationY: -8, duration: .85 })
+        .from('.gg-hero-logo', { opacity: 0, scale: .88, y: 12, duration: .65 }, .15)
+        .from('.gg-hero-family', { opacity: 0, y: 38, rotationX: -12, duration: .75, stagger: .08 }, .3)
+        .from('.headline-line', { opacity: 0, yPercent: 100, duration: .75, stagger: .08 }, .45)
         .from('.hero-actions', { opacity: 0, y: 10, duration: .5 }, .8)
-      gsap.fromTo('.gg-hero-light', { x: -25, opacity: .2 }, { x: 25, opacity: .65, duration: 4, ease: 'sine.inOut' })
+      const ambient = gsap.timeline({ repeat: -1, yoyo: true, paused: true })
+        .fromTo('.gg-hero-light', { x: -12, opacity: .35 }, { x: 12, opacity: .7, duration: 9, ease: 'sine.inOut' })
+        .to('.gg-hero-orbit', { rotation: 18, duration: 9, ease: 'sine.inOut' }, 0)
+      let visible = false
+      const sync = () => { if (visible && !document.hidden) ambient.play(); else ambient.pause() }
+      const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync() })
+      observer.observe(root.current!)
+      document.addEventListener('visibilitychange', sync)
+      return () => { observer.disconnect(); document.removeEventListener('visibilitychange', sync) }
     }, root)
     media.add('(min-width: 1100px) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
       const element = root.current!
@@ -36,7 +44,7 @@ export default function Hero() {
       const reset = () => { x(0); y(0) }
       element.addEventListener('pointermove', move)
       element.addEventListener('pointerleave', reset)
-      return () => { element.removeEventListener('pointermove', move); element.removeEventListener('pointerleave', reset) }
+      return () => { element.removeEventListener('pointermove', move); element.removeEventListener('pointerleave', reset); x.tween.kill(); y.tween.kill() }
     }, root)
     return () => media.revert()
   }, [language])
@@ -49,7 +57,7 @@ export default function Hero() {
         <p className="hero-description">{t.description}</p>
         <div className="hero-actions"><Link to="/products" className="gg-button gg-button-primary">{c.explore}<span aria-hidden="true">↗</span></Link></div>
       </div>
-      <div className="gg-hero-portal">
+      <div className="gg-hero-portal"><span className="gg-hero-orbit" aria-hidden="true" />
         <div className="gg-hero-logo" aria-hidden="true"><BrandMark /></div>
         <div className="gg-hero-families">{homeFamilies.map(family => <div className="gg-hero-family" key={family.id}><FamilyAsset family={family} priority /></div>)}</div>
         <span className="gg-portal-caption">{c.preview}</span>
