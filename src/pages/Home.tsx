@@ -7,6 +7,7 @@ import WhyGG from '../components/WhyGG'
 import { FeaturedProducts, ArenaTeaser, TournamentsTeaser, FindGGTeaser } from '../components/HomepageSections'
 import '../styles/design-system.css'
 import '../styles/homepage.css'
+import '../styles/phase2.css'
 import ContactFooter, { SiteFooter } from '../components/ContactFooter'
 import { useLanguage } from '../i18n/LanguageContext'
 

@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '../i18n/LanguageContext'
 import '../styles/why-gg.css'
 import { siteContent } from '../data/siteContent'
+import BrandMark from './BrandMark'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -25,11 +26,11 @@ export default function WhyGG() {
   return <section ref={root} id="why-gg" className="why-gg" aria-labelledby="why-gg-title">
     <header className="why-gg-heading"><div><p>{t.whyLabel}</p><h2 id="why-gg-title">{t.whyTitle}</h2></div><span aria-hidden="true" dir="ltr">05 / GG</span></header>
     {siteContent.whyGG.intro && <p>{siteContent.whyGG.intro[language]}</p>}
-    <ul className="why-gg-features">
+    <div className="gg-why-network"><div className="gg-why-core" aria-hidden="true"><BrandMark /></div><ul className="why-gg-features">
       {t.whyFeatures.map((feature, index) => <li className="why-gg-feature" key={feature.title}>
-        <div className="why-gg-hud" aria-hidden="true"><span dir="ltr">{String(index + 1).padStart(2, '0')}</span><span>+</span></div>
+        <div className="why-gg-hud" aria-hidden="true"><span dir="ltr">{String(index + 1).padStart(2, '0')}</span><span className="gg-feature-icon">{['✦', '◇', '⌘', '◎'][index]}</span></div>
         <h3>{feature.title}</h3><p>{feature.description}</p>
       </li>)}
-    </ul>
+    </ul></div>
   </section>
 }

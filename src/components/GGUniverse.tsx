@@ -4,6 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '../i18n/LanguageContext'
 import '../styles/gg-universe.css'
 import { siteContent } from '../data/siteContent'
+import { homepageMedia } from '../data/homepageVisuals'
+import { visualCopy } from '../data/visualCopy'
+import VisualSlot from './VisualSlot'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -42,14 +45,14 @@ export default function GGUniverse() {
     </div>
     <figure className="universe-media" aria-labelledby="universe-media-caption">
       <div className="universe-media-header"><span>{t.location}</span><span aria-hidden="true" dir="ltr">04 / GG</span></div>
-      <div className="universe-media-space" aria-hidden="true">
+      <VisualSlot src={homepageMedia.about} label={visualCopy[language].about} className="universe-media-space"><div className="gg-about-geometry" aria-hidden="true">
         <div className="universe-scan" />
         <i className="universe-corner universe-corner--tl" /><i className="universe-corner universe-corner--tr" />
         <i className="universe-corner universe-corner--bl" /><i className="universe-corner universe-corner--br" />
         <span className="universe-media-cross">+</span>
         <span className="universe-media-wordmark" dir="ltr">GG</span>
       </div>
-      <figcaption id="universe-media-caption"><span className="universe-media-status">{t.universeMediaStatus}</span><span>{t.universeMediaCaption}</span></figcaption>
+      </VisualSlot><figcaption id="universe-media-caption"><span className="universe-media-status">{t.universeMediaStatus}</span><span>{t.universeMediaCaption}</span></figcaption>
     </figure>
   </section>
 }
