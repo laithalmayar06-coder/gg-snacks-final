@@ -11,6 +11,16 @@ const { renderToString } = require('react-dom/server')
 const { MemoryRouter, Routes, Route } = require('react-router')
 const { LanguageProvider } = require('../src/i18n/LanguageContext.tsx')
 const cases = [
+  ['/arena', '/arena', 'PublicPage', 'gg-app-preview'],
+  ['/tournaments', '/tournaments', 'PublicPage', 'event-details'],
+  ['/find-gg', '/find-gg', 'PublicPage', 'store-results'],
+  ['/feedback', '/feedback', 'PublicPage', 'feedback-family'],
+  ['/business', '/business', 'PublicPage', 'enquiry-requestType'],
+  ['/contact', '/contact', 'PublicPage', 'enquiry-message'],
+  ['/faq', '/faq', 'PublicPage', '<details>'],
+  ['/privacy', '/privacy', 'PublicPage', 'public-legal'],
+  ['/terms', '/terms', 'PublicPage', 'public-legal'],
+  ['/about', '/about', 'PublicPage', 'public-about-grid'],
   ['/unknown', '*', 'NotFound', 'GG / 404'],
   ['/', '/', 'Home', 'product-worlds'],
   ['/products', '/products', 'Products', '/products/loots'],
@@ -30,6 +40,20 @@ for (const language of ['en', 'ar']) {
     const Component = require(`../src/pages/${page}.tsx`).default
     const html = renderToString(React.createElement(MemoryRouter, { initialEntries: [url] }, React.createElement(LanguageProvider, null, React.createElement(Routes, null, React.createElement(Route, { path, element: React.createElement(Component) })))))
     assert.ok(html.includes(expected), `${language} ${url} missing ${expected}`)
+    if (page === 'PublicPage') {
+      assert.equal((html.match(/<main\b/g) ?? []).length, 1)
+      assert.equal((html.match(/<h1\b/g) ?? []).length, 1)
+      assert.ok(html.includes('href="/feedback"'))
+      assert.ok(html.includes('href="/privacy"'))
+      assert.ok(!html.includes('FINAL LEGAL COPY REQUIRED'))
+      if (url === '/feedback') {
+        assert.ok(/id="feedback-flavour"[^>]*disabled/.test(html))
+        assert.ok(/type="submit"[^>]*disabled/.test(html))
+        assert.ok(html.includes(language === 'en' ? 'YOUR FEEDBACK MATTERS TO US' : 'رأيك يهمنا'))
+      }
+      if (url === '/find-gg') assert.ok(html.includes(language === 'en' ? 'Sample store A' : 'متجر نموذجي أ'))
+      if (url === '/business' || url === '/contact') assert.ok(html.includes(language === 'en' ? 'Nothing is sent or saved.' : 'لن تُرسل أو تُحفظ أي معلومات.'))
+    }
     if (page === 'Home') {
       assert.equal((html.match(/<main\b/g) ?? []).length, 1)
       assert.ok(html.indexOf('</main>') < html.indexOf('<footer'))
@@ -55,4 +79,4 @@ for (const language of ['en', 'ar']) {
   }
 }
 delete global.localStorage
-console.log('24 English/Arabic server-render smoke checks passed (not browser layout tests)')
+console.log(`${cases.length * 2} English/Arabic server-render smoke checks passed (not browser layout tests)`)

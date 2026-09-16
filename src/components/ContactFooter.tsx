@@ -2,12 +2,12 @@ import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { contactItems, footerLinks } from '../data/contact'
+import { contactItems } from '../data/contact'
 import { useLanguage } from '../i18n/LanguageContext'
 import '../styles/contact-footer.css'
 import { siteContent } from '../data/siteContent'
 import { homepageContent } from '../data/homepage'
-import { visualCopy } from '../data/visualCopy'
+import { publicNavigation, secondaryNavigation } from '../data/publicContent'
 import SiteContactValue, { SocialLinks } from './SiteContactValue'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -61,10 +61,10 @@ export function SiteFooter() {
     <footer className="gg-footer">
       <div className="footer-columns">
         <div className="footer-identity"><a href="#main-content" className="footer-wordmark" aria-label={t.brandName}><span dir="ltr">GG<span className="footer-wordmark-dot" aria-hidden="true"> / </span>SNACKS</span></a><p>{t.footerLocation}</p></div>
-        <nav className="footer-shortcuts" aria-label={t.footerNavigation}>{footerLinks.map(link => <Link key={link.label} to={link.href.startsWith('#') ? `/${link.href}` : link.href}>{t[link.label]}</Link>)}</nav>
+        <nav className="footer-shortcuts" aria-label={t.footerNavigation}>{[...publicNavigation.filter(link => link.path !== '/'), ...secondaryNavigation].map(link => <Link key={link.path} to={link.path}>{link.label[language]}</Link>)}</nav>
         <div className="footer-preferences"><div className="footer-languages" role="group" aria-label={t.footerLanguage}>{(['en', 'ar'] as const).map(value => <button key={value} type="button" lang={value} aria-pressed={language === value} onClick={() => setLanguage(value)}>{value === 'en' ? 'English' : 'العربية'}</button>)}</div><p className="footer-social-label">{siteContent.footer.socialLabel[language]}</p><span className="footer-social-placeholder"><SocialLinks fallback={t.footerSocialPending} /></span></div>
       </div>
-      <div className="gg-footer-future"><Link to="/#rate-your-snack">{visualCopy[language].feedback}</Link>{visualCopy[language].future.map(label => <span key={label}>{label}<small>{visualCopy[language].pending}</small></span>)}</div><div className="footer-bottom"><p>{t.footerCopyright}</p><span aria-hidden="true" dir="ltr">{`GG / ${siteContent.company.city.en.toUpperCase()}`}</span></div>
+      <div className="footer-bottom"><p>{t.footerCopyright}</p><span aria-hidden="true" dir="ltr">{`GG / ${siteContent.company.city.en.toUpperCase()}`}</span></div>
     </footer>
   )
 }

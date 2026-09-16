@@ -75,3 +75,8 @@
   .family-copy .catalogue-button { width: 100%; }
   .family-info { margin-top: 40px; }
 }
+@media (max-width: 767px) {
+  .catalogue-nav { flex-wrap: wrap; }
+  .catalogue-nav nav { flex-wrap: wrap; }
+  .catalogue-language { margin-inline-start: auto; }
+}

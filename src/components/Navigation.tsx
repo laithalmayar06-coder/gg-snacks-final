@@ -4,14 +4,13 @@ import BrandMark from './BrandMark'
 import { navigation } from '../data/navigation'
 import { useLanguage } from '../i18n/LanguageContext'
 
-export default function Navigation({ onPending }: { onPending: () => void }) {
+export default function Navigation() {
   const { language, setLanguage, t } = useLanguage()
   const [open, setOpen] = useState(false)
-  const location = useLocation()
-  useEffect(() => { setOpen(false) }, [language, location])
+  const { pathname } = useLocation()
   const toggle = useRef<HTMLButtonElement>(null)
   const header = useRef<HTMLElement>(null)
-  const destinations: Partial<Record<(typeof navigation)[number], string>> = { home: '/', products: '/products', about: '/#gg-universe', quality: '/#why-gg', rate: '/#rate-your-snack', contact: '/#contact' }
+  useEffect(() => { setOpen(false) }, [language, pathname])
   useEffect(() => { if (open) header.current?.querySelector<HTMLAnchorElement>('#main-navigation a')?.focus() }, [open])
   useEffect(() => {
     const close = (event: KeyboardEvent) => { if (event.key === 'Escape' && open) { setOpen(false); toggle.current?.focus() } }
@@ -26,10 +25,10 @@ export default function Navigation({ onPending }: { onPending: () => void }) {
   return <header className="site-header" ref={header} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false) }}>
     <Link to="/" className="brand" aria-label={t.brandName} onClick={() => setOpen(false)}><BrandMark /></Link>
     <nav id="main-navigation" aria-label={t.menu} className={`navigation ${open ? 'is-open' : ''}`}>
-      {navigation.map(key => destinations[key] ? <Link key={key} to={destinations[key]!} aria-current={destinations[key] === `${location.pathname}${location.hash}` ? (location.hash ? 'location' : 'page') : undefined} onClick={() => setOpen(false)}>{t[key]}</Link> : <button key={key} type="button" onClick={() => { setOpen(false); toggle.current?.focus(); onPending() }}>{t[key]}</button>)}
+      {navigation.map(link => <Link key={link.path} to={link.path} aria-current={pathname === link.path || (link.path === '/products' && pathname.startsWith('/products/')) ? 'page' : undefined} onClick={() => setOpen(false)}>{link.label[language]}</Link>)}
     </nav>
     <div className="flex items-center gap-5">
-      <div className="language-switch" dir="ltr" aria-label="Language / اللغة">{(['en', 'ar'] as const).map(value => <button key={value} type="button" lang={value} aria-label={value === 'en' ? 'English' : 'العربية'} aria-pressed={language === value} onClick={() => setLanguage(value)}>{value.toUpperCase()}</button>)}</div>
+      <div className="language-switch" dir="ltr" aria-label={t.footerLanguage}>{(['en', 'ar'] as const).map(value => <button key={value} type="button" lang={value} aria-label={value === 'en' ? 'English' : 'العربية'} aria-pressed={language === value} onClick={() => setLanguage(value)}>{value.toUpperCase()}</button>)}</div>
       <button ref={toggle} type="button" className="menu-toggle" aria-label={open ? t.close : t.menu} aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpen(!open)}><span /><span /></button>
     </div>
   </header>

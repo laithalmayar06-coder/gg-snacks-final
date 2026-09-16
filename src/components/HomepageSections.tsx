@@ -4,6 +4,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { homepageContent, homepageFamilyOrder } from '../data/homepage'
 import { familyWorlds, homepageMedia } from '../data/homepageVisuals'
 import { visualCopy } from '../data/visualCopy'
+import { pageTitles } from '../data/publicContent'
 import { getProduct, type ProductFamily } from '../data/products'
 import ProductImage from './ProductImage'
 import VisualSlot from './VisualSlot'
@@ -39,26 +40,26 @@ export function FeaturedProducts() {
       <FamilyAsset family={family} />
       <div className="gg-featured-action"><p>{v.flavourPending}</p><span className="gg-text-link">{c.viewFamily}<span aria-hidden="true">↗</span></span></div>
     </Link>)}</div>
-    <div id="rate-your-snack" className="gg-rating-entry"><p>{c.ratingHint}</p><Link className="gg-button gg-button-outline" to="/products">{c.rate}<span aria-hidden="true">↗</span></Link></div>
+    <div id="rate-your-snack" className="gg-rating-entry"><p>{c.ratingHint}</p><Link className="gg-button gg-button-outline" to="/feedback">{c.rate}<span aria-hidden="true">↗</span></Link></div>
   </section>
 }
 
-export function ArenaTeaser() {
+export function ArenaTeaser({ showPageLink = true }: { showPageLink?: boolean }) {
   const { language } = useLanguage()
   const c = homepageContent[language]
   return <section id="gg-arena" className="gg-section gg-arena" aria-labelledby="arena-title">
-    <div className="gg-arena-frame"><div><p className="gg-kicker">{c.arena}</p><h2 id="arena-title" className="gg-display">{c.arenaLine}</h2><p className="gg-body">{c.arenaBody}</p><span className="gg-badge">{c.soon}</span></div>
+    <div className="gg-arena-frame"><div><p className="gg-kicker">{c.arena}</p><h2 id="arena-title" className="gg-display">{c.arenaLine}</h2><p className="gg-body">{c.arenaBody}</p><span className="gg-badge">{c.soon}</span>{showPageLink && <p><Link className="gg-text-link" to="/arena">{pageTitles['/arena'][language]}<span aria-hidden="true">↗</span></Link></p>}</div>
       <VisualSlot src={homepageMedia.arena} label={visualCopy[language].app} className="gg-app-preview"><span className="gg-app-orbit" aria-hidden="true">+</span><span className="gg-badge">{c.soon}</span></VisualSlot>
     </div>
   </section>
 }
 
-export function TournamentsTeaser() {
+export function TournamentsTeaser({ showPageLink = true }: { showPageLink?: boolean }) {
   const { language } = useLanguage()
   const c = homepageContent[language]
   const v = visualCopy[language]
   return <section id="gg-tournaments" className="gg-section gg-tournaments" aria-labelledby="tournaments-title">
-    <SectionHeading id="tournaments-title" label={c.tournamentsLabel} title={c.tournaments} />
+    <SectionHeading id="tournaments-title" label={c.tournamentsLabel} title={c.tournaments} />{showPageLink && <Link className="gg-text-link" to="/tournaments">{pageTitles['/tournaments'][language]}<span aria-hidden="true">↗</span></Link>}
     <div className="gg-event-layout">
       <VisualSlot src={homepageMedia.tournament} label={v.event} className="gg-event-stage"><span className="gg-event-year" aria-hidden="true">2027</span><span className="gg-event-platform" aria-hidden="true">+</span></VisualSlot>
       <div><ol className="gg-schedule">{[c.registration, c.firstTournament].map((text, index) => <li key={text}><span className="gg-step" aria-hidden="true">0{index + 1}</span><h3>{text}</h3></li>)}</ol>
@@ -75,7 +76,7 @@ export function FindGGTeaser() {
   return <section id="find-gg" className="gg-section gg-find" aria-labelledby="find-title">
     <div><SectionHeading id="find-title" label={c.soon} title={c.find}>{c.findIntro}</SectionHeading>
       <div className="gg-location-selectors"><label htmlFor="gg-city">{c.city}<select id="gg-city" disabled><option>{c.selectCity}</option></select></label><label htmlFor="gg-district">{c.district}<select id="gg-district" disabled><option>{c.selectDistrict}</option></select></label></div>
-      <button type="button" className="gg-button gg-button-outline" disabled>{v.search}</button>
+      <Link className="gg-button gg-button-outline" to="/find-gg">{c.find}<span aria-hidden="true">↗</span></Link>
     </div>
     <div className="gg-store-preview gg-card">
       <div className="gg-abstract-map" role="img" aria-label={v.map}><span className="gg-map-pin" aria-hidden="true">⌖</span><i /><i /></div>
