@@ -44,7 +44,13 @@
 .public-faq { max-width: 900px; margin-inline: auto; }
 .public-faq details { border: 1px solid var(--gg-border); background: var(--gg-navy); margin-block: 16px; }
 .public-faq summary { cursor: pointer; padding: 24px; font-size: 18px; line-height: 1.8; }
-.public-faq summary span { color: var(--gg-cyan); font-size: 12px; margin-inline-end: 16px; }
+.public-faq summary { display: block; list-style: none; text-align: start; }
+.public-faq summary::-webkit-details-marker { display: none; }
+.public-faq .faq-meta { display: flex; align-items: center; gap: 10px; margin-block-end: 8px; font-size: 12px; }
+.public-faq .faq-category { flex: 0 0 auto; white-space: nowrap; color: var(--gg-cyan); }
+.public-faq .faq-arrow { flex: 0 0 auto; width: 0; height: 0; border-block: 4px solid transparent; border-inline-start: 6px solid currentColor; }
+.public-faq details[open] .faq-arrow { border: 0; border-inline: 4px solid transparent; border-top: 6px solid currentColor; }
+.public-faq .faq-question { display: block; min-width: 0; overflow-wrap: anywhere; }
 .public-faq summary:focus-visible { outline: 2px solid var(--gg-cyan); outline-offset: 4px; }
 .public-faq details[open] { border-color: #00cfff55; }
 .public-faq details > p { margin: 0; padding: 0 24px 26px; color: var(--gg-muted); line-height: 1.9; }
