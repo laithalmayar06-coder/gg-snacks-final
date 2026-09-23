@@ -13,7 +13,7 @@ export type EnquiryError = 'required' | 'invalidEmail' | 'invalidPhone' | 'tooLo
 export const emptyEnquiry: EnquiryValues = { name: '', company: '', email: '', phone: '', requestType: '', message: '' }
 export function validateEnquiry(values: EnquiryValues, business: boolean): Partial<Record<EnquiryField, EnquiryError>> {
   const errors: Partial<Record<EnquiryField, EnquiryError>> = {}
-  const required: EnquiryField[] = business ? ['name', 'company', 'email', 'requestType', 'message'] : ['name', 'email', 'message']
+  const required: EnquiryField[] = business ? ['name', 'email', 'requestType', 'message'] : ['name', 'email', 'message']
   for (const key of required) if (!values[key].trim()) errors[key] = 'required'
   if (values.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) errors.email = 'invalidEmail'
   if (values.phone.trim() && !/^\+?[\d\s().-]{7,30}$/.test(values.phone.trim())) errors.phone = 'invalidPhone'

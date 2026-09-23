@@ -6,3 +6,7 @@ verify_jwt = false
 [functions.submit-rating]
 # Account-free endpoint: validation and atomic source limits are enforced inside.
 verify_jwt = false
+
+[functions.submit-enquiry]
+# Anonymous submission; validation is enforced by the handler.
+verify_jwt = false

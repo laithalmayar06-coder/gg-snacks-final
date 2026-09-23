@@ -30,7 +30,7 @@ const { validateEnquiry, emptyEnquiry, requestTypes } = load('src/data/enquiries
 const valid = { name: 'Test Person', company: 'Test Company', email: 'test@example.test', phone: '', requestType: 'general', message: 'A sample enquiry.' }
 assert.equal(Object.keys(validateEnquiry(valid, true)).length, 0)
 assert.equal(Object.keys(validateEnquiry({ ...valid, company: '', requestType: '' }, false)).length, 0)
-assert.equal(Object.keys(validateEnquiry(emptyEnquiry, true)).length, 5)
+assert.equal(Object.keys(validateEnquiry(emptyEnquiry, true)).length, 4)
 assert.equal(validateEnquiry({ ...valid, name: '   ' }, true).name, 'required')
 assert.equal(validateEnquiry({ ...valid, email: 'broken@' }, true).email, 'invalidEmail')
 assert.equal(validateEnquiry({ ...valid, phone: 'abc123' }, true).phone, 'invalidPhone')

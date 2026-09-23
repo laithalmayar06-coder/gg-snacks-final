@@ -1,3 +1,5 @@
+import { submitEnquiry } from '../services/enquiries'
+import { enquiryCopy } from '../data/enquiryCopy'
 import { useState, useRef, type FormEvent } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 import { pageCopy } from '../data/publicContent'
@@ -6,6 +8,10 @@ import { requestTypes, emptyEnquiry, validateEnquiry, type EnquiryField, type En
 export default function EnquiryForm({ business = false }: { business?: boolean }) {
   const { language } = useLanguage()
   const c = pageCopy[language]
+  const copy = enquiryCopy[language]
+  const [busy, setBusy] = useState(false)
+  const [failed, setFailed] = useState(false)
+  const pending = useRef(false)
   const [values, setValues] = useState<EnquiryValues>({ ...emptyEnquiry })
   const [errors, setErrors] = useState<ReturnType<typeof validateEnquiry>>({})
   const [checked, setChecked] = useState(false)
@@ -16,22 +22,31 @@ export default function EnquiryForm({ business = false }: { business?: boolean }
     setErrors(current => ({ ...current, [key]: undefined }))
     setChecked(false)
   }
-  const submit = (event: FormEvent) => {
+  const submit = async (event: FormEvent) => {
     event.preventDefault()
+    if (pending.current || checked) return
     const next = validateEnquiry(values, business)
     setErrors(next)
-    setChecked(Object.keys(next).length === 0)
+    setFailed(false)
+    if (Object.keys(next).length === 0) {
+      pending.current = true; setBusy(true)
+      try {
+        await submitEnquiry({ ...values, requestType: business ? values.requestType : 'general' }, language)
+        setChecked(true)
+      } catch { setFailed(true) }
+      finally { pending.current = false; setBusy(false) }
+    }
     requestAnimationFrame(() => summary.current?.focus())
-    // Deliberately no network request or persistence. Add delivery in a future phase.
+
   }
   return <form className="public-form gg-card" onSubmit={submit} noValidate aria-describedby="enquiry-note">
-    <p id="enquiry-note" className="public-notice">{c.formNote}</p>
+    <p id="enquiry-note" className="public-notice">{copy.note}</p>
     <div ref={summary} tabIndex={-1} role="status" className="form-status">
-      {checked ? c.checked : Object.values(errors).some(Boolean) ? c.invalid : ''}
+      {busy ? copy.sending : failed ? copy.failure : checked ? copy.success : Object.values(errors).some(Boolean) ? c.invalid : ''}
     </div>
     <div className="public-form-grid">{fields.map(key => {
       const error = errors[key]
-      const common = { id: `enquiry-${key}`, name: key, value: values[key], required: key !== 'phone', 'aria-invalid': Boolean(error), 'aria-describedby': error ? `error-${key}` : undefined }
+      const common = { id: `enquiry-${key}`, name: key, value: values[key], disabled: busy || checked, required: key !== 'phone' && key !== 'company', 'aria-invalid': Boolean(error), 'aria-describedby': error ? `error-${key}` : undefined }
       return <div className={`public-field ${key === 'message' ? 'public-field-wide' : ''}`} key={key}>
         <label htmlFor={common.id}>{c[key]}</label>
         {key === 'requestType' ? <select {...common} onChange={e => change(key, e.target.value)}><option value="">{c.choose}</option>{requestTypes.map(type => <option key={type.id} value={type.id}>{type.label[language]}</option>)}</select>
@@ -40,6 +55,6 @@ export default function EnquiryForm({ business = false }: { business?: boolean }
         {error && <span id={`error-${key}`} className="field-error">{c[error]}</span>}
       </div>
     })}</div>
-    <button className="gg-button gg-button-primary" type="submit">{c.check}<span aria-hidden="true">↗</span></button>
+    <button className="gg-button gg-button-primary" type="submit" disabled={busy || checked}>{busy ? copy.sending : copy.send}<span aria-hidden="true">↗</span></button>
   </form>
 }

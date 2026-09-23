@@ -11,6 +11,7 @@ const { renderToString } = require('react-dom/server')
 const { MemoryRouter, Routes, Route } = require('react-router')
 const { LanguageProvider } = require('../src/i18n/LanguageContext.tsx')
 const cases = [
+  ['/admin/enquiries', '/admin/enquiries', 'AdminEnquiries', 'role="status"'],
   ['/admin/mfa', '/admin/mfa', 'StaffMfa', 'Restoring session'],
   ['/admin/products', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
   ['/admin/flavors', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
@@ -59,7 +60,7 @@ for (const language of ['en', 'ar']) {
         assert.ok(html.includes(language === 'en' ? 'YOUR FEEDBACK MATTERS TO US' : 'رأيك يهمنا'))
       }
       if (url === '/find-gg') assert.ok(html.includes(language === 'en' ? 'Sample store A' : 'متجر نموذجي أ'))
-      if (url === '/business' || url === '/contact') assert.ok(html.includes(language === 'en' ? 'Nothing is sent or saved.' : 'لن تُرسل أو تُحفظ أي معلومات.'))
+      if (url === '/business' || url === '/contact') assert.ok(html.includes(language === 'en' ? 'Send your enquiry to GG Snacks.' : 'أرسل استفسارك إلى جي جي سناكس.'))
     }
     if (page === 'Home') {
       assert.equal((html.match(/<main\b/g) ?? []).length, 1)
