@@ -1,4 +1,4 @@
--- Staging/local only, AFTER migrations 001-004. Fixtures are rolled back.
+-- Staging/local only, AFTER migrations 001-005. Fixtures are rolled back.
 begin;
 insert into auth.users(id) values
  ('00000000-0000-0000-0000-000000000501'),
@@ -74,8 +74,14 @@ do $$ begin
     raise exception 'Ratings read leaked';
   exception when insufficient_privilege then null; end;
 end $$;
-insert into public.ratings(product_slug,flavor_slug,rating,comment,language,source)
-values ('loots','flavor-1',5,'MFA rollback test','en','qr');
+-- Anonymous customers now submit through submit-rating, not directly to the table.
+do $$ begin
+  begin
+    insert into public.ratings(product_slug,flavor_slug,rating,comment,language,source)
+      values ('loots','flavor-1',5,'MFA rollback test','en','qr');
+    raise exception 'Direct rating insert bypass allowed';
+  exception when insufficient_privilege then null; end;
+end $$;
 reset role;
 set local role authenticated;
 select set_config('request.jwt.claims','{"sub":"00000000-0000-0000-0000-000000000501","aal":"aal2"}',true);

@@ -5,7 +5,7 @@ import { getProduct, getFlavor, getProductImage } from '../data/products'
 import ProductImage from '../components/ProductImage'
 import { useLanguage } from '../i18n/LanguageContext'
 import '../styles/rating-page.css'
-import { submitRating } from '../services/ratings'
+import { submitRating, RatingRateLimitError } from '../services/ratings'
 
 const emojis = ['😞', '🙁', '😐', '🙂', '🤩']
 
@@ -24,6 +24,7 @@ function RatingExperience({ productSlug, flavorSlug }: { productSlug?: string; f
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [failed, setFailed] = useState(false)
+  const [limited, setLimited] = useState(false)
   const inFlight = useRef(false)
   const root = useRef<HTMLDivElement>(null)
   const success = useRef<HTMLHeadingElement>(null)
@@ -32,12 +33,12 @@ function RatingExperience({ productSlug, flavorSlug }: { productSlug?: string; f
     if (inFlight.current || submitted || !product || !flavor || rating === null) return
     inFlight.current = true
     setSubmitting(true)
-    setFailed(false)
+    setFailed(false); setLimited(false)
     try {
       await submitRating({ productSlug: product.slug, flavorSlug: flavor.slug, rating, comment, language })
       setSubmitted(true)
-    } catch {
-      setFailed(true)
+    } catch (error) {
+      setFailed(true); setLimited(error instanceof RatingRateLimitError)
     } finally {
       inFlight.current = false
       setSubmitting(false)
@@ -83,7 +84,7 @@ function RatingExperience({ productSlug, flavorSlug }: { productSlug?: string; f
             <fieldset disabled={submitting} className="rating-options" aria-labelledby="rating-question"><legend className="sr-only">{t.ratingChoose}</legend>{emojis.map((emoji, index) => <label className="rating-choice" key={emoji}><input type="radio" name="snack-rating" value={index + 1} checked={rating === index + 1} onChange={() => setRating(index + 1)} aria-label={t.ratingLabels[index]} /><span className="rating-face" aria-hidden="true">{emoji}</span><span className="rating-label" aria-hidden="true">{t.ratingLabels[index]}</span></label>)}</fieldset>
             <label className="rating-comment-label" htmlFor="rating-comment">{t.rateComment}</label><textarea id="rating-comment" className="rating-comment" rows={4} value={comment} onChange={event => setComment(event.target.value)} maxLength={1000} readOnly={submitting} />
             <p className="rating-note" id="rating-local-note">{t.ratingSubmitNote}</p>
-            <p role="status" className="rating-note">{submitting ? t.ratingSubmitting : null}</p>{failed && <p role="alert" className="rating-note">{t.ratingSubmitError}</p>}<button type="submit" className="rating-submit" disabled={rating === null || submitting} aria-describedby="rating-local-note">{submitting ? t.ratingSubmitting : t.rateSubmit}<span aria-hidden="true">+</span></button>
+            <p role="status" className="rating-note">{submitting ? t.ratingSubmitting : null}</p>{failed && <p role="alert" className="rating-note">{limited ? t.ratingRateLimited : t.ratingSubmitError}</p>}<button type="submit" className="rating-submit" disabled={rating === null || submitting} aria-describedby="rating-local-note">{submitting ? t.ratingSubmitting : t.rateSubmit}<span aria-hidden="true">+</span></button>
           </form>
         </>}
       </div>

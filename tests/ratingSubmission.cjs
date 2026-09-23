@@ -10,14 +10,16 @@ function compile(path, imports = {}) {
 const products = compile('src/data/products.ts')
 let writes = []
 let fail = false
+let limited = false
+let accepted = true
 const service = compile('src/services/ratings.ts', {
   '../data/products': products,
-  '../lib/supabase': { getSupabase: () => ({ from: table => ({ insert: row => { writes.push({ table, row }); return { abortSignal: async () => ({ error: fail ? new Error('offline') : null }) } } }) }) },
+  '../lib/supabase': { getSupabase: () => ({ functions: { invoke: async (table, { body: row }) => { writes.push({ table, row }); return { data: { accepted }, error: limited ? { context: { status: 429 } } : fail ? new Error('offline') : null } } } }) },
 })
 ;(async () => {
   const input = { productSlug: 'loots', flavorSlug: 'flavor-1', rating: 5, comment: '  hello  ', language: 'en' }
   await service.submitRating(input)
-  assert.equal(writes[0].table, 'ratings')
+  assert.equal(writes[0].table, 'submit-rating')
   assert.equal(writes[0].row.comment, 'hello')
   assert.equal(writes[0].row.source, 'qr')
   assert.equal(input.comment, '  hello  ')
@@ -30,5 +32,9 @@ const service = compile('src/services/ratings.ts', {
   fail = true
   await assert.rejects(() => service.submitRating(input))
   assert.equal(input.comment, '  hello  ')
-  console.log('Submission validation and failure checks passed (mocked database)')
+  fail = false; limited = true
+  await assert.rejects(() => service.submitRating(input), error => error instanceof service.RatingRateLimitError)
+  limited = false; accepted = false
+  await assert.rejects(() => service.submitRating(input))
+  console.log('Submission validation and failure checks passed (mocked Edge endpoint)')
 })().catch(error => { console.error(error); process.exitCode = 1 })

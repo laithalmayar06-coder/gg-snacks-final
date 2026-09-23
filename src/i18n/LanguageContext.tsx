@@ -1,6 +1,5 @@
 import { createContext, useContext, useLayoutEffect, useState, type ReactNode } from 'react'
 import { translations, type Language } from './translations'
-import { siteContent } from '../data/siteContent'
 import { useCms } from '../cms/CmsProvider'
 import { cmsText } from '../cms/publicCatalog'
 
@@ -24,14 +23,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useLayoutEffect(() => {
     document.documentElement.lang = language
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr'
-    document.title = translations[language].title
-    document.querySelector('meta[name="description"]')?.setAttribute('content', translations[language].meta)
-    for (const [property, content] of [['og:title', translations[language].title], ['og:description', translations[language].meta], ['og:image', siteContent.seo.defaultSocialPreviewImage]] as const) {
-      let tag = document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`)
-      if (!content) { tag?.remove(); continue }
-      if (!tag) { tag = document.createElement('meta'); tag.setAttribute('property', property); document.head.appendChild(tag) }
-      tag.content = content
-    }
     try { localStorage.setItem('gg-language', language) } catch { /* Language still works when storage is unavailable. */ }
   }, [language])
   return <LanguageContext.Provider value={{ language, setLanguage, t: current }}>{children}</LanguageContext.Provider>
