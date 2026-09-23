@@ -1,6 +1,6 @@
 .cms-shell { background: #0e1520; min-height: 100svh; color: #e5edf5; font-family: Arial, sans-serif; }
 .cms-navigation { display: flex; flex-wrap: wrap; gap: 8px; padding: 18px 4%; background: #111d2b; border-bottom: 1px solid #ffffff25; color: #d6e3ef; }
-.cms-navigation a { min-height: 44px; padding: 12px 16px; font: 14px/1.5 Arial,sans-serif; }
+.cms-navigation a, .cms-navigation button { min-height: 44px; padding: 12px 16px; font: 14px/1.5 Arial,sans-serif; }
 .cms-navigation a[aria-current] { background: #224052; color: #83e9ff; }
 .cms-main { padding: 32px 4% 70px; max-width: 1600px; margin: auto; }
 .cms-header { display: flex; justify-content: space-between; gap: 24px; align-items: center; }

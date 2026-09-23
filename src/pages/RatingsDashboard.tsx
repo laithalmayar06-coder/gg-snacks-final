@@ -11,7 +11,7 @@ const dateFormat = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Riyadh', d
 const displayAverage = (value: number | null) => value === null ? '—' : value.toFixed(2)
 
 export default function RatingsDashboard() {
-  const { session } = useStaffSession()
+  const { session, refreshAccess } = useStaffSession()
   const navigate = useNavigate()
   const [loggingOut, setLoggingOut] = useState(false)
   async function logout() {
@@ -36,6 +36,7 @@ export default function RatingsDashboard() {
     setLoading(true); setError(''); setRows([])
     fetchDashboardRatings(controller.signal).then(result => { if (controller.signal.aborted) return; setRows(result.rows); setTruncated(result.truncated); setPage(0) }).catch(async cause => {
       if (controller.signal.aborted) return
+      if (cause instanceof DashboardError && cause.reason === 'mfa') { refreshAccess(); navigate('/admin/mfa', { replace: true }); return }
       if (cause instanceof DashboardError && cause.reason === 'unauthenticated') {
         setError('Your session has expired. Please sign in again.')
         try {

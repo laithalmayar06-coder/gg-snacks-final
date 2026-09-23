@@ -10,7 +10,7 @@ export default function AdminLogin() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const lock = useRef(false)
-  if (session) return <Navigate to="/dashboard/ratings" replace />
+  if (session) return <Navigate to="/admin/mfa" replace />
   return <main className="ratings-dashboard staff-login" lang="en" dir="ltr"><p className="dashboard-kicker">GG / STAFF ACCESS</p><h1>Staff sign in</h1><form className="dashboard-block" aria-busy={busy} onSubmit={async event => {
     event.preventDefault()
     if (lock.current) return

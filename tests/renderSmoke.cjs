@@ -11,6 +11,7 @@ const { renderToString } = require('react-dom/server')
 const { MemoryRouter, Routes, Route } = require('react-router')
 const { LanguageProvider } = require('../src/i18n/LanguageContext.tsx')
 const cases = [
+  ['/admin/mfa', '/admin/mfa', 'StaffMfa', 'Restoring session'],
   ['/admin/products', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
   ['/admin/flavors', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
   ['/admin/stores', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],

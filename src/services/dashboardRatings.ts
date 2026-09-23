@@ -11,7 +11,7 @@ export interface RatingRow {
   created_at: string | null
 }
 export class DashboardError extends Error {
-  constructor(public reason: 'setup' | 'fetch' | 'unauthenticated' | 'forbidden') { super(reason) }
+  constructor(public reason: 'setup' | 'fetch' | 'unauthenticated' | 'forbidden' | 'mfa') { super(reason) }
 }
 export async function fetchDashboardRatings(signal: AbortSignal): Promise<{ rows: RatingRow[]; truncated: boolean }> {
   const client = getStaffSupabase()
@@ -26,6 +26,10 @@ export async function fetchDashboardRatings(signal: AbortSignal): Promise<{ rows
     const { data, error: refreshError } = await client.auth.refreshSession()
     if (refreshError || !data.session) throw new DashboardError('unauthenticated')
     response = await request(data.session.access_token)
+  }
+  if (response.status === 403) {
+    const body: unknown = await response.clone().json().catch(() => null)
+    if (body && typeof body === 'object' && 'code' in body && body.code === 'mfa_required') throw new DashboardError('mfa')
   }
   if (!response.ok) throw new DashboardError(response.status === 401 ? 'unauthenticated' : response.status === 403 ? 'forbidden' : 'fetch')
   const result: unknown = await response.json()

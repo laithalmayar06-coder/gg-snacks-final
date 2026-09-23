@@ -13,6 +13,7 @@ const RateSnack = lazy(() => import('./pages/RateSnack'))
 const Products = lazy(() => import('./pages/Products'))
 const ProductFamily = lazy(() => import('./pages/ProductFamily'))
 const RatingsDashboard = lazy(() => import('./pages/RatingsDashboard'))
+const StaffMfa = lazy(() => import('./pages/StaffMfa'))
 const AdminLogin = lazy(() => import('./pages/AdminLogin'))
 const StaffSessionProvider = lazy(() => import('./auth/StaffSession').then(module => ({ default: module.StaffSessionProvider })))
 const RequireStaffSession = lazy(() => import('./auth/StaffSession').then(module => ({ default: module.RequireStaffSession })))
@@ -20,5 +21,5 @@ const RequireStaffSession = lazy(() => import('./auth/StaffSession').then(module
 export default function App() {
   const { t } = useLanguage()
   const location = useLocation()
-  return <PageErrorBoundary key={location.pathname} message={t.pageError} retry={t.pageRetry}><Suspense fallback={<p className="route-loading" role="status">{t.pageLoading}</p>}><RoutePosition /><Routes><Route path="/" element={<Home />} />{publicPaths.map(path => <Route key={path} path={path} element={<PublicPage />} />)}<Route element={<StaffSessionProvider />}><Route path="/admin/login" element={<AdminLogin />} /><Route element={<RequireStaffSession />}><Route path="/dashboard/ratings" element={<><AdminNavigation /><RatingsDashboard /></>} /><Route path="/admin/:section" element={<CmsAdmin />} /></Route></Route><Route path="/products" element={<Products />} /><Route path="/products/:productSlug" element={<ProductFamily />} /><Route path="/rate/:productSlug/:flavorSlug" element={<RateSnack />} /><Route path="*" element={<NotFound />} /></Routes></Suspense></PageErrorBoundary>
+  return <PageErrorBoundary key={location.pathname} message={t.pageError} retry={t.pageRetry}><Suspense fallback={<p className="route-loading" role="status">{t.pageLoading}</p>}><RoutePosition /><Routes><Route path="/" element={<Home />} />{publicPaths.map(path => <Route key={path} path={path} element={<PublicPage />} />)}<Route element={<StaffSessionProvider />}><Route path="/admin/login" element={<AdminLogin />} /><Route path="/admin/mfa" element={<StaffMfa />} /><Route element={<RequireStaffSession />}><Route path="/dashboard/ratings" element={<><AdminNavigation /><RatingsDashboard /></>} /><Route path="/admin/:section" element={<CmsAdmin />} /></Route></Route><Route path="/products" element={<Products />} /><Route path="/products/:productSlug" element={<ProductFamily />} /><Route path="/rate/:productSlug/:flavorSlug" element={<RateSnack />} /><Route path="*" element={<NotFound />} /></Routes></Suspense></PageErrorBoundary>
 }

@@ -17,6 +17,7 @@ do $$ begin
 end $$;
 reset role;
 set local role authenticated;
+select set_config('request.jwt.claims', '{"aal":"aal2"}', true);
 select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000403',true);
 do $$ begin
   if public.cms_staff_role() is not null then raise exception 'FAIL: nonstaff role'; end if;
@@ -62,6 +63,7 @@ do $$ begin
 end $$;
 reset role;
 set local role authenticated;
+select set_config('request.jwt.claims', '{"aal":"aal2"}', true);
 select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000401',true);
 delete from public.stores where name_en='CMS private test';
 reset role;

@@ -3,11 +3,11 @@ const vm = require('node:vm')
 const assert = require('node:assert/strict')
 const ts = require('typescript')
 const code = ts.transpileModule(fs.readFileSync('supabase/functions/ratings-dashboard/index.ts', 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
-async function run({ token, user = null, role = null, origin = 'http://localhost:5173', method = 'GET', staffError = null }) {
+async function run({ token, user = null, role = null, origin = 'http://localhost:5173', method = 'GET', staffError = null, aal = 'aal2', claimsError = null, claimSub }) {
   let handler
   const calls = []
   const client = {
-    auth: { getUser: async supplied => { calls.push(['auth', supplied]); return { data: { user }, error: user ? null : new Error('invalid') } } },
+    auth: { getClaims: async supplied => { calls.push(['claims', supplied]); return { data: { claims: { sub: claimSub ?? user?.id, aal } }, error: claimsError } }, getUser: async supplied => { calls.push(['auth', supplied]); return { data: { user }, error: user ? null : new Error('invalid') } } },
     from: table => {
       calls.push(['table', table])
       if (table === 'staff_users') return { select: () => ({ eq: (column, id) => { calls.push(['membership', column, id]); return { maybeSingle: async () => ({ data: role ? { role } : null, error: staffError }) } } }) }
@@ -39,6 +39,19 @@ async function run({ token, user = null, role = null, origin = 'http://localhost
     assert.equal(staff.response.headers.get('Cache-Control'), 'no-store')
     assert.deepEqual(await staff.response.json(), { rows: [], truncated: false })
     assert.ok(staff.calls.findIndex(call => call[0] === 'membership') < staff.calls.findIndex(call => call[1] === 'ratings'))
+  }
+  for (const role of ['admin', 'viewer']) {
+    for (const aal of ['aal1', null, 'unexpected']) {
+      const denied = await run({ token: 'valid', user: { id: 'staff-1' }, role, aal })
+      assert.equal(denied.response.status, 403)
+      assert.equal((await denied.response.json()).code, 'mfa_required')
+      assert.equal(denied.calls.some(call => call[1] === 'ratings'), false)
+    }
+  }
+  for (const extra of [{ claimsError: new Error('invalid signature') }, { claimSub: 'other-user' }]) {
+    const denied = await run({ token: 'valid', user: { id: 'staff-1' }, role: 'admin', ...extra })
+    assert.equal(denied.response.status, 401)
+    assert.equal(denied.calls.some(call => call[1] === 'ratings'), false)
   }
   const failed = await run({ token: 'valid', user: { id: 'staff-1' }, role: 'admin', staffError: new Error('db') })
   assert.equal(failed.response.status, 503)
