@@ -62,8 +62,8 @@ export default function RatingsDashboard() {
   const products = [...new Set([...productFamilies.map(item => item.slug), ...rows.map(row => row.product_slug)])]
   const languages = [...new Set(['en', 'ar', ...rows.map(row => row.language ?? 'unknown')])]
   const pageCount = Math.max(1, Math.ceil(filtered.length / 25))
-  return <main className="ratings-dashboard" lang="en" dir="ltr">
-    <header className="dashboard-header"><div><p className="dashboard-kicker">GG / STAFF DASHBOARD</p><h1>Ratings overview</h1><p>Read-only · All metrics follow the filters · Dates in Jeddah time</p></div><div className="dashboard-actions"><span>{session?.user.email}</span><Link to="/">Homepage</Link><button type="button" disabled={loggingOut} onClick={() => void logout()}>{loggingOut ? 'Signing out…' : 'Logout'}</button><button type="button" disabled={loading} onClick={() => setReload(value => value + 1)}>Refresh</button></div></header>
+  return <main className="ratings-dashboard admin-page" lang="en" dir="ltr">
+    <header className="dashboard-header"><div><p className="dashboard-kicker">GG / STAFF DASHBOARD</p><h1>Ratings overview</h1><p className="admin-permission">Read-only · All metrics follow the filters · Dates in Jeddah time</p></div><div className="dashboard-actions"><span>{session?.user.email}</span><Link to="/">Homepage</Link><button type="button" disabled={loggingOut} onClick={() => void logout()}>{loggingOut ? 'Signing out…' : 'Logout'}</button><button type="button" disabled={loading} onClick={() => setReload(value => value + 1)}>Refresh</button></div></header>
     {loading ? <p role="status" className="dashboard-message">Loading ratings…</p> : error ? <p role="alert" className="dashboard-message">{error}</p> : <>
       {truncated && <p className="dashboard-message">Showing the latest 10,000 ratings only. These totals and comparisons are for this partial snapshot.</p>}
       <section className="dashboard-filters" aria-label="Filter ratings">
@@ -75,7 +75,7 @@ export default function RatingsDashboard() {
         <label>Through<input type="date" value={filters.to} min={filters.from || undefined} onChange={event => change('to', event.target.value)} /></label>
         <button type="button" onClick={() => { setFilters(emptyFilters); setPage(0) }}>Clear filters</button>
       </section>
-      {!rows.length && <p className="dashboard-message">No ratings yet. Submitted feedback will appear here.</p>}
+      {!rows.length && <p role="status" className="dashboard-message">No ratings yet. Submitted feedback will appear here.</p>}
       {!!rows.length && !filtered.length && <p role="status" className="dashboard-message">No ratings match these filters.</p>}
       <section className="dashboard-summary" aria-label="Summary">{[['Total ratings', stats.total], ['Average rating / 5', displayAverage(stats.average)], ['Total comments', stats.comments], ['Ratings today', stats.today]].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</section>
       <div className="dashboard-two-columns"><section className="dashboard-block"><h2>Product families</h2>{products.map(slug => { const group = stats.products.get(slug) ?? []; return <div className="dashboard-family" key={slug}><strong>{productName(slug)}</strong><span>{group.length} ratings</span><span>{displayAverage(average(group))} / 5</span><span>{stats.total ? (group.length / stats.total * 100).toFixed(1) : '0'}%</span></div> })}</section>
