@@ -1,0 +1,17 @@
+const fs = require('node:fs'), ts = require('typescript'), assert = require('node:assert/strict')
+require.extensions['.ts'] = (module, path) => module._compile(ts.transpileModule(fs.readFileSync(path,'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText,path)
+const { analyticsPath, cleanAnalyticsUrl, routeEvents } = require('../src/analytics/policy.ts')
+for (const path of ['/', '/products', '/contact', '/business', '/feedback', '/arena', '/tournaments', '/find-gg', '/faq', '/privacy', '/terms', '/about']) assert.equal(analyticsPath(path),path)
+for (const path of ['/admin/login', '/admin/mfa', '/admin/enquiries', '/admin/products', '/dashboard/ratings', '/unknown', '/rate/invalid/flavor-1']) {
+ assert.equal(analyticsPath(path),null)
+ assert.equal(cleanAnalyticsUrl('https://example.test/products?email=secret',path),null)
+ assert.equal(cleanAnalyticsUrl('https://example.test'+path,'/'),null)
+}
+assert.equal(cleanAnalyticsUrl('https://example.test/contact?email=secret#message','/contact'),'https://example.test/contact')
+assert.equal(cleanAnalyticsUrl('https://example.test/products/private-input?name=test','/products/private-input'),'https://example.test/products/:productSlug')
+assert.equal(analyticsPath('/rate/loots/flavor-1'),'/rate/:productSlug/:flavorSlug')
+assert.equal(cleanAnalyticsUrl('not a URL','/'),null)
+assert.equal(Object.keys(routeEvents).length,6)
+assert.equal(routeEvents['/feedback'],'feedback_started')
+console.log('Public analytics: route exclusions, query/fragment removal, dynamic path redaction and fixed event mapping passed.')
+assert.equal(cleanAnalyticsUrl('https://example.test/rate/:productSlug/:flavorSlug', '/rate/loots/flavor-1'), 'https://example.test/rate/:productSlug/:flavorSlug')
