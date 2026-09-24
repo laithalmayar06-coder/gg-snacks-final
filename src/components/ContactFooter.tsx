@@ -44,15 +44,11 @@ export default function ContactFooter() {
           <dd><SiteContactValue kind={key} /></dd>
         </div>)}{(managedContact?.phone || siteContent.contact.phone) && <div><dt>{t.contactPhone}</dt><dd><SiteContactValue kind="phone" /></dd></div>}</dl>
       </div>
-      <form className="contact-preview" aria-labelledby="contact-preview-title" aria-describedby="contact-preview-note" onSubmit={event => event.preventDefault()}>
+      <div className="contact-preview" aria-labelledby="contact-preview-title">
         <div className="contact-preview-header"><h3 id="contact-preview-title">{t.contactFormTitle}</h3><span aria-hidden="true" dir="ltr">09 / GG</span></div>
-        <p id="contact-preview-note" className="contact-preview-note">{t.contactFormNote}</p>
-        <div className="contact-field"><label htmlFor="contact-name">{t.contactName}</label><input id="contact-name" type="text" readOnly placeholder={t.contactName} /></div>
-        <div className="contact-field"><label htmlFor="contact-reply">{t.contactReply}</label><input id="contact-reply" type="text" readOnly placeholder={t.contactReply} /></div>
-        <div className="contact-field"><label htmlFor="contact-subject">{t.contactSubject}</label><input id="contact-subject" type="text" readOnly placeholder={t.contactSubject} /></div>
-        <div className="contact-field"><label htmlFor="contact-message">{t.contactMessage}</label><textarea id="contact-message" rows={3} readOnly placeholder={t.contactMessage} /></div>
-        <button className="contact-send" type="button" disabled>{t.contactSend}<span aria-hidden="true">↗</span></button>
-      </form>
+        <p className="contact-preview-note">{t.contactFormNote}</p>
+        <Link to="/contact" className="gg-button gg-button-primary">{publicNavigation.find(link => link.path === '/contact')!.label[language]}<span aria-hidden="true">↗</span></Link>
+      </div>
     </section>
 
   </>

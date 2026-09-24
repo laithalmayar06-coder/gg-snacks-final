@@ -20,8 +20,8 @@ export const translations = {
       
     
     contactItemLabels: { whatsapp: 'WhatsApp', email: 'Email', location: 'Location', social: 'Social media' },
-    contactPending: 'Details coming soon', contactFormTitle: 'CONTACT PREVIEW',
-    contactFormNote: 'Visual preview only. Fields are read-only and sending is not available yet.',
+    contactPending: 'Details coming soon', contactFormTitle: 'CONTACT GG',
+    contactFormNote: 'Have a question? Open our contact form to send an enquiry to GG Snacks.',
     contactName: 'Name', contactReply: 'Email or phone', contactSubject: 'Subject', contactMessage: 'Message', contactSend: 'Send',
      footerNavigation: 'Footer navigation', footerLanguage: 'Language',
     footerSocialPending: 'Social links coming soon', 
@@ -64,8 +64,8 @@ export const translations = {
       
     
     contactItemLabels: { whatsapp: 'واتساب', email: 'البريد الإلكتروني', location: 'الموقع', social: 'وسائل التواصل' },
-    contactPending: 'التفاصيل قريبًا', contactFormTitle: 'معاينة نموذج التواصل',
-    contactFormNote: 'معاينة مرئية فقط. الحقول للقراءة فقط والإرسال غير متاح حاليًا.',
+    contactPending: 'التفاصيل قريبًا', contactFormTitle: 'تواصل مع جي جي',
+    contactFormNote: 'هل لديك سؤال؟ افتح نموذج التواصل لإرسال استفسارك إلى جي جي سناكس.',
     contactName: 'الاسم', contactReply: 'البريد أو رقم الهاتف', contactSubject: 'الموضوع', contactMessage: 'الرسالة', contactSend: 'إرسال',
      footerNavigation: 'روابط التذييل', footerLanguage: 'اللغة',
     footerSocialPending: 'روابط التواصل قريبًا', 
