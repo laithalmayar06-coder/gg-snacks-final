@@ -79,14 +79,13 @@ export function FindGGTeaser() {
   const c = homepageContent[language]
   const v = visualCopy[language]
   return <section id="find-gg" className="gg-section gg-find" aria-labelledby="find-title">
-    <div><SectionHeading id="find-title" label={c.soon} title={c.find}>{c.findIntro}</SectionHeading>
+    <div><SectionHeading id="find-title" label={c.find} title={c.find}>{c.findIntro}</SectionHeading>
       <div className="gg-location-selectors"><label htmlFor="gg-city">{c.city}<select id="gg-city" disabled><option>{c.selectCity}</option></select></label><label htmlFor="gg-district">{c.district}<select id="gg-district" disabled><option>{c.selectDistrict}</option></select></label></div>
       <Link className="gg-button gg-button-outline" to="/find-gg">{c.find}<span aria-hidden="true">↗</span></Link>
     </div>
     <div className="gg-store-preview gg-card">
       <div className="gg-abstract-map" role="img" aria-label={v.map}><span className="gg-map-pin" aria-hidden="true">⌖</span><i /><i /></div>
       <h3>{c.stores}</h3><p className="gg-body">{c.storesNote}</p>
-      <ul className="gg-store-list" aria-label={c.stores}>{[1, 2].map(index => <li key={index}><span aria-hidden="true">0{index}</span><span>{v.store}</span><span aria-hidden="true">—</span></li>)}</ul>
     </div>
   </section>
 }

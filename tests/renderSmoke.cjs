@@ -59,7 +59,7 @@ for (const language of ['en', 'ar']) {
         assert.ok(/type="submit"[^>]*disabled/.test(html))
         assert.ok(html.includes(language === 'en' ? 'YOUR FEEDBACK MATTERS TO US' : 'رأيك يهمنا'))
       }
-      if (url === '/find-gg') assert.ok(html.includes(language === 'en' ? 'Sample store A' : 'متجر نموذجي أ'))
+      if (url === '/find-gg') { assert.ok(!html.includes('Sample store A') && !html.includes('متجر نموذجي أ')); assert.ok(html.includes('store-results')) }
       if (url === '/business' || url === '/contact') assert.ok(html.includes(language === 'en' ? 'Send your enquiry to GG Snacks.' : 'أرسل استفسارك إلى جي جي سناكس.'))
     }
     if (page === 'Home') {

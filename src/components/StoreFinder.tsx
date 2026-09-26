@@ -13,7 +13,7 @@ export default function StoreFinder() {
     id: String(row.id), name: localized(row, 'name')!, city: localized(row, 'city')!, district: localized(row, 'district')!,
     address: localized(row, 'address'), onlineUrl: textValue(row,'online_url') || null, mapUrl: textValue(row,'map_url') || null,
     latitude: typeof row.latitude === 'number' ? row.latitude : null, longitude: typeof row.longitude === 'number' ? row.longitude : null, isPlaceholder: false,
-  })) : fallbackStores
+  })) : fallbackStores.filter(store => !store.isPlaceholder)
   const { language } = useLanguage()
   const c = pageCopy[language]
   const [city, setCity] = useState('')
