@@ -29,6 +29,14 @@ const service = compile('src/services/ratings.ts', {
     await assert.rejects(() => service.submitRating({ ...input, ...invalid }))
   }
   assert.equal(writes.length, 2)
+  await service.submitRating({ ...input, productSlug: 'trigger', flavorSlug: 'flavor-4', language: 'ar' })
+  assert.equal(writes.length, 3)
+  assert.equal(writes[2].row.product_slug, 'trigger')
+  assert.equal(writes[2].row.flavor_slug, 'flavor-4')
+  for (const productSlug of ['pop-g', 'loots', 'x-stix']) {
+    await assert.rejects(() => service.submitRating({ ...input, productSlug, flavorSlug: 'flavor-4' }))
+  }
+  assert.equal(writes.length, 3)
   fail = true
   await assert.rejects(() => service.submitRating(input))
   assert.equal(input.comment, '  hello  ')

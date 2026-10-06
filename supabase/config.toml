@@ -4,7 +4,7 @@
 verify_jwt = false
 
 [functions.submit-rating]
-# Account-free endpoint: validation and atomic source limits are enforced inside.
+# Account-free endpoint: handler validation and the existing anonymous ratings RLS apply.
 verify_jwt = false
 
 [functions.submit-enquiry]

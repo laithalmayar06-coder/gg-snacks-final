@@ -54,7 +54,12 @@ export default function RatingsDashboard() {
   const stats = useMemo(() => analyzeRatings(filtered), [filtered])
   const flavors = useMemo(() => {
     const values = new Map<string, string>()
-    productFamilies.filter(item => !filters.product || item.slug === filters.product).forEach(product => product.flavors.forEach(flavor => values.set(flavor.slug, flavor.name.en)))
+    productFamilies.filter(item => !filters.product || item.slug === filters.product).forEach(product => product.flavors.forEach(flavor => {
+      // Shared URL slots can have different names across families; only the label changes.
+      const label = filters.product ? flavor.name.en : product.name + ': ' + flavor.name.en
+      const previous = values.get(flavor.slug)
+      values.set(flavor.slug, previous ? previous + ' / ' + label : label)
+    }))
     rows.filter(row => !filters.product || row.product_slug === filters.product).forEach(row => { if (!values.has(row.flavor_slug)) values.set(row.flavor_slug, row.flavor_slug) })
     return [...values]
   }, [filters.product, rows])

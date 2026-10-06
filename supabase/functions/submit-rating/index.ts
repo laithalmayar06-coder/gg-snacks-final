@@ -1,5 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.115.0'
-import { hashSource, networkSource, readSmallJson, validateRating } from './protection.ts'
+import { readSmallJson, validateRating } from './protection.ts'
 
 const origins = (Deno.env.get('RATINGS_ALLOWED_ORIGINS') ?? '').split(',').map(value => value.trim()).filter(Boolean)
 Deno.serve(async (request: Request) => {
@@ -9,7 +9,6 @@ Deno.serve(async (request: Request) => {
     headers['Access-Control-Allow-Origin'] = origin
     headers['Access-Control-Allow-Headers'] = 'authorization, apikey, content-type, x-client-info'
     headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-    headers['Access-Control-Expose-Headers'] = 'Retry-After'
   }
   const respond = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers })
   if (origin && !origins.includes(origin)) return respond(403, { error: 'Origin not allowed' })
@@ -18,26 +17,23 @@ Deno.serve(async (request: Request) => {
   let payload
   try { payload = validateRating(await readSmallJson(request)) } catch { return respond(400, { error: 'Invalid rating request' }) }
   if (!payload) return respond(400, { error: 'Invalid rating request' })
-  const url = Deno.env.get('SUPABASE_URL'), serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-  const secret = Deno.env.get('RATINGS_HASH_SECRET')
-  const ipHeader = Deno.env.get('RATINGS_TRUSTED_IP_HEADER')
-  if (!url || !serviceKey || !secret || secret.length < 32 || !ipHeader || !['x-forwarded-for','x-real-ip'].includes(ipHeader)) return respond(503, { error: 'Submission unavailable' })
-  // Deployment must verify this header is overwritten by the trusted ingress.
-  const source = networkSource(request.headers.get(ipHeader))
-  if (!source) return respond(503, { error: 'Submission unavailable' })
+  const url = Deno.env.get('SUPABASE_URL'), anonKey = Deno.env.get('SUPABASE_ANON_KEY')
+  if (!url || !anonKey) return respond(503, { error: 'Submission unavailable' })
   try {
-    const sourceHash = await hashSource(source, secret)
-    const server = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } })
-    const { data, error } = await server.rpc('submit_anonymous_rating', {
-      p_source_hash: sourceHash, p_product: payload.product_slug, p_flavor: payload.flavor_slug,
-      p_rating: payload.rating, p_comment: payload.comment, p_language: payload.language,
+    // Match the original anonymous INSERT path: keep RLS and never forward staff credentials.
+    const server = createClient(url, anonKey, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    })
+    // No .select(): anonymous clients may insert ratings but may not read them.
+    const { error } = await server.from('ratings').insert({
+      product_slug: payload.product_slug,
+      flavor_slug: payload.flavor_slug,
+      rating: payload.rating,
+      comment: payload.comment || null,
+      language: payload.language,
+      source: 'qr',
     }).abortSignal(AbortSignal.timeout(15000))
-    if (error || !data || typeof data.accepted !== 'boolean') return respond(503, { error: 'Submission unavailable' })
-    if (!data.accepted) {
-      const retry = Number.isInteger(data.retry_after) && data.retry_after > 0 ? Math.min(data.retry_after,3600) : 60
-      headers['Retry-After'] = String(retry)
-      return respond(429, { error: 'Please wait before submitting again', retry_after: retry })
-    }
+    if (error) return respond(503, { error: 'Submission unavailable' })
     return respond(201, { accepted: true })
   } catch { return respond(503, { error: 'Submission unavailable' }) }
 })
