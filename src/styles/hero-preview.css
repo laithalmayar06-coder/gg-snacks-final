@@ -59,17 +59,33 @@
   #home-hero .prepared-description { font-size: 16px; }
   #home-hero .prepared-cta { padding-inline: 18px; gap: 18px; }
 }
-/* Basic narrow-screen fallback; dedicated mobile art direction comes later. */
-@media (max-width: 700px) {
-  #home-hero.prepared-hero { min-height: 0; padding: 32px 24px 0; }
-  #home-hero .prepared-content { width: 100%; max-width: 500px; padding-bottom: max(260px, 56.28vw); }
-  #home-hero .prepared-scene { top: auto; bottom: 0; width: max(100%, 500px); transform: translateX(-50%); }
-  #home-hero .prepared-headline { font-size: clamp(52px, 13vw, 78px); }
-  #home-hero .prepared-signature { width: 24px; margin-bottom: 12px; }
-  #home-hero .prepared-eyebrow { font-size: 10px; margin-bottom: 16px; }
-  #home-hero .prepared-description { font-size: 16px; margin-block: 18px 22px; }
-  #home-hero .prepared-cta { min-height: 48px; padding: 13px 18px; font-size: 12px; gap: 22px; }
-  #home-hero .prepared-content[dir='rtl'] .prepared-headline { font-size: clamp(32px, 8vw, 46px); }
+/* One continuous mobile environment, with foreground layers behind the content. */
+@media (max-width: 767px) {
+  #home-hero.prepared-hero { min-height: max(620px, 100svh); padding: clamp(16px, 2.5svh, 24px) 20px clamp(250px, 65vw, 320px); flex-direction: column; justify-content: flex-start; align-items: center; }
+  #home-hero .prepared-content { width: 100%; max-width: 460px; min-width: 0; padding-bottom: 0; }
+  #home-hero .prepared-signature { width: 22px; margin-bottom: 10px; }
+  #home-hero .prepared-eyebrow { font-size: 10px; margin-bottom: 12px; gap: 12px; }
+  #home-hero .prepared-headline { font-size: clamp(48px, 14.2vw, 62px); line-height: .98; }
+  #home-hero .prepared-headline > span { white-space: nowrap; }
+  #home-hero .prepared-description { font-size: clamp(14px, 3.6vw, 15px); line-height: 1.5; margin-block: 10px 10px; }
+  #home-hero .prepared-action { width: 100%; }
+  #home-hero .prepared-cta { width: 80%; min-height: 42px; padding: 9px 12px; font-size: 11px; gap: 10px; }
+  #home-hero .prepared-content[dir='rtl'] .prepared-headline { font-size: clamp(27px, 7.2vw, 38px); line-height: 1.4; }
+  #home-hero .prepared-content[dir='rtl'] .prepared-headline > span { white-space: normal; }
+  #home-hero .prepared-scene { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; aspect-ratio: auto; margin: 0; transform: none; overflow: hidden; }
+  /* Natural image proportions; the crop follows the platform, not the dark desktop text area. */
+  #home-hero .prepared-environment { inset: auto; top: 0; left: 50%; width: auto; max-width: none; height: 100%; object-fit: contain; transform: translateX(-69%); }
+  #home-hero .prepared-scene::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, #030710d9 0%, #030710a8 22%, #0307105c 45%, transparent 63%, transparent 84%, #030710b3 100%), linear-gradient(90deg, #03071066, transparent 75%); pointer-events: none; }
+  #home-hero .prepared-controller { left: max(6%, calc(50% - 230px)); bottom: calc(28% - 48px); width: min(88%, 460px); }
+  #home-hero .prepared-chip-one { left: 2%; top: auto; bottom: 19%; width: min(21%, 110px); }
+  #home-hero .prepared-chip-two { left: auto; right: 2%; top: auto; bottom: calc(39% - 24px); width: min(20%, 100px); z-index: 3; }
+  #home-hero .prepared-popcorn-two { left: auto; right: 4%; top: auto; bottom: 22%; width: min(16%, 85px); }
+  #home-hero .prepared-popcorn-one { left: 2%; top: auto; bottom: calc(28% - 48px + min(32vw, 164px)); width: min(16%, 85px); z-index: 1; }
+  #home-hero .prepared-crumbs { display: none; }
+}
+@media (max-width: 359px) {
+  #home-hero.prepared-hero { padding-top: 16px; }
+  #home-hero .prepared-cta { font-size: 10.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
   #home-hero .prepared-cta, #home-hero .prepared-cta > span { transition: none; }
@@ -85,9 +101,9 @@
   .home-redesign.phase-five:has(#home-hero) #main-navigation a { white-space: normal; overflow-wrap: anywhere; }
 }
 @media (max-width: 600px) {
-  .home-redesign.phase-five:has(#home-hero) > .site-header { min-height: 64px; padding-block: 6px; gap: 12px; }
-  .home-redesign.phase-five:has(#home-hero) > .site-header .brand-symbol { font-size: 35px; letter-spacing: -3px; }
-  .home-redesign.phase-five:has(#home-hero) > .site-header .brand-sub { font-size: 8px; letter-spacing: 3px; margin-top: 6px; }
+  .home-redesign.phase-five:has(#home-hero) > .site-header { min-height: 60px; padding-block: 4px; gap: 10px; }
+  .home-redesign.phase-five:has(#home-hero) > .site-header .brand-symbol { font-size: 33px; letter-spacing: -3px; }
+  .home-redesign.phase-five:has(#home-hero) > .site-header .brand-sub { font-size: 8px; letter-spacing: 3px; margin-top: 4px; }
   .home-redesign.phase-five:has(#home-hero) > .site-header > .flex { gap: 8px; }
   .home-redesign.phase-five:has(#home-hero) .language-switch { padding: 2px; gap: 1px; }
   .home-redesign.phase-five:has(#home-hero) .language-switch button { min-width: 34px; min-height: 36px; padding: 6px; font-size: 11px; }

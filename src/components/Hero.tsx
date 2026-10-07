@@ -15,18 +15,22 @@ export default function Hero() {
     const element = root.current
     if (!element) return
     const media = gsap.matchMedia()
-    media.add('(prefers-reduced-motion: no-preference)', () => {
+    media.add({ motion: '(prefers-reduced-motion: no-preference)', mobile: '(max-width: 767px)' }, context => {
+      if (!context.conditions?.motion) return
+      const mobile = Boolean(context.conditions.mobile)
+      const travel = mobile ? .55 : 1
+      const drift = mobile ? .65 : 1
       const select = gsap.utils.selector(element)
       const header = element.closest('.site-shell')?.querySelector<HTMLElement>(':scope > .site-header')
       let visible = false
       let entered = false
       // Each nested layer has its own repeat cycle, independent of the entrance.
       const idle = [
-        gsap.to(select('.prepared-controller .prepared-float'), { y: -8, duration: 4.4, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
-        gsap.to(select('.prepared-chip-one .prepared-float'), { x: -5, y: -9, rotation: -2.2, duration: 5.3, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
-        gsap.to(select('.prepared-chip-two .prepared-float'), { x: 6, y: 7, rotation: 2.5, duration: 6.7, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
-        gsap.to(select('.prepared-popcorn-one .prepared-float'), { x: 4, y: -6, rotation: 1.8, duration: 4.9, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
-        gsap.to(select('.prepared-popcorn-two .prepared-float'), { x: -5, y: 8, rotation: -2, duration: 6.1, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-controller .prepared-float'), { y: mobile ? -6 : -8, duration: 4.4, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-chip-one .prepared-float'), { x: -5 * drift, y: -9 * drift, rotation: -2.2 * drift, duration: 5.3, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-chip-two .prepared-float'), { x: 6 * drift, y: 7 * drift, rotation: 2.5 * drift, duration: 6.7, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-popcorn-one .prepared-float'), { x: 4 * drift, y: -6 * drift, rotation: 1.8 * drift, duration: 4.9, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-popcorn-two .prepared-float'), { x: -5 * drift, y: 8 * drift, rotation: -2 * drift, duration: 6.1, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
       ]
       const sync = () => {
         idle.forEach(tween => { if (entered && visible && !document.hidden) tween.play(); else tween.pause() })
@@ -36,19 +40,21 @@ export default function Hero() {
         onComplete: () => { entered = true; sync() },
       })
         .from(select('.prepared-environment'), { opacity: 0, scale: 1.025, duration: 1.4, ease: 'sine.out' }, 0)
-      if (header) entrance.from(header, { y: -12, opacity: 0, duration: .55 }, .08)
+      if (header) entrance.from(header, { y: -12 * travel, opacity: 0, duration: .55 }, .08)
       entrance
         .from(select('.prepared-signature'), { opacity: 0, scale: .97, duration: .55 }, .18)
-        .from(select('.prepared-eyebrow'), { x: -12, opacity: 0, duration: .6 }, .3)
-        .from(select('.prepared-headline > span'), { y: 22, opacity: 0, duration: .72, stagger: .18, ease: 'power3.out' }, .55)
-        .from(select('.prepared-description'), { y: 14, opacity: 0, duration: .55 }, 1.65)
-        .from(select('.prepared-action'), { y: 14, scale: .985, opacity: 0, duration: .7, ease: 'back.out(.5)', transformOrigin: 'center center' }, 2.18)
-        .from(select('.prepared-controller .prepared-entrance'), { y: 44, scale: .94, opacity: 0, duration: 1.1, ease: 'power3.out', transformOrigin: '50% 90%' }, 1.05)
-        .from(select('.prepared-chip-one .prepared-entrance'), { x: -12, y: 16, rotation: -3, scale: .96, opacity: 0, duration: .85 }, 1.6)
-        .from(select('.prepared-popcorn-one .prepared-entrance'), { x: -6, y: 12, rotation: 2, scale: .97, opacity: 0, duration: .8 }, 1.72)
-        .from(select('.prepared-chip-two .prepared-entrance'), { x: 10, y: 14, rotation: 3, scale: .96, opacity: 0, duration: .9 }, 1.84)
-        .from(select('.prepared-popcorn-two .prepared-entrance'), { x: 7, y: 10, rotation: -2, scale: .97, opacity: 0, duration: .85 }, 1.96)
+        .from(select('.prepared-eyebrow'), { x: -12 * travel, opacity: 0, duration: .6 }, .3)
+        .from(select('.prepared-headline > span'), { y: 22 * travel, opacity: 0, duration: .72, stagger: .18, ease: 'power3.out' }, .55)
+        .from(select('.prepared-description'), { y: 14 * travel, opacity: 0, duration: .55 }, 1.65)
+        .from(select('.prepared-action'), { y: 14 * travel, scale: .985, opacity: 0, duration: .7, ease: 'back.out(.5)', transformOrigin: 'center center' }, 2.18)
+        .from(select('.prepared-controller .prepared-entrance'), { y: 44 * travel, scale: .94, opacity: 0, duration: 1.1, ease: 'power3.out', transformOrigin: '50% 90%' }, 1.05)
+        .from(select('.prepared-chip-one .prepared-entrance'), { x: -12 * travel, y: 16 * travel, rotation: -3 * travel, scale: .96, opacity: 0, duration: .85 }, 1.6)
+        .from(select('.prepared-popcorn-one .prepared-entrance'), { x: -6 * travel, y: 12 * travel, rotation: 2 * travel, scale: .97, opacity: 0, duration: .8 }, 1.72)
+        .from(select('.prepared-chip-two .prepared-entrance'), { x: 10 * travel, y: 14 * travel, rotation: 3 * travel, scale: .96, opacity: 0, duration: .9 }, 1.84)
+        .from(select('.prepared-popcorn-two .prepared-entrance'), { x: 7 * travel, y: 10 * travel, rotation: -2 * travel, scale: .97, opacity: 0, duration: .85 }, 1.96)
         .from(select('.prepared-crumbs'), { opacity: 0, duration: .6 }, 2.08)
+
+      if (mobile) entrance.timeScale(1.25)
 
       const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync() })
       observer.observe(element)
