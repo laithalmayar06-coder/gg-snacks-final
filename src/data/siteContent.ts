@@ -109,7 +109,7 @@ export const siteContent: SiteContent = { company, ...{
   },
   "whyGG": {
     "heading": {
-      "en": "WHY GG",
+      "en": "WHY GG?",
       "ar": "لماذا جي جي؟"
     },
     "eyebrow": {
@@ -120,42 +120,42 @@ export const siteContent: SiteContent = { company, ...{
     "cards": [
       {
         "title": {
-          "en": "Bold Flavours",
+          "en": "BOLD FLAVOURS",
           "ar": "نكهات جريئة"
         },
         "description": {
-          "en": "Flavor with a personality of its own.",
-          "ar": "نكهات تعبّر عن شخصية خاصة بها."
+          "en": "Epic taste for every session.",
+          "ar": "مذاق أسطوري لكل جلسة لعب."
         }
       },
       {
         "title": {
-          "en": "Quality First",
+          "en": "QUALITY FIRST",
           "ar": "الجودة أولًا"
         },
         "description": {
-          "en": "Our focus: care in the details, from the snack to the experience.",
-          "ar": "اهتمامنا بالتفاصيل، من السناك إلى التجربة."
+          "en": "Premium ingredients. No compromises.",
+          "ar": "مكونات فاخرة. بلا تنازلات."
         }
       },
       {
         "title": {
-          "en": "Made for Gamers",
+          "en": "MADE FOR GAMERS",
           "ar": "صُممت للاعبين"
         },
         "description": {
-          "en": "A visual language inspired by the world of play.",
-          "ar": "لغة بصرية مستوحاة من عالم اللعب."
+          "en": "Snacks that fit your grind.",
+          "ar": "سناك يواكب حماسك للعب."
         }
       },
       {
         "title": {
-          "en": "Real Value",
+          "en": "REAL VALUE",
           "ar": "قيمة حقيقية"
         },
         "description": {
-          "en": "Our aim: make every snack break feel worthwhile.",
-          "ar": "هدفنا أن تكون كل استراحة سناك تجربة تستحق."
+          "en": "Premium snacking. More play for less.",
+          "ar": "سناك فاخر. لعب أكثر بتكلفة أقل."
         }
       }
     ]

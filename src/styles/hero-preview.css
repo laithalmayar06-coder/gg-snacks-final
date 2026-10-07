@@ -1,0 +1,96 @@
+/* All artwork shares the background's coordinate system, keeping it on the platform. */
+#home-hero.prepared-hero {
+  --hero-height: clamp(640px, calc(100svh - 88px), 1000px);
+  min-height: var(--hero-height);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  isolation: isolate;
+  direction: ltr;
+  overflow: hidden;
+  padding: 46px clamp(24px, 7.1vw, 140px);
+  background: #030710;
+  color: #f4f7fc;
+}
+#home-hero .prepared-scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, calc(var(--hero-height) * 1.776833));
+  aspect-ratio: 1672 / 941;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+#home-hero .prepared-environment { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+#home-hero .prepared-layer { position: absolute; }
+#home-hero .prepared-layer img { display: block; width: 100%; height: auto; }
+#home-hero .prepared-controller { left: 52.5%; bottom: 31.5%; width: 33%; z-index: 2; }
+#home-hero .prepared-controller img { filter: drop-shadow(0 8px 10px #02051545) drop-shadow(0 0 4px #4b8dff14); }
+#home-hero .prepared-chip-one { left: 45.5%; top: 57%; width: 9%; z-index: 3; }
+#home-hero .prepared-chip-two { left: 81%; top: 34%; width: 10%; z-index: 1; }
+#home-hero .prepared-popcorn-one { left: 50%; top: 36%; width: 6.5%; z-index: 3; }
+#home-hero .prepared-popcorn-two { left: 83%; top: 55%; width: 7%; z-index: 3; }
+#home-hero .prepared-crumbs { left: 76%; top: 60%; width: 5%; opacity: .7; z-index: 1; }
+#home-hero .prepared-content { position: relative; z-index: 4; width: min(42%, 540px); text-align: start; }
+#home-hero .prepared-signature { width: 28px; height: auto; display: block; margin-bottom: 14px; }
+#home-hero .prepared-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; color: #d9e4ed; font-size: 12px; letter-spacing: .25em; }
+#home-hero .prepared-eyebrow::after { content: ''; width: 76px; height: 1px; background: linear-gradient(90deg, #00cfff, #ff197b); }
+#home-hero .prepared-headline { margin: 0; color: #f4f7fc; font: 800 clamp(66px, 6.3vw, 112px)/.94 'Barlow Condensed', sans-serif; letter-spacing: -.025em; }
+#home-hero .prepared-headline > span { display: block; }
+#home-hero .prepared-gradient { width: fit-content; max-width: 100%; background: linear-gradient(100deg, #35e4ef 5%, #6596ea 48%, #e653e1 90%); background-clip: text; -webkit-text-fill-color: transparent; }
+#home-hero .prepared-description { margin: 22px 0 26px; color: #c3cedc; font-size: clamp(15px, 1.45vw, 22px); line-height: 1.5; }
+#home-hero .prepared-description > span { display: block; }
+#home-hero .prepared-cta { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 56px; max-width: 100%; padding: 16px 26px; background: #3ce0f3; border: 1px solid #73eafb; color: #02131d; font-size: clamp(12px, 1vw, 16px); font-weight: 700; text-decoration: none; box-shadow: 0 0 24px #00cfff1a; transition: transform .25s ease, box-shadow .25s ease; }
+#home-hero .prepared-cta > span { flex-shrink: 0; transition: transform .25s ease; }
+#home-hero .prepared-cta:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+#home-hero .prepared-content[dir='rtl'] .prepared-headline { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(38px, 4vw, 68px); line-height: 1.45; letter-spacing: 0; }
+#home-hero .prepared-content[dir='rtl'] .prepared-eyebrow { justify-content: flex-end; }
+#home-hero .prepared-content[dir='rtl'] .prepared-cta > span { rotate: 180deg; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  #home-hero .prepared-cta:hover { transform: translateY(-2px); box-shadow: 0 0 28px #00cfff30; }
+  #home-hero .prepared-cta:hover > span { transform: translateX(3px); }
+}
+@media (min-width: 701px) and (max-width: 1100px) {
+  #home-hero.prepared-hero { --hero-height: 660px; padding-inline: 5%; }
+  #home-hero .prepared-scene { top: auto; bottom: 0; width: 100%; transform: translateX(-50%); }
+  #home-hero .prepared-content { width: 44%; }
+  #home-hero .prepared-headline { font-size: clamp(58px, 7.6vw, 78px); }
+  #home-hero .prepared-description { font-size: 16px; }
+  #home-hero .prepared-cta { padding-inline: 18px; gap: 18px; }
+}
+/* Basic narrow-screen fallback; dedicated mobile art direction comes later. */
+@media (max-width: 700px) {
+  #home-hero.prepared-hero { min-height: 0; padding: 32px 24px 0; }
+  #home-hero .prepared-content { width: 100%; max-width: 500px; padding-bottom: max(260px, 56.28vw); }
+  #home-hero .prepared-scene { top: auto; bottom: 0; width: max(100%, 500px); transform: translateX(-50%); }
+  #home-hero .prepared-headline { font-size: clamp(52px, 13vw, 78px); }
+  #home-hero .prepared-signature { width: 24px; margin-bottom: 12px; }
+  #home-hero .prepared-eyebrow { font-size: 10px; margin-bottom: 16px; }
+  #home-hero .prepared-description { font-size: 16px; margin-block: 18px 22px; }
+  #home-hero .prepared-cta { min-height: 48px; padding: 13px 18px; font-size: 12px; gap: 22px; }
+  #home-hero .prepared-content[dir='rtl'] .prepared-headline { font-size: clamp(32px, 8vw, 46px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #home-hero .prepared-cta, #home-hero .prepared-cta > span { transition: none; }
+}
+
+/* Existing navbar rules preserved without redesign. */
+@media (max-width: 900px) {
+  .home-redesign.phase-five:has(#home-hero) > .site-header { gap: 16px; margin-inline: clamp(20px, 5vw, 32px); }
+  .home-redesign.phase-five:has(#home-hero) > .site-header > .flex { gap: 12px; min-width: 0; }
+  .home-redesign.phase-five:has(#home-hero) .language-switch button { min-width: 44px; }
+  .home-redesign.phase-five:has(#home-hero) .menu-toggle { flex-shrink: 0; }
+  .home-redesign.phase-five:has(#home-hero) #main-navigation { max-height: calc(100svh - 104px); overflow-y: auto; overscroll-behavior: contain; }
+  .home-redesign.phase-five:has(#home-hero) #main-navigation a { white-space: normal; overflow-wrap: anywhere; }
+}
+@media (max-width: 600px) {
+  .home-redesign.phase-five:has(#home-hero) > .site-header { min-height: 64px; padding-block: 6px; gap: 12px; }
+  .home-redesign.phase-five:has(#home-hero) > .site-header .brand-symbol { font-size: 35px; letter-spacing: -3px; }
+  .home-redesign.phase-five:has(#home-hero) > .site-header .brand-sub { font-size: 8px; letter-spacing: 3px; margin-top: 6px; }
+  .home-redesign.phase-five:has(#home-hero) > .site-header > .flex { gap: 8px; }
+  .home-redesign.phase-five:has(#home-hero) .language-switch { padding: 2px; gap: 1px; }
+  .home-redesign.phase-five:has(#home-hero) .language-switch button { min-width: 34px; min-height: 36px; padding: 6px; font-size: 11px; }
+  .home-redesign.phase-five:has(#home-hero) .menu-toggle { width: 38px; height: 38px; padding: 8px; }
+  .home-redesign.phase-five:has(#home-hero) #main-navigation { max-height: calc(100svh - 80px); }
+}

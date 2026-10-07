@@ -27,7 +27,7 @@ export default function PublicPage() {
   switch (path) {
     case '/arena': content = <ArenaTeaser showPageLink={false} />; break
     case '/tournaments': content = <><TournamentsTeaser showPageLink={false} /><section className="public-block" aria-labelledby="event-details"><h2 id="event-details">{c.eventDetails}</h2><dl className="public-details">{tournament.fields.map(field => <div key={field.id}><dt>{field.label[language]}</dt><dd>{field.id === 'stream' && safeWebUrl(textValue(managedTournament, 'stream_url')) ? <a href={safeWebUrl(textValue(managedTournament, 'stream_url'))!}>{textValue(managedTournament, 'stream_url')}</a> : localized(managedTournament, tournamentKeys[field.id] ?? 'unused')?.[language] || field.value?.[language] || c.soon}</dd></div>)}</dl></section></>; break
-    case '/find-gg': content = <StoreFinder />; break
+    case '/find-gg': content = <StoreFinder standalone />; break
     case '/feedback': content = <FeedbackPicker />; break
     case '/business': content = <EnquiryForm business />; break
     case '/contact': content = <div className="public-contact"><section><p className="gg-body">{c.contactIntro}</p><dl className="public-details">{(['email', 'whatsapp', 'location', 'social'] as const).map(key => <div key={key}><dt>{t.contactItemLabels[key]}</dt><dd><SiteContactValue kind={key} /></dd></div>)}{cms.contact_settings?.[0]?.phone && <div><dt>{c.phone}</dt><dd><SiteContactValue kind="phone" /></dd></div>}</dl></section><EnquiryForm /></div>; break
@@ -40,5 +40,5 @@ export default function PublicPage() {
       break
     }
   }
-  return <PublicPageLayout title={(path === '/tournaments' ? localized(managedTournament, 'title')?.[language] : undefined) || pageTitles[path]?.[language] || t.brandName}>{content}</PublicPageLayout>
+  return <PublicPageLayout variant={path === '/find-gg' ? 'finder' : undefined} title={(path === '/tournaments' ? localized(managedTournament, 'title')?.[language] : undefined) || pageTitles[path]?.[language] || t.brandName}>{content}</PublicPageLayout>
 }

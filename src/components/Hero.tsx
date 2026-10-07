@@ -2,67 +2,81 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { Link } from 'react-router'
 import { useLanguage } from '../i18n/LanguageContext'
-import { homepageContent } from '../data/homepage'
-import { FamilyAsset, useHomeFamilies } from './HomepageSections'
-import BrandMark from './BrandMark'
+import { heroPreviewLogo } from '../data/heroPreview'
+import { heroLayers, heroContent } from '../data/heroLayers'
+import '../styles/hero-preview.css'
 
 export default function Hero() {
-  const homeFamilies = useHomeFamilies().slice(0, 4)
   const { language, t } = useLanguage()
-  const c = homepageContent[language]
+  const content = heroContent[language]
   const root = useRef<HTMLElement>(null)
+
   useLayoutEffect(() => {
+    const element = root.current
+    if (!element) return
     const media = gsap.matchMedia()
-    // Reveal quickly; ambient transforms run only while the hero is visible.
-    media.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
-      gsap.timeline({ defaults: { ease: 'power2.out' } })
-        .from('.gg-hero-portal', { opacity: 0, scale: .94, rotationY: -8, duration: .85 })
-        .from('.gg-hero-logo', { opacity: 0, scale: .88, y: 12, duration: .65 }, .15)
-        .from('.gg-hero-family', { opacity: 0, y: 38, rotationX: -12, duration: .75, stagger: .08 }, .3)
-        .from('.headline-line', { opacity: 0, yPercent: 100, duration: .75, stagger: .08 }, .45)
-        .from('.hero-actions', { opacity: 0, y: 10, duration: .5 }, .8)
-      const ambient = gsap.timeline({ repeat: -1, yoyo: true, paused: true })
-        .fromTo('.gg-hero-light', { x: -12, opacity: .35 }, { x: 12, opacity: .7, duration: 9, ease: 'sine.inOut' })
-        .to('.gg-hero-orbit', { rotation: 18, duration: 9, ease: 'sine.inOut' }, 0)
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      const select = gsap.utils.selector(element)
+      const header = element.closest('.site-shell')?.querySelector<HTMLElement>(':scope > .site-header')
       let visible = false
-      const sync = () => { if (visible && !document.hidden) ambient.play(); else ambient.pause() }
+      let entered = false
+      // Each nested layer has its own repeat cycle, independent of the entrance.
+      const idle = [
+        gsap.to(select('.prepared-controller .prepared-float'), { y: -8, duration: 4.4, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-chip-one .prepared-float'), { x: -5, y: -9, rotation: -2.2, duration: 5.3, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-chip-two .prepared-float'), { x: 6, y: 7, rotation: 2.5, duration: 6.7, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-popcorn-one .prepared-float'), { x: 4, y: -6, rotation: 1.8, duration: 4.9, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+        gsap.to(select('.prepared-popcorn-two .prepared-float'), { x: -5, y: 8, rotation: -2, duration: 6.1, paused: true, repeat: -1, yoyo: true, ease: 'sine.inOut' }),
+      ]
+      const sync = () => {
+        idle.forEach(tween => { if (entered && visible && !document.hidden) tween.play(); else tween.pause() })
+      }
+      const entrance = gsap.timeline({
+        defaults: { ease: 'power2.out', clearProps: 'transform,opacity' },
+        onComplete: () => { entered = true; sync() },
+      })
+        .from(select('.prepared-environment'), { opacity: 0, scale: 1.025, duration: 1.4, ease: 'sine.out' }, 0)
+      if (header) entrance.from(header, { y: -12, opacity: 0, duration: .55 }, .08)
+      entrance
+        .from(select('.prepared-signature'), { opacity: 0, scale: .97, duration: .55 }, .18)
+        .from(select('.prepared-eyebrow'), { x: -12, opacity: 0, duration: .6 }, .3)
+        .from(select('.prepared-headline > span'), { y: 22, opacity: 0, duration: .72, stagger: .18, ease: 'power3.out' }, .55)
+        .from(select('.prepared-description'), { y: 14, opacity: 0, duration: .55 }, 1.65)
+        .from(select('.prepared-action'), { y: 14, scale: .985, opacity: 0, duration: .7, ease: 'back.out(.5)', transformOrigin: 'center center' }, 2.18)
+        .from(select('.prepared-controller .prepared-entrance'), { y: 44, scale: .94, opacity: 0, duration: 1.1, ease: 'power3.out', transformOrigin: '50% 90%' }, 1.05)
+        .from(select('.prepared-chip-one .prepared-entrance'), { x: -12, y: 16, rotation: -3, scale: .96, opacity: 0, duration: .85 }, 1.6)
+        .from(select('.prepared-popcorn-one .prepared-entrance'), { x: -6, y: 12, rotation: 2, scale: .97, opacity: 0, duration: .8 }, 1.72)
+        .from(select('.prepared-chip-two .prepared-entrance'), { x: 10, y: 14, rotation: 3, scale: .96, opacity: 0, duration: .9 }, 1.84)
+        .from(select('.prepared-popcorn-two .prepared-entrance'), { x: 7, y: 10, rotation: -2, scale: .97, opacity: 0, duration: .85 }, 1.96)
+        .from(select('.prepared-crumbs'), { opacity: 0, duration: .6 }, 2.08)
+
       const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync() })
-      observer.observe(root.current!)
+      observer.observe(element)
       document.addEventListener('visibilitychange', sync)
       return () => { observer.disconnect(); document.removeEventListener('visibilitychange', sync) }
     }, root)
-    media.add('(min-width: 1100px) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
-      const element = root.current!
-      const portal = element.querySelector('.gg-hero-portal')!
-      const x = gsap.quickTo(portal, 'x', { duration: .8, ease: 'power2.out' })
-      const y = gsap.quickTo(portal, 'y', { duration: .8, ease: 'power2.out' })
-      const move = (event: PointerEvent) => {
-        const bounds = element.getBoundingClientRect()
-        x(((event.clientX - bounds.left) / bounds.width - .5) * 12)
-        y(((event.clientY - bounds.top) / bounds.height - .5) * 8)
-      }
-      const reset = () => { x(0); y(0) }
-      element.addEventListener('pointermove', move)
-      element.addEventListener('pointerleave', reset)
-      return () => { element.removeEventListener('pointermove', move); element.removeEventListener('pointerleave', reset); x.tween.kill(); y.tween.kill() }
-    }, root)
     return () => media.revert()
   }, [language])
-  return <section id="home-hero" aria-label={t.home} ref={root} className="hero" tabIndex={-1}>
-    <div className="gg-hero-light" aria-hidden="true" /><div className="gg-depth-lines" aria-hidden="true" />
-    <div className="hero-layout">
-      <div className="hero-copy">
-        <p className="eyebrow"><span className="status-dot" />{t.location}</p>
-        <h1>{c.headline.map((line, index) => <span className="headline-mask" key={line}><span className={`headline-line ${index === 1 ? 'chrome-text' : ''}`}>{line}</span></span>)}</h1>
-        <p className="hero-description">{t.description}</p>
-        <div className="hero-actions"><Link to="/products" className="gg-button gg-button-primary">{c.explore}<span aria-hidden="true">↗</span></Link></div>
-      </div>
-      <div className="gg-hero-portal"><span className="gg-hero-orbit" aria-hidden="true" />
-        <div className="gg-hero-logo" aria-hidden="true"><BrandMark /></div>
-        <div className="gg-hero-families">{homeFamilies.map(family => <div className="gg-hero-family" key={family.id}><FamilyAsset family={family} priority /></div>)}</div>
-        <span className="gg-portal-caption">{c.preview}</span>
+
+  return <section id="home-hero" ref={root} className="hero prepared-hero" aria-label={t.home} tabIndex={-1}>
+    <div className="prepared-scene" aria-hidden="true" dir="ltr">
+      <img className="prepared-environment" src="/hero/hero bg.png" alt="" width={1672} height={941} fetchPriority="high" decoding="async" />
+      {heroLayers.map(layer => <div key={layer.id} className={`prepared-layer prepared-${layer.id}${layer.id.startsWith('chip') || layer.id.startsWith('popcorn') ? ' prepared-snack' : ''}`}>
+        <div className="prepared-entrance"><div className="prepared-float">
+          <img src={layer.src} alt="" width={layer.width} height={layer.height} decoding="async" draggable={false} />
+        </div></div>
+      </div>)}
+    </div>
+    <div className="prepared-content" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+      <img className="prepared-signature" src={heroPreviewLogo} alt={t.brandName} width={356} height={440} decoding="async" />
+      <p className="prepared-eyebrow" dir="ltr">GG SNACKS</p>
+      <h1 className="prepared-headline">{content.headline.map((line, index) =>
+        <span key={line} className={index === 2 ? 'prepared-gradient' : undefined}>{line}</span>
+      )}</h1>
+      <p className="prepared-description">{content.copy.map(line => <span key={line}>{line}</span>)}</p>
+      <div className="prepared-action hero-actions">
+        <Link to="/products" className="prepared-cta">{content.cta}<span aria-hidden="true">→</span></Link>
       </div>
     </div>
-    <div className="hero-footer"><span>{t.bottom}</span><span className="footer-rule" /><span>{t.origin}</span></div>
   </section>
 }

@@ -1,0 +1,123 @@
+/* Everything here belongs exclusively to the homepage product-world section. */
+.home-redesign.phase-five #product-worlds.world-showcase {
+  background-color: #080c14;
+  background-image: linear-gradient(rgb(0 0 0 / 25%), rgb(0 0 0 / 25%)), url("/preview-assets/PRODUCT%20WORLDS%20BG.png.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: clamp(24px, 4svh, 48px) clamp(20px, 3vw, 56px);
+}
+#product-worlds > .gg-section-heading,
+#product-worlds > .world-portals { width: 100%; max-width: 1400px; margin-inline: auto; }
+#product-worlds > .gg-section-heading { margin-bottom: clamp(20px, 3svh, 32px); }
+#product-worlds .gg-section-heading .gg-kicker { margin-bottom: 8px; }
+#product-worlds .gg-section-heading h2 { font-size: clamp(32px, min(4vw, 6svh), 60px); }
+#product-worlds .gg-section-heading .gg-body { margin-block: 12px 0; }
+#product-worlds .world-portals { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.5vw, 22px); align-items: start; padding-bottom: 20px; }
+#product-worlds .world-portal { --world-accent: #36baff; --world-light: color-mix(in srgb, var(--world-accent) 78%, white); --world-deep: color-mix(in srgb, var(--world-accent) 68%, black); --pack-tilt: -6deg; --world-visual-height: clamp(210px, 30svh, 320px); position: relative; display: flex; flex-direction: column; min-width: 0; isolation: isolate; color: #edf3ff; text-decoration: none; border: 1px solid color-mix(in srgb, var(--world-accent) 22%, transparent); border-top-color: color-mix(in srgb, var(--world-light) 55%, transparent); background: radial-gradient(ellipse at 50% 26%, color-mix(in srgb, var(--world-deep) 27%, transparent), transparent 68%), #080d16; box-shadow: 0 18px 38px #0004, 0 8px 28px color-mix(in srgb, var(--world-accent) 5%, transparent); transition: border-color .3s ease, box-shadow .3s ease; }
+#product-worlds .world-portal:nth-child(even) { margin-top: 20px; }
+#product-worlds .world-portal::after { content: ''; position: absolute; inset: 7px; border: 1px solid color-mix(in srgb, var(--world-accent) 7%, transparent); pointer-events: none; }
+#product-worlds .world-portal[data-world='trigger'] { --world-accent: #f49232; --pack-tilt: 9deg; }
+#product-worlds .world-portal[data-world='loots'] { --world-accent: #e52d43; --pack-tilt: -3deg; }
+#product-worlds .world-portal[data-world='x-stix'] { --world-accent: #a3cc22; --pack-tilt: 7deg; }
+#product-worlds .world-portal-meta { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; padding: 16px 18px 0; color: var(--world-light); font: 10px/1.5 monospace; letter-spacing: .15em; }
+#product-worlds .world-portal-rule { height: 1px; flex: 1; background: linear-gradient(90deg, color-mix(in srgb, var(--world-light) 40%, transparent), transparent); }
+#product-worlds .world-portal-visual { position: relative; display: grid; place-items: center; height: var(--world-visual-height); padding: 28px 18px; isolation: isolate; overflow: hidden; }
+#product-worlds .world-portal-environment { position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: radial-gradient(ellipse at 50% 42%, color-mix(in srgb, var(--world-light) 13%, transparent), transparent 63%); }
+#product-worlds .world-portal-frame { position: absolute; inset: 14% 12% 10%; border: 1px solid color-mix(in srgb, var(--world-light) 45%, transparent); box-shadow: 0 0 32px color-mix(in srgb, var(--world-deep) 28%, transparent), inset 0 0 24px color-mix(in srgb, var(--world-deep) 15%, transparent); }
+#product-worlds .world-portal-rays { position: absolute; inset: 0; opacity: .55; }
+#product-worlds .world-portal-floor { position: absolute; bottom: 2%; left: 8%; width: 84%; height: 17%; border-radius: 50%; background: radial-gradient(ellipse, #02050cec 8%, color-mix(in srgb, var(--world-deep) 30%, #070b12) 43%, transparent 70%); border-top: 1px solid color-mix(in srgb, var(--world-light) 40%, transparent); transform: rotate(-7deg); }
+#product-worlds .world-portal-pack { position: relative; z-index: 1; display: block; width: auto; height: calc(var(--world-visual-height) - 56px); max-width: 76%; object-fit: contain; transform: rotate(var(--pack-tilt)); filter: drop-shadow(0 16px 12px #000a) drop-shadow(0 0 10px color-mix(in srgb, var(--world-accent) 12%, transparent)); transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+/* POP-G: open orbital rings and cool, airy light. */
+#product-worlds [data-world='pop-g'] .world-portal-frame { inset: 18% 5% 14%; border-radius: 50%; transform: rotate(-24deg); border-bottom-color: color-mix(in srgb, var(--world-accent) 8%, transparent); }
+#product-worlds [data-world='pop-g'] .world-portal-frame::after { content: ''; position: absolute; inset: 15px -9px; border: 1px solid color-mix(in srgb, var(--world-accent) 25%, transparent); border-radius: 50%; }
+#product-worlds [data-world='pop-g'] .world-portal-rays { background: radial-gradient(circle at 22% 22%, var(--world-light) 0 1px, transparent 2px), radial-gradient(circle at 74% 36%, var(--world-accent) 0 1px, transparent 2px), radial-gradient(circle at 27% 69%, var(--world-accent) 0 1px, transparent 2px), linear-gradient(120deg, transparent 35%, color-mix(in srgb, var(--world-accent) 9%, transparent) 50%, transparent 62%); }
+/* TRIGGER: diagonal rails and a hot directional glow. */
+#product-worlds [data-world='trigger'] .world-portal-frame { inset: 10% 18% 8%; transform: skew(-15deg); border-width: 0 2px; border-inline-end-color: color-mix(in srgb, var(--world-accent) 31%, transparent); }
+#product-worlds [data-world='trigger'] .world-portal-rays { background: repeating-linear-gradient(118deg, transparent 0 42px, color-mix(in srgb, var(--world-accent) 15%, transparent) 43px 44px, transparent 46px 76px), radial-gradient(ellipse at 78% 78%, color-mix(in srgb, var(--world-accent) 25%, transparent), transparent 55%); }
+/* LOOTS: nested vault frames, with the pack at the centre. */
+#product-worlds [data-world='loots'] .world-portal-frame { inset: 13% 13% 10%; clip-path: polygon(14% 0, 86% 0, 100% 10%, 100% 90%, 86% 100%, 14% 100%, 0 90%, 0 10%); background: linear-gradient(145deg, color-mix(in srgb, var(--world-accent) 9%, transparent), transparent 55%); }
+#product-worlds [data-world='loots'] .world-portal-frame::after { content: ''; position: absolute; inset: 12px; border: 1px solid color-mix(in srgb, var(--world-light) 31%, transparent); box-shadow: inset 0 0 20px color-mix(in srgb, var(--world-deep) 17%, transparent); }
+#product-worlds [data-world='loots'] .world-portal-rays { background: linear-gradient(90deg, transparent 49.7%, color-mix(in srgb, var(--world-accent) 15%, transparent) 50%, transparent 50.3%), linear-gradient(0deg, transparent 49.7%, color-mix(in srgb, var(--world-accent) 15%, transparent) 50%, transparent 50.3%), radial-gradient(ellipse, color-mix(in srgb, var(--world-accent) 16%, transparent), transparent 64%); }
+/* X-STIX: sharp, offset neon blades. */
+#product-worlds [data-world='x-stix'] .world-portal-frame { inset: 12% 12% 11%; transform: skew(-10deg); clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%); background: linear-gradient(125deg, color-mix(in srgb, var(--world-accent) 13%, transparent) 0%, transparent 18% 78%, color-mix(in srgb, var(--world-accent) 13%, transparent) 100%); }
+#product-worlds [data-world='x-stix'] .world-portal-rays { background: linear-gradient(114deg, transparent 22%, color-mix(in srgb, var(--world-accent) 27%, transparent) 22.3%, transparent 23%), linear-gradient(114deg, transparent 76%, color-mix(in srgb, var(--world-accent) 33%, transparent) 76.3%, transparent 77%), repeating-linear-gradient(0deg, transparent 0 36px, color-mix(in srgb, var(--world-accent) 4%, transparent) 37px 38px); }
+#product-worlds .world-portal-copy { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; padding: 16px 18px 18px; background: linear-gradient(180deg, #080c1600, #070b14c9); }
+#product-worlds .world-portal-copy h3 { margin: 0 0 8px; font: 800 clamp(32px, 3vw, 46px)/1 'Barlow Condensed', sans-serif; letter-spacing: -.015em; text-align: start; }
+#product-worlds .world-portal-copy p { margin: 0 0 12px; min-height: 3.2em; color: #b0bbcf; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+#product-worlds .world-portal-link { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--world-accent) 20%, transparent); font-size: 12px; line-height: 1.5; color: var(--world-light); }
+#product-worlds .world-portal-arrow { flex: 0 0 34px; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid color-mix(in srgb, var(--world-light) 32%, transparent); background: color-mix(in srgb, var(--world-deep) 13%, transparent); font-size: 18px; transition: background-color .3s, border-color .3s; }
+#product-worlds .world-portal:focus-visible { outline: 2px solid var(--world-light); outline-offset: 5px; border-color: var(--world-light); }
+#product-worlds[dir='rtl'] .world-portal-copy h3, [dir='rtl'] #product-worlds .world-portal-copy h3 { text-align: right; }
+[dir='rtl'] #product-worlds .world-portal-arrow { transform: scaleX(-1); }
+@media (hover: hover) and (pointer: fine) {
+ #product-worlds .world-portal:hover { border-color: color-mix(in srgb, var(--world-light) 70%, transparent); box-shadow: 0 22px 45px #0006, 0 0 25px color-mix(in srgb, var(--world-deep) 12%, transparent); }
+ #product-worlds .world-portal:is(:hover, :focus-visible) .world-portal-pack { transform: translateY(-8px) rotate(var(--pack-tilt)) scale(1.025); }
+ #product-worlds .world-portal:is(:hover, :focus-visible) .world-portal-arrow { border-color: var(--world-light); background: color-mix(in srgb, var(--world-deep) 30%, transparent); }
+}
+@media (max-width: 1100px) {
+ #product-worlds .world-portals { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-bottom: 0; }
+ #product-worlds .world-portal:nth-child(even) { margin-top: 0; }
+ #product-worlds .world-portal-visual { height: 370px; }
+ #product-worlds .world-portal-pack { height: 306px; }
+ #product-worlds .world-portal-copy h3 { font-size: 48px; }
+ #product-worlds .world-portal-copy p { min-height: 3.2em; }
+}
+@media (max-width: 600px) {
+ #product-worlds .world-portals { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+ #product-worlds .world-portal-visual { height: 330px; }
+ #product-worlds .world-portal-pack { height: 274px; }
+ #product-worlds .world-portal-copy { padding: 20px 24px 24px; }
+ #product-worlds .world-portal-copy h3 { font-size: 44px; }
+ #product-worlds .world-portal-copy p { min-height: 0; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ #product-worlds .world-portal, #product-worlds .world-portal-pack, #product-worlds .world-portal-arrow { transition: none; }
+ #product-worlds .world-portal:is(:hover, :focus-visible) .world-portal-pack { transform: rotate(var(--pack-tilt)); }
+}
+
+@media (max-width: 900px) {
+  #product-worlds .world-portals { gap: 20px; align-items: stretch; }
+  #product-worlds .world-portal-visual { height: clamp(276px, 40vw, 310px); padding: 24px 18px; }
+  #product-worlds .world-portal-pack { height: clamp(222px, 32vw, 250px); }
+  #product-worlds .world-portal-copy { padding: 16px 20px 20px; }
+  #product-worlds .world-portal-copy h3 { font-size: clamp(36px, 5vw, 42px); }
+  #product-worlds .world-portal-link { min-height: 48px; }
+  #product-worlds .world-portal-arrow { width: 38px; height: 38px; flex-basis: 38px; }
+}
+@media (max-width: 600px) {
+  #product-worlds > .world-portals { max-width: 440px; gap: 18px; }
+  #product-worlds .gg-section-heading h2 { font-size: clamp(30px, 8vw, 38px); line-height: 1.15; }
+  [dir='rtl'] #product-worlds .gg-section-heading h2 { line-height: 1.5; }
+  #product-worlds .world-portal-visual { height: 264px; padding-block: 22px; }
+  #product-worlds .world-portal-pack { height: 216px; }
+  #product-worlds .world-portal-copy { padding: 14px 20px 18px; }
+  #product-worlds .world-portal-copy h3 { font-size: 36px; }
+  #product-worlds .world-portal-copy p { margin-bottom: 10px; }
+}
+
+/* Native swipe carousel and a separate, uncropped phone background. */
+@media (max-width: 600px) {
+  .home-redesign.phase-five #product-worlds.world-showcase { position: relative; isolation: isolate; padding: 32px 20px 24px; background-image: none; background-color: #080c14; }
+  #product-worlds.world-showcase::before { content: ''; position: absolute; z-index: -1; inset: 0 0 auto; aspect-ratio: 1672 / 941; pointer-events: none; background: linear-gradient(180deg, rgb(0 0 0 / 12%) 0% 45%, #080c14 100%), url("/preview-assets/PRODUCT%20WORLDS%20BG.png.png") center top / 100% auto no-repeat; }
+  #product-worlds > .gg-section-heading { margin-bottom: 20px; }
+  #product-worlds > .world-portals {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 87vw;
+    gap: 12px;
+    width: calc(100% + 40px);
+    max-width: none;
+    margin-inline: -20px;
+    padding: 8px 20px 18px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: #899cb566 transparent;
+  }
+  #product-worlds .world-portal { scroll-snap-align: start; scroll-snap-stop: always; min-width: 0; }
+}

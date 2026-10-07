@@ -11,13 +11,13 @@ import '../styles/public-pages.css'
 
 import '../styles/phase5.css'
 
-export default function PublicPageLayout({ title, children }: { title: string; children: ReactNode }) {
+export default function PublicPageLayout({ title, children, variant }: { title: string; children: ReactNode; variant?: 'finder' }) {
   const { language, t } = useLanguage()
   const motionRoot = usePublicMotion(title + language)
-  return <div ref={motionRoot} className="site-shell home-redesign phase-five public-page">
+  return <div ref={motionRoot} className={"site-shell home-redesign phase-five public-page" + (variant === 'finder' ? ' finder-page' : '')}>
     <a className="skip-link" href="#main-content">{t.skip}</a><Navigation />
     <main id="main-content" tabIndex={-1}>
-      <header className="public-page-hero"><p className="gg-kicker">{pageCopy[language].overview}</p><h1>{title}</h1></header>
+      {variant !== 'finder' && <header className="public-page-hero"><p className="gg-kicker">{pageCopy[language].overview}</p><h1>{title}</h1></header>}
       <div className="public-page-body">{children}</div>
     </main><SiteFooter />
   </div>

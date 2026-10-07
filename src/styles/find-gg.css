@@ -1,0 +1,124 @@
+/* Shared only by the homepage Find GG section and the dedicated finder page. */
+.public-page.finder-page .public-page-body { padding: 0; }
+#find-gg.find-gg-showcase {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(32px, 4vw, 64px) clamp(20px, 4vw, 64px);
+  border-block: 1px solid #719ab82b;
+  background: radial-gradient(ellipse at 45% 22%, #063c634d, transparent 58%), radial-gradient(ellipse at 93% 76%, #45216a40, transparent 52%), #060b1d;
+  color: #e9f2ff;
+}
+#find-gg::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, #0409189c, transparent 45% 65%, #090b1e66); }
+#find-gg .find-gg-layout { display: grid; grid-template-columns: minmax(240px, .9fr) minmax(0, 1.25fr) minmax(280px, 1fr); gap: clamp(16px, 1.7vw, 28px); max-width: 1480px; margin-inline: auto; align-items: start; }
+#find-gg .find-gg-controls { position: relative; z-index: 2; min-width: 0; padding-block: 42px 24px; }
+#find-gg .find-gg-kicker { margin: 0 0 18px; color: #94c9e1; font-size: 10px; font-weight: 600; line-height: 1.7; letter-spacing: .19em; }
+#find-gg .find-gg-title { margin: 0; max-width: none; font: 800 clamp(43px, 4.6vw, 72px)/.94 'Barlow Condensed', sans-serif; letter-spacing: -.01em; color: #e2e9fa; text-shadow: 0 4px 1px #030715, 0 0 25px #93c3f31a; }
+#find-gg .find-gg-title > span { display: block; }
+#find-gg .find-gg-intro { margin: 18px 0 26px; max-width: 290px; color: #b3c3db; font-size: 14px; line-height: 1.8; }
+#find-gg .find-gg-form { display: grid; gap: 18px; }
+#find-gg .find-gg-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+#find-gg .find-gg-field > label { color: #c6d4e7; font-size: 10px; line-height: 1.5; letter-spacing: .15em; text-transform: uppercase; }
+#find-gg .find-gg-select-wrap { position: relative; min-width: 0; }
+#find-gg .find-gg-select-wrap > svg { position: absolute; z-index: 1; inset-inline-start: 14px; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: #b2c9ec; pointer-events: none; }
+#find-gg .find-gg-field select { display: block; width: 100%; min-width: 0; min-height: 48px; padding: 11px 12px; padding-inline-start: 42px; border: 1px solid #829ec14d; border-radius: 3px; background: #091226e6; color: #dfebfa; color-scheme: dark; font: inherit; font-size: 14px; line-height: 1.6; }
+#find-gg .find-gg-search { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; margin-top: 2px; padding: 12px 16px; border: 1px solid #b1baff40; border-radius: 28px; background: linear-gradient(100deg, #21cbed, #518fe9 49%, #bb62ef); color: #071327; box-shadow: 0 0 22px #2087dc25, inset 0 1px #e3ffff42; font: 700 11px/1.6 Arial, sans-serif; letter-spacing: .14em; transition: filter .2s ease, box-shadow .2s ease; }
+#find-gg .find-gg-search > svg { width: 17px; height: 17px; flex-shrink: 0; }
+#find-gg .find-gg-search:hover { filter: brightness(1.1); box-shadow: 0 0 28px #658aea3b; }
+#find-gg :is(select, button, a):focus-visible { outline: 2px solid #8eeeff; outline-offset: 4px; }
+#find-gg .find-gg-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 30px 0 0; padding: 0; list-style: none; }
+#find-gg .find-gg-details li { display: flex; align-items: center; flex-direction: column; gap: 9px; text-align: center; color: #b9c6de; font-size: 9px; line-height: 1.6; letter-spacing: .1em; }
+#find-gg .find-gg-details svg { width: 23px; height: 23px; color: #65dcf2; }
+#find-gg .find-gg-details li:first-child svg { color: #c58aef; }
+#find-gg .find-gg-signature { display: flex; align-items: center; gap: 12px; margin-top: 28px; padding-top: 16px; border-top: 1px solid #889abb29; color: #93abc9; font-size: 9px; letter-spacing: .14em; }
+#find-gg .find-gg-signature img { width: 27px; height: auto; flex-shrink: 0; object-fit: contain; }
+#find-gg .find-gg-directory-link { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: #b4d7ed; font-size: 10px; line-height: 1.6; letter-spacing: .1em; }
+#find-gg .find-gg-directory-link > span { font-size: 16px; }
+
+/* Coast and street geometry are deliberately schematic, without invented shops or distances. */
+#find-gg .find-gg-map { position: relative; z-index: 0; min-width: 0; height: 650px; margin: -30px 0 -20px; }
+#find-gg .find-gg-map-art { display: block; position: absolute; top: 0; left: -24%; width: 150%; max-width: none; height: 100%; mask-image: linear-gradient(90deg, transparent, #000 14% 82%, transparent); }
+#find-gg .find-gg-map-roads { opacity: .67; filter: drop-shadow(0 0 3px #6976ef55); }
+#find-gg .find-gg-coast-glow { filter: drop-shadow(-3px 0 6px #00b8f0) drop-shadow(0 0 16px #269fdf77); }
+#find-gg .find-gg-map-city { fill: #d0dbef; font: 600 18px Arial, sans-serif; letter-spacing: .12em; }
+#find-gg .find-gg-map-sea { fill: #638dad; font: 11px Arial, sans-serif; letter-spacing: .19em; }
+#find-gg .find-gg-map-pin { filter: drop-shadow(0 0 6px #38e1ff99); }
+#find-gg .find-gg-map figcaption { position: absolute; z-index: 1; bottom: 6px; inset-inline: 5%; padding: 12px; border-top: 1px solid #829bc029; background: linear-gradient(180deg, #071027c4, #07102766); color: #a5bbd1; font-size: 10px; line-height: 1.8; text-align: center; }
+
+#find-gg .find-gg-right { position: relative; z-index: 2; min-width: 0; padding-top: 10px; }
+#find-gg .find-gg-results-panel { position: relative; padding: 22px 20px 12px; border: 1px solid #7b8ec23d; border-top-color: #84a7dc59; border-radius: 13px; background: linear-gradient(145deg, #0b1730ec, #0d0e28e8); box-shadow: 0 18px 40px #02040c66, inset 0 1px #b5dbff08; }
+#find-gg .find-gg-results-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+#find-gg .find-gg-results-top :is(h2, h3) { margin: 0; color: #80e5f5; font: 600 11px/1.7 Arial, sans-serif; letter-spacing: .16em; }
+#find-gg .find-gg-results-top > svg { width: 18px; height: 18px; color: #7d9ec6; flex-shrink: 0; }
+#find-gg .find-gg-results-note { margin: 8px 0 0; color: #a4b5cf; font-size: 11px; line-height: 1.7; }
+#find-gg .find-gg-count { margin: 10px 0 0; color: #93accb; font-size: 10px; line-height: 1.7; }
+#find-gg .find-gg-empty { padding: 22px 0 18px; color: #b5c4dc; font-size: 14px; line-height: 1.8; }
+#find-gg .find-gg-results { list-style: none; margin: 8px 0 0; padding: 0 5px 0 0; max-height: 342px; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-width: thin; scrollbar-color: #697eab66 transparent; }
+#find-gg .find-gg-store { display: flex; gap: 12px; padding: 16px 0 12px; border-top: 1px solid #788bad29; min-width: 0; }
+#find-gg .find-gg-store > svg { width: 19px; height: 24px; margin-top: 1px; flex-shrink: 0; color: #57dff2; filter: drop-shadow(0 0 6px #53def744); }
+#find-gg .find-gg-store-info { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+#find-gg .find-gg-store-info h3 { margin: 0 0 5px; color: #e2ebfa; font: 400 13px/1.6 Arial, sans-serif; }
+#find-gg .find-gg-store-info p { margin: 0 0 5px; color: #afbed6; font-size: 11px; line-height: 1.7; }
+#find-gg .find-gg-store-links { display: flex; flex-wrap: wrap; gap: 0 16px; }
+#find-gg .find-gg-store-links a { display: inline-flex; align-items: center; min-height: 44px; color: #8fd9ef; font-size: 11px; line-height: 1.6; text-decoration: underline; text-underline-offset: 4px; }
+#find-gg .find-gg-online { padding-block: 12px; border-top: 1px solid #788bad29; }
+#find-gg .find-gg-online h3 { margin: 0 0 8px; color: #c0d2ec; font-size: 12px; }
+#find-gg .find-gg-online a { display: flex; align-items: center; min-height: 44px; color: #8fd9ef; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+
+/* One unchanged real pack, set into a lit foreground plinth. */
+#find-gg .find-gg-pack-accent { position: relative; height: 280px; margin: 8px 0 -20px; isolation: isolate; pointer-events: none; }
+#find-gg .find-gg-pack-accent::before { content: ''; position: absolute; inset: 20% 0 0; z-index: -1; background: radial-gradient(ellipse at 50% 70%, #8546c738, transparent 65%), radial-gradient(ellipse at 35% 60%, #23b9e51c, transparent 57%); }
+#find-gg .find-gg-pack-accent::after { content: ''; position: absolute; inset: auto 2% 10px; height: 22px; background: radial-gradient(ellipse, #020714cc, transparent 70%); }
+#find-gg .find-gg-pack-accent img { position: relative; z-index: 2; display: block; width: auto; height: 264px; max-width: 80%; margin-inline: auto; object-fit: contain; transform: rotate(19deg); filter: drop-shadow(-9px 9px 12px #020611b3) drop-shadow(2px 0 6px #7172bc3d); }
+#find-gg .find-gg-pack-plinth { position: absolute; bottom: 9px; left: 6%; width: 88%; height: 70px; border-bottom: 1px solid #845ec747; background: linear-gradient(135deg, #192b42, #080e20 36%, #242040 67%, #090d20); clip-path: polygon(0 84%, 15% 37%, 30% 47%, 42% 10%, 59% 35%, 75% 18%, 100% 73%, 100% 100%, 0 100%); }
+
+[dir='rtl'] #find-gg :is(.find-gg-kicker, .find-gg-field > label, .find-gg-search, .find-gg-details li, .find-gg-signature, .find-gg-directory-link) { letter-spacing: 0; }
+[dir='rtl'] #find-gg .find-gg-title { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(32px, 3.5vw, 50px); line-height: 1.45; letter-spacing: 0; }
+[dir='rtl'] #find-gg :is(.find-gg-search, .find-gg-store-info h3, .find-gg-results-top h2, .find-gg-results-top h3) { font-family: 'IBM Plex Sans Arabic', sans-serif; letter-spacing: 0; }
+[dir='rtl'] #find-gg .find-gg-map-art { direction: ltr; }
+[dir='rtl'] #find-gg :is(.find-gg-map-city, .find-gg-map-sea) { font-family: 'IBM Plex Sans Arabic', sans-serif; letter-spacing: 0; }
+[dir='rtl'] #find-gg .find-gg-results { padding: 0 0 0 5px; }
+
+@media (max-width: 1100px) {
+  #find-gg .find-gg-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 28px; }
+  #find-gg .find-gg-controls { padding-top: 20px; }
+  #find-gg .find-gg-map { height: 560px; margin: 0; }
+  #find-gg .find-gg-map-art { left: -15%; width: 125%; }
+  #find-gg .find-gg-right { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .8fr); align-items: center; gap: 24px; padding-top: 0; }
+  #find-gg .find-gg-pack-accent { margin: 0; }
+  #find-gg .find-gg-title { font-size: clamp(44px, 6.2vw, 64px); }
+  [dir='rtl'] #find-gg .find-gg-title { font-size: clamp(31px, 4.3vw, 43px); }
+}
+
+@media (max-width: 650px) {
+  #find-gg.find-gg-showcase { padding: 28px 20px 32px; }
+  #find-gg .find-gg-layout { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  #find-gg .find-gg-controls { padding: 0; }
+  #find-gg .find-gg-kicker { margin-bottom: 12px; font-size: 9px; }
+  #find-gg .find-gg-title { font-size: clamp(42px, 13vw, 60px); line-height: .98; }
+  #find-gg .find-gg-intro { margin: 14px 0 20px; max-width: none; font-size: 14px; }
+  #find-gg .find-gg-form { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 12px; }
+  #find-gg .find-gg-field select { font-size: 16px; min-height: 48px; padding-inline-start: 34px; padding-inline-end: 6px; }
+  #find-gg .find-gg-select-wrap > svg { inset-inline-start: 10px; width: 15px; height: 15px; }
+  #find-gg .find-gg-search { grid-column: 1 / -1; min-height: 46px; margin: 0; }
+  #find-gg .find-gg-details { margin-top: 22px; gap: 12px; }
+  #find-gg .find-gg-details li { font-size: 9px; gap: 6px; }
+  #find-gg .find-gg-details svg { width: 21px; height: 21px; }
+  #find-gg .find-gg-signature { margin-top: 18px; padding-top: 12px; }
+  #find-gg .find-gg-map { height: 360px; margin: 0; border: 1px solid #669cb438; border-radius: 12px; overflow: hidden; background: #07152a; }
+  #find-gg .find-gg-map-art { top: -12px; left: 0; width: 100%; height: calc(100% - 26px); mask-image: none; }
+  #find-gg .find-gg-map figcaption { bottom: 0; inset-inline: 0; margin: 0; padding: 10px 14px; font-size: 10px; background: #081327e8; }
+  #find-gg .find-gg-map-city { font-size: 23px; }
+  #find-gg .find-gg-map-sea { font-size: 17px; }
+  #find-gg .find-gg-right { display: block; grid-column: 1; }
+  #find-gg .find-gg-results-panel { padding: 20px 18px 10px; }
+  #find-gg .find-gg-results { max-height: 360px; }
+  #find-gg .find-gg-store-info h3 { font-size: 14px; }
+  #find-gg .find-gg-store-info p, #find-gg .find-gg-store-links a { font-size: 12px; }
+  #find-gg .find-gg-pack-accent { display: none; }
+  [dir='rtl'] #find-gg .find-gg-title { font-size: clamp(30px, 8.8vw, 42px); line-height: 1.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #find-gg .find-gg-search { transition: none; }
+}

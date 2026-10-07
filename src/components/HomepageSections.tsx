@@ -2,6 +2,8 @@ import type { CSSProperties, ReactNode } from 'react'
 import { Link } from 'react-router'
 import { useLanguage } from '../i18n/LanguageContext'
 import { homepageContent } from '../data/homepage'
+import { productWorldAssets } from '../data/productWorldAssets'
+import { featuredProductCopy, featuredProductDetails } from '../data/featuredProducts'
 import { familyWorlds, homepageMedia } from '../data/homepageVisuals'
 import { visualCopy } from '../data/visualCopy'
 import { pageTitles } from '../data/publicContent'
@@ -11,6 +13,8 @@ import { useCms } from '../cms/CmsProvider'
 import { cmsPublicCopy } from '../cms/copy'
 import ProductImage from './ProductImage'
 import VisualSlot from './VisualSlot'
+import StoreFinder from './StoreFinder'
+import '../styles/featured-products.css'
 
 export function useHomeFamilies() { return useCatalog().filter(family => family.isActive !== false) }
 export function worldStyle(family: ProductFamily): CSSProperties {
@@ -35,15 +39,44 @@ export function FeaturedProducts() {
   const homeFamilies = useHomeFamilies()
   const { language } = useLanguage()
   const c = homepageContent[language]
-  const v = visualCopy[language]
+  const copy = featuredProductCopy[language]
+
   return <section id="featured-products" className="gg-section gg-featured" aria-labelledby="featured-title">
-    <SectionHeading id="featured-title" label={c.featuredLabel} title={c.featured}>{c.featuredIntro}</SectionHeading>
-    <div className="gg-featured-grid">{homeFamilies.map((family, index) => <Link className="gg-featured-card" style={worldStyle(family)} to={`/products/${family.slug}`} key={family.id}>
-      <span className="gg-feature-index" aria-hidden="true">0{index + 1}</span>
-      <div className="gg-featured-title"><p className="gg-kicker">{v.family}</p><h3 dir="auto">{family.localizedName?.[language] ?? family.name}</h3><p>{v.flavours}</p></div>
-      <FamilyAsset family={family} />
-      <div className="gg-featured-action"><p>{v.flavourPending}</p><span className="gg-text-link">{c.viewFamily}<span aria-hidden="true">↗</span></span></div>
-    </Link>)}</div>
+    <SectionHeading id="featured-title" label={c.featuredLabel} title={c.featured} />
+    <div className="gg-featured-grid featured-picks-grid">
+      {productWorldAssets.map(asset => {
+        const family = homeFamilies.find(item => item.slug === asset.id)
+        const details = featuredProductDetails[asset.id]
+        if (!family || !details) return null
+
+        return <Link
+          className="featured-pick"
+          style={{ '--pick-accent': details.accent } as CSSProperties}
+          to={'/products/' + family.slug}
+          key={asset.id}
+        >
+          <div className="featured-pick-stage">
+            <img
+              className="featured-pick-pack"
+              src={asset.src}
+              alt={asset.family + ' ' + details.flavor[language]}
+              width={asset.width}
+              height={asset.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div className="featured-pick-copy">
+            <h3><bdi dir="ltr">{asset.family}</bdi></h3>
+            <p className="featured-pick-flavor">{details.flavor[language]}</p>
+            <span className="featured-pick-cta">
+              {copy.viewProduct}
+              <span className="featured-pick-arrow" aria-hidden="true">{language === 'ar' ? '↖' : '↗'}</span>
+            </span>
+          </div>
+        </Link>
+      })}
+    </div>
     <div id="rate-your-snack" className="gg-rating-entry"><p>{c.ratingHint}</p><Link className="gg-button gg-button-outline" to="/feedback">{c.rate}<span aria-hidden="true">↗</span></Link></div>
   </section>
 }
@@ -75,17 +108,5 @@ export function TournamentsTeaser({ showPageLink = true }: { showPageLink?: bool
 }
 
 export function FindGGTeaser() {
-  const { language } = useLanguage()
-  const c = homepageContent[language]
-  const v = visualCopy[language]
-  return <section id="find-gg" className="gg-section gg-find" aria-labelledby="find-title">
-    <div><SectionHeading id="find-title" label={c.find} title={c.find}>{c.findIntro}</SectionHeading>
-      <div className="gg-location-selectors"><label htmlFor="gg-city">{c.city}<select id="gg-city" disabled><option>{c.selectCity}</option></select></label><label htmlFor="gg-district">{c.district}<select id="gg-district" disabled><option>{c.selectDistrict}</option></select></label></div>
-      <Link className="gg-button gg-button-outline" to="/find-gg">{c.find}<span aria-hidden="true">↗</span></Link>
-    </div>
-    <div className="gg-store-preview gg-card">
-      <div className="gg-abstract-map" role="img" aria-label={v.map}><span className="gg-map-pin" aria-hidden="true">⌖</span><i /><i /></div>
-      <h3>{c.stores}</h3><p className="gg-body">{c.storesNote}</p>
-    </div>
-  </section>
+  return <StoreFinder />
 }

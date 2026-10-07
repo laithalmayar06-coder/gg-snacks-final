@@ -1,0 +1,82 @@
+/* Homepage only: the shared About page keeps its existing presentation. */
+#gg-universe.gg-story {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(56px, 7vw, 104px) clamp(20px, 5vw, 80px);
+  border-top: 1px solid #adc7e11a;
+  background: radial-gradient(ellipse at 15% 45%, #1336452b, transparent 55%), radial-gradient(ellipse at 85% 70%, #4532691a, transparent 50%), #080d17;
+}
+#gg-universe .story-layout { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(0, 1fr); align-items: center; gap: clamp(36px, 6vw, 88px); max-width: 1360px; margin-inline: auto; }
+#gg-universe .story-visual { position: relative; min-width: 0; margin: 0; isolation: isolate; }
+#gg-universe .story-visual::before { content: ''; position: absolute; inset: 12% -7% 4%; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 30% 60%, #47d3f016, transparent 55%), radial-gradient(ellipse at 80% 40%, #bd6bbd15, transparent 60%); filter: blur(16px); }
+#gg-universe .story-environment { position: relative; overflow: hidden; aspect-ratio: 9 / 8; border: 1px solid #aacce51a; border-top-color: #92d5ec38; clip-path: polygon(26px 0, 100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0 100%, 0 26px); background: radial-gradient(ellipse at 50% 42%, #31547438, transparent 52%), linear-gradient(130deg, #0c1825, #080d1a 65%, #1e1730); }
+#gg-universe .story-scene-image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+#gg-universe .story-logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 27%; height: 35%; object-fit: contain; filter: drop-shadow(0 12px 18px #0009) drop-shadow(-5px -2px 14px #69dafa26) drop-shadow(8px 6px 20px #a384e026); }
+#gg-universe .story-visual figcaption { display: flex; justify-content: space-between; gap: 16px; margin-top: 16px; color: #94a5bc; font-size: 10px; line-height: 1.8; letter-spacing: .1em; text-transform: uppercase; }
+#gg-universe .story-visual figcaption > span:last-child { flex-shrink: 0; color: #74849d; font-family: monospace; }
+#gg-universe .story-copy { min-width: 0; }
+#gg-universe .story-kicker { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; color: #82dbe9; font-size: 11px; line-height: 1.6; letter-spacing: .2em; }
+#gg-universe .story-kicker::before { content: ''; flex: 0 0 28px; height: 1px; background: #82dbe980; }
+#gg-universe .story-copy h2 { margin: 0; color: #edf5ff; font: 700 clamp(52px, 6.3vw, 88px)/1.02 'Barlow Condensed', sans-serif; letter-spacing: -.02em; }
+#gg-universe .story-subtitle { margin: 20px 0 0; color: #c1b5e7; font: 600 clamp(19px, 2.1vw, 27px)/1.3 'Barlow Condensed', sans-serif; letter-spacing: .12em; }
+#gg-universe .story-description { max-width: 490px; margin: 24px 0 30px; color: #aebbcf; font-size: 15px; line-height: 1.9; overflow-wrap: anywhere; white-space: pre-line; }
+#gg-universe .story-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; padding: 22px 0; margin: 0 0 30px; border-block: 1px solid #a8c3e322; gap: 18px; }
+#gg-universe .story-pillars li { display: flex; flex-direction: column; align-items: start; gap: 13px; min-width: 0; color: #d5deec; font-size: 13px; line-height: 1.6; }
+#gg-universe .story-pillar-description { color: #aebbcf; font-size: 12px; line-height: 1.65; margin-top: -5px; }
+#gg-universe .story-pillars svg { width: 25px; height: 25px; color: #91d1e7; }
+#gg-universe .story-pillars li:nth-child(2) svg { color: #b4a4e4; }
+#gg-universe .story-pillars li:nth-child(3) svg { color: #d5a0c7; }
+#gg-universe .story-cta { position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 24px; min-height: 44px; padding: 10px 0; border-bottom: 1px solid transparent; color: #e4f4ff; font-size: 11px; font-weight: 600; line-height: 1.6; letter-spacing: .06em; text-decoration: none; transition: color .2s, border-color .2s; }
+#gg-universe .story-cta::before { content: ''; position: absolute; inset: 0 -12px; z-index: -1; pointer-events: none; border: 1px solid transparent; border-radius: 3px; background: linear-gradient(120deg, #0c1825, #151328) padding-box, linear-gradient(110deg, #84defa80, #ab8ad980) border-box; box-shadow: -4px 0 14px #65dafa0c, 4px 0 14px #a98ae812; }
+#gg-universe .story-cta span { color: #92d8ea; font-size: 21px; line-height: 1; }
+#gg-universe .story-cta:hover { color: #9deaff; border-color: transparent; }
+#gg-universe .story-cta:focus-visible { outline: 2px solid #91e4f5; outline-offset: 6px; }
+[dir='rtl'] #gg-universe .story-copy h2 { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(36px, 4.7vw, 62px); line-height: 1.45; letter-spacing: 0; }
+[dir='rtl'] #gg-universe .story-subtitle { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(18px, 1.8vw, 24px); line-height: 1.6; letter-spacing: 0; }
+[dir='rtl'] #gg-universe :is(.story-kicker, .story-cta, .story-visual figcaption) { letter-spacing: 0; }
+[dir='rtl'] #gg-universe .story-cta span { transform: scaleX(-1); }
+@media (max-width: 900px) {
+  #gg-universe .story-layout { grid-template-columns: minmax(0, 1fr); gap: 38px; max-width: 660px; }
+  #gg-universe .story-environment { aspect-ratio: 6 / 5; }
+  #gg-universe .story-description { max-width: none; }
+}
+@media (max-width: 480px) {
+  #gg-universe .story-layout { gap: 30px; }
+  #gg-universe .story-pillars { gap: 12px; }
+  #gg-universe .story-pillars li { font-size: 12px; }
+  #gg-universe .story-visual figcaption { letter-spacing: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #gg-universe .story-cta { transition: none; }
+}
+
+@media (max-width: 900px) {
+  #gg-universe.gg-story { padding: 48px clamp(20px, 5vw, 36px); }
+  #gg-universe .story-environment { aspect-ratio: 4 / 3; }
+  #gg-universe .story-visual::before { inset-inline: 0; }
+  #gg-universe .story-layout { gap: 32px; }
+  #gg-universe .story-copy h2 { font-size: clamp(40px, 6.8vw, 52px); overflow-wrap: break-word; }
+  [dir='rtl'] #gg-universe .story-copy h2 { font-size: clamp(30px, 5.6vw, 40px); }
+  #gg-universe .story-cta { max-width: 100%; gap: 16px; padding-inline: 12px; white-space: normal; overflow-wrap: anywhere; }
+  #gg-universe .story-cta::before { inset-inline: 0; }
+  #gg-universe .story-cta > span { flex-shrink: 0; }
+  #gg-universe .story-pillars li { overflow-wrap: anywhere; }
+}
+@media (max-width: 600px) {
+  #gg-universe .story-description { font-size: 14px; line-height: 1.8; margin-block: 20px 24px; }
+  #gg-universe .story-pillars { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-block: 20px; margin-bottom: 24px; }
+  #gg-universe .story-pillars li { display: grid; grid-template-columns: 26px minmax(0, 1fr); align-items: center; gap: 4px 14px; font-size: 13px; }
+  #gg-universe .story-pillars svg { grid-column: 1; grid-row: 1 / span 2; }
+  #gg-universe .story-pillars li > span { grid-column: 2; }
+  #gg-universe .story-pillar-description { margin-top: 0; font-size: 13px; }
+}
+
+@media (max-width: 600px) {
+  #gg-universe.gg-story { padding-block: 36px 40px; }
+  #gg-universe .story-layout { gap: 26px; }
+  #gg-universe .story-environment { aspect-ratio: 4 / 3; }
+  #gg-universe .story-scene-image { object-position: center top; }
+  #gg-universe .story-kicker { margin-bottom: 14px; }
+  #gg-universe .story-subtitle { margin-top: 16px; }
+  #gg-universe .story-description { margin-block: 18px 22px; }
+}

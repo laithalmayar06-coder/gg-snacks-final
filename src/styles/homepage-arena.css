@@ -1,0 +1,151 @@
+/* Homepage only. The standalone Arena teaser keeps its existing presentation. */
+#gg-arena.arena-showcase {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(40px, 5vw, 76px) clamp(20px, 5vw, 80px);
+  border-block: 1px solid #7585ad24;
+  background:
+    radial-gradient(ellipse at 78% 47%, #40256140, transparent 49%),
+    radial-gradient(ellipse at 40% 75%, #063e4f33, transparent 50%),
+    linear-gradient(120deg, #080d18, #070a14 55%, #0e0b1c);
+}
+
+.arena-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(118deg, transparent 60%, #a778ff08 60.1%, transparent 60.3%);
+  pointer-events: none;
+}
+
+.arena-showcase .arena-showcase-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  grid-template-areas: 'heading scene' 'details scene';
+  grid-template-rows: 1fr 1fr;
+  column-gap: clamp(24px, 3vw, 48px);
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+}
+
+.arena-showcase .arena-showcase-heading { grid-area: heading; align-self: end; min-width: 0; position: relative; z-index: 2; }
+.arena-showcase .arena-showcase-kicker { display: flex; align-items: center; gap: 12px; margin: 0 0 22px; color: #a9cee1; font-size: 11px; line-height: 1.6; font-weight: 600; letter-spacing: .18em; }
+.arena-showcase .arena-showcase-kicker::before { content: ''; width: 28px; height: 1px; flex-shrink: 0; background: #65e5ff; box-shadow: 0 0 10px #65e5ff66; }
+.arena-showcase .arena-showcase-heading h2 {
+  margin: 0;
+  font: 800 clamp(68px, 7.3vw, 112px)/.95 'Barlow Condensed', sans-serif;
+  letter-spacing: -.025em;
+  color: #eff7ff;
+  text-shadow: 0 5px 30px #9bcced14;
+}
+.arena-showcase .arena-showcase-tagline { margin: 20px 0 0; font: 700 clamp(25px, 2.8vw, 42px)/1.15 'Barlow Condensed', sans-serif; letter-spacing: .035em; color: #84eaff; }
+.arena-showcase .arena-showcase-details { grid-area: details; align-self: start; min-width: 0; padding-top: 22px; position: relative; z-index: 2; }
+.arena-showcase .arena-showcase-description { max-width: 330px; margin: 0 0 28px; color: #b3bfd2; font-size: 16px; line-height: 1.75; }
+.arena-showcase .arena-showcase-status { display: inline-flex; align-items: center; gap: 14px; max-width: 100%; min-height: 52px; padding: 14px 20px; border: 1px solid #8bcbeb66; border-inline-end-color: #b28aef77; background: linear-gradient(115deg, #3dbbe012, #9f5ce313); color: #e5f6ff; font-size: 12px; font-weight: 600; line-height: 1.6; letter-spacing: .12em; box-shadow: inset 0 1px #c5e7ff0b, 0 0 24px #7055bf0b; transition: border-color .25s ease, background-color .25s ease; }
+.arena-showcase .arena-showcase-status:hover { border-color: #91e9ff; background-color: #93caff0c; }
+.arena-showcase .arena-showcase-status:focus-visible { outline: 2px solid #91e9ff; outline-offset: 5px; }
+.arena-showcase .arena-status-light { flex: 0 0 5px; width: 5px; height: 5px; border-radius: 50%; background: #82e9ff; box-shadow: 0 0 10px #68dfff66; }
+.arena-showcase .arena-status-arrow { margin-inline-start: 12px; font-size: 20px; line-height: 1; }
+
+/* A contained environment leaves room for a future dedicated Arena visual. */
+.arena-showcase .arena-scene { grid-area: scene; position: relative; isolation: isolate; min-width: 0; height: clamp(480px, 43vw, 570px); direction: ltr; pointer-events: none; }
+.arena-showcase .arena-scene-haze { position: absolute; inset: 4% -5% 0; background: radial-gradient(ellipse at 27% 52%, #26cfea23, transparent 43%), radial-gradient(ellipse at 76% 48%, #b341e42d, transparent 47%); }
+.arena-showcase .arena-scene-architecture { position: absolute; inset: 6% 3% 14%; perspective: 700px; opacity: .55; }
+.arena-showcase .arena-scene-architecture span { position: absolute; inset: 4% 15%; border: 1px solid #7295c328; border-inline-start-color: #6bd9f04d; border-inline-end-color: #b48ef15c; transform: rotateY(-18deg) skewY(-6deg); }
+.arena-showcase .arena-scene-architecture span:nth-child(2) { inset: 12% 7%; opacity: .45; }
+.arena-showcase .arena-scene-architecture span:nth-child(3) { inset: 21% 0; opacity: .2; }
+.arena-showcase .arena-scene-floor { position: absolute; inset: auto 0 0; width: 100%; height: auto; aspect-ratio: 760 / 560; overflow: visible; }
+.arena-showcase .arena-floor-grid { stroke: #7299b724; stroke-width: 1; }
+.arena-showcase .arena-floor-shadow { fill: #0009; }
+.arena-showcase .arena-floor-edge { fill: #0a1424; stroke: #8f9ad14d; }
+.arena-showcase .arena-floor-top { fill: #14243f88; stroke: #8fceef55; }
+.arena-showcase .arena-floor-cyan { stroke: #65dfff; stroke-width: 2; filter: drop-shadow(0 0 5px #4ee9ff); }
+.arena-showcase .arena-floor-violet { stroke: #c975ed; stroke-width: 2; filter: drop-shadow(0 0 5px #d555eb); }
+
+.arena-showcase .arena-device {
+  position: absolute;
+  z-index: 2;
+  left: 43%;
+  bottom: 14%;
+  width: clamp(204px, 18vw, 250px);
+  aspect-ratio: .56;
+  padding: 9px;
+  border: 1px solid #adc9ec9c;
+  border-inline-start: 3px solid #80c5dc;
+  border-radius: 29px;
+  background: linear-gradient(130deg, #506b83, #121d30 16%, #060b15 73%, #817094);
+  box-shadow: 9px 8px 0 -2px #0a0d1a, 10px 8px 0 -1px #8264a370, -4px 0 22px #4bdbf023, 13px 9px 36px #000a;
+  transform: translateX(-50%) perspective(900px) rotateY(-14deg) rotateZ(-7deg);
+}
+.arena-showcase .arena-device-screen { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; overflow: hidden; border: 1px solid #5ca9c744; border-radius: 20px; background: radial-gradient(ellipse at 35% 45%, #14425280, transparent 64%), radial-gradient(ellipse at 90% 80%, #49306355, transparent 65%), #070d19; }
+.arena-showcase .arena-device-screen::after { content: ''; position: absolute; inset: 0; background: linear-gradient(122deg, #e1f5ff13, transparent 26% 55%, #d6c5ff09 55.3%, transparent 68%); pointer-events: none; }
+.arena-showcase .arena-device-speaker { position: absolute; top: 12px; width: 24%; height: 4px; border-radius: 4px; background: #020712; box-shadow: 0 1px #87a2b633; }
+.arena-showcase .arena-device-title { margin: 22px 10px 10px; color: #b4d9e8; font: 700 18px/1.5 'Barlow Condensed', sans-serif; letter-spacing: .12em; text-align: center; }
+.arena-showcase .arena-device-scan { position: relative; display: grid; place-items: center; width: 87%; aspect-ratio: 1; }
+.arena-showcase .arena-scan-frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+.arena-showcase .arena-scan-corners { stroke: #8ae8f6; stroke-width: 1.5; }
+.arena-showcase .arena-scan-guides { stroke: #b190e88c; stroke-width: 1; }
+.arena-showcase .arena-scan-arc { stroke: #82a3dd38; stroke-width: 1; }
+.arena-showcase .arena-device-logo { position: relative; width: 48%; height: auto; object-fit: contain; filter: drop-shadow(0 0 13px #63d5ed38); }
+.arena-showcase .arena-scan-light { position: absolute; inset: 68% 7% auto; height: 1px; background: linear-gradient(90deg, transparent, #7aebffbb, transparent); box-shadow: 0 -6px 16px 4px #60dfff14; }
+.arena-showcase .arena-device-status { margin-top: 18px; padding: 6px 10px; border-block: 1px solid #9ec3e329; color: #c3dbef; font-size: 9px; letter-spacing: .16em; line-height: 1.6; text-align: center; }
+.arena-showcase .arena-device-baseline { position: absolute; bottom: 12px; width: 26%; height: 2px; border-radius: 2px; background: #b5c7dc44; }
+.arena-showcase .arena-device-reflection { position: absolute; left: 22%; right: 30%; bottom: 6%; height: 17%; background: linear-gradient(180deg, #78cfe722, #9786e40a, transparent); clip-path: polygon(10% 0, 87% 0, 100% 100%, 0 100%); filter: blur(8px); opacity: .6; }
+.arena-showcase .arena-pack-stage { position: absolute; z-index: 3; left: 64%; bottom: 12%; height: 65%; max-width: 29%; }
+.arena-showcase .arena-pack-stage::before { content: ''; position: absolute; bottom: -8px; inset-inline: -35%; height: 25px; border-radius: 50%; background: radial-gradient(ellipse, #000c 10%, #73ccec16 52%, transparent 72%); }
+.arena-showcase .arena-pack-stage img { position: relative; display: block; width: auto; height: 100%; max-width: 100%; object-fit: contain; transform: rotate(7deg); transform-origin: 50% 95%; filter: drop-shadow(-7px 12px 10px #0009) drop-shadow(2px 0 4px #9b6ee622); }
+.arena-showcase .arena-scene-glint { position: absolute; width: 34px; height: 1px; }
+.arena-showcase .arena-scene-glint::after { content: ''; position: absolute; left: 50%; top: -6px; width: 1px; height: 13px; background: inherit; }
+.arena-showcase .arena-scene-glint-cyan { left: 15%; top: 25%; background: #84e3fa6b; }
+.arena-showcase .arena-scene-glint-violet { right: 8%; top: 19%; background: #d196ed66; }
+
+[dir='rtl'] .arena-showcase .arena-showcase-kicker,
+[dir='rtl'] .arena-showcase .arena-showcase-status { letter-spacing: 0; }
+[dir='rtl'] .arena-showcase .arena-showcase-heading h2 { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(44px, 5.1vw, 76px); line-height: 1.35; letter-spacing: 0; }
+[dir='rtl'] .arena-showcase .arena-showcase-tagline { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.6; letter-spacing: 0; margin-top: 12px; }
+[dir='rtl'] .arena-showcase .arena-device-title { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 15px; letter-spacing: 0; }
+[dir='rtl'] .arena-showcase .arena-device-status { letter-spacing: 0; font-size: 11px; }
+
+@media (max-width: 900px) {
+  .arena-showcase .arena-showcase-layout { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 18px; }
+  .arena-showcase .arena-showcase-heading h2 { font-size: 64px; }
+  .arena-showcase .arena-showcase-tagline { font-size: 29px; }
+  .arena-showcase .arena-scene { height: 440px; }
+  .arena-showcase .arena-device { width: 182px; left: 40%; }
+  .arena-showcase .arena-pack-stage { height: 59%; left: 65%; }
+  [dir='rtl'] .arena-showcase .arena-showcase-heading h2 { font-size: 42px; }
+  [dir='rtl'] .arena-showcase .arena-showcase-tagline { font-size: 23px; }
+}
+
+@media (max-width: 600px) {
+  #gg-arena.arena-showcase { padding: 32px 20px; background: radial-gradient(ellipse at 18% 48%, #10404b44, transparent 48%), radial-gradient(ellipse at 86% 48%, #48215f44, transparent 52%), #080c17; }
+  .arena-showcase .arena-showcase-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: 'heading' 'scene' 'details'; gap: 14px; }
+  .arena-showcase .arena-showcase-heading { text-align: center; }
+  .arena-showcase .arena-showcase-kicker { justify-content: center; font-size: 10px; margin-bottom: 12px; }
+  .arena-showcase .arena-showcase-kicker::before { width: 20px; }
+  .arena-showcase .arena-showcase-heading h2 { font-size: clamp(52px, 15vw, 68px); }
+  .arena-showcase .arena-showcase-tagline { margin-top: 12px; font-size: clamp(25px, 7vw, 31px); }
+  .arena-showcase .arena-scene { height: clamp(310px, 84vw, 360px); width: 100%; max-width: 430px; justify-self: center; }
+  .arena-showcase .arena-device { width: clamp(148px, 40vw, 174px); bottom: 13%; left: 42%; padding: 7px; border-radius: 22px; transform: translateX(-50%) perspective(900px) rotateY(-9deg) rotateZ(-5deg); }
+  .arena-showcase .arena-device-screen { border-radius: 15px; }
+  .arena-showcase .arena-device-title { margin-top: 18px; margin-bottom: 4px; font-size: 15px; }
+  .arena-showcase .arena-device-status { margin-top: 12px; font-size: 8px; }
+  .arena-showcase .arena-device-reflection { bottom: 5%; height: 13%; }
+  .arena-showcase .arena-pack-stage { height: 68%; left: 67%; bottom: 12%; max-width: 26%; }
+  .arena-showcase .arena-scene-architecture { inset: 4% 1% 10%; opacity: .42; }
+  .arena-showcase .arena-scene-architecture span:nth-child(3) { display: none; }
+  .arena-showcase .arena-showcase-details { padding-top: 0; text-align: center; }
+  .arena-showcase .arena-showcase-description { margin: 0 auto 16px; font-size: 14px; }
+  .arena-showcase .arena-showcase-status { min-height: 46px; padding: 11px 17px; font-size: 11px; }
+  [dir='rtl'] .arena-showcase .arena-showcase-heading h2 { font-size: clamp(36px, 10.5vw, 46px); }
+  [dir='rtl'] .arena-showcase .arena-showcase-tagline { font-size: 23px; margin-top: 8px; }
+  [dir='rtl'] .arena-showcase .arena-device-title { font-size: 12px; }
+  [dir='rtl'] .arena-showcase .arena-device-status { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arena-showcase .arena-showcase-status { transition: none; }
+}
