@@ -1,26 +1,13 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import gsap from 'gsap'
 import { Link } from 'react-router'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useHomeFamilies } from './HomepageSections'
 import { productWorldThemes, worldCoreAssets, worldSelectorCopy, WORLD_ROTATION_MS, type ProductWorldTheme } from '../data/productWorldSelector'
+import { getWorldDelivery, getWorldThumbnail, WORLD_MOBILE_QUERY } from '../data/productWorldDelivery'
+import { prepareWorldImages, preloadWorldImages, rememberWorldImage, releaseWorldImages } from '../lib/productWorldImages'
+import { createWorldSelection } from '../lib/productWorldSelection'
 import '../styles/world-portals.css'
-
-// Decode the requested artwork before switching, so slow connections keep the current scene.
-const preparedImages = new Map<string, Promise<void>>()
-function prepareImage(src: string) {
-  let pending = preparedImages.get(src)
-  if (!pending) {
-    pending = new Promise<void>((resolve, reject) => {
-      const image = new Image()
-      image.onload = () => { image.decode().then(resolve, reject) }
-      image.onerror = () => reject(new Error('Product world asset unavailable'))
-      image.src = src
-    }).catch(error => { preparedImages.delete(src); throw error })
-    preparedImages.set(src, pending)
-  }
-  return pending
-}
 
 export default function ProductWorlds() {
   const families = useHomeFamilies()
@@ -33,9 +20,11 @@ export default function ProductWorlds() {
 function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; language: 'en' | 'ar' }) {
   const root = useRef<HTMLElement>(null)
   const alive = useRef(true)
-  const busy = useRef(false)
+  const selection = useRef(createWorldSelection())
   const canRotate = useRef(false)
   const idle = useRef<gsap.core.Tween[]>([])
+  const preloadAbort = useRef<AbortController | null>(null)
+  const [mobile, setMobile] = useState(() => typeof window !== 'undefined' && window.matchMedia(WORLD_MOBILE_QUERY).matches)
   const [active, setActive] = useState(0)
   const [previous, setPrevious] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
@@ -52,6 +41,7 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
   const [reduced, setReduced] = useState(() => typeof window === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const c = worldSelectorCopy[language]
   const world = worlds[active]
+  const delivery = useMemo(() => worlds.map(item => getWorldDelivery(item, mobile)), [worlds, mobile])
   const running = visible && pageVisible && !paused && !hovered && !focused && !touchingSelectors && !reduced && !error
   canRotate.current = running
   const slides = previous === null ? [active] : [previous, active]
@@ -59,6 +49,10 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
   useEffect(() => {
     alive.current = true
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const breakpoint = window.matchMedia(WORLD_MOBILE_QUERY)
+    const syncBreakpoint = () => setMobile(breakpoint.matches)
+    syncBreakpoint()
+    breakpoint.addEventListener('change', syncBreakpoint)
     const syncMotion = () => setReduced(motion.matches)
     const syncPage = () => setPageVisible(!document.hidden)
     syncMotion(); syncPage()
@@ -71,6 +65,9 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
     if (root.current) { preload.observe(root.current); viewport.observe(root.current) }
     return () => {
       alive.current = false
+      preloadAbort.current?.abort()
+      releaseWorldImages()
+      breakpoint.removeEventListener('change', syncBreakpoint)
       preload.disconnect(); viewport.disconnect()
       motion.removeEventListener('change', syncMotion)
       document.removeEventListener('visibilitychange', syncPage)
@@ -79,19 +76,25 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
 
   const choose = useCallback(async (index: number, manual = true) => {
     if (manual) setInteraction(value => value + 1)
-    if (busy.current || index === active || worlds.length < 2) return
-    busy.current = true
+    if (worlds.length < 2 || !selection.current.request(index, manual)) return
+    preloadAbort.current?.abort()
     setLoading(true); setError(false)
     try {
       const next = worlds[index]
-      await Promise.all([next.pack, ...next.food.map(food => food.src)].map(prepareImage))
+      let preparedForMobile: boolean
+      do {
+        preparedForMobile = window.matchMedia(WORLD_MOBILE_QUERY).matches
+        await prepareWorldImages(getWorldDelivery(next, preparedForMobile).sources)
+        if (!alive.current) return
+      } while (preparedForMobile !== window.matchMedia(WORLD_MOBILE_QUERY).matches)
       if (!alive.current) return
-      if (!manual && !canRotate.current) { busy.current = false; setLoading(false); return }
+      if (!manual && !canRotate.current) { selection.current.finish(); setLoading(false); return }
+      selection.current.commit(index)
       setPrevious(active); setActive(index); setLoading(false)
       if (manual) setAnnouncement(next.name)
     } catch {
       if (alive.current) { setLoading(false); setError(true) }
-      busy.current = false
+      selection.current.finish()
     }
   }, [active, worlds])
 
@@ -100,6 +103,30 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
     const timer = window.setTimeout(() => { void choose((active + 1) % worlds.length, false) }, WORLD_ROTATION_MS)
     return () => window.clearTimeout(timer)
   }, [running, loading, active, choose, worlds.length, interaction])
+
+  // Drain after React removes the outgoing scene, never inside a running timeline.
+  useEffect(() => {
+    if (loading || previous !== null) return
+    const requested = selection.current.takePending()
+    if (requested !== null) void choose(requested)
+  }, [loading, previous, interaction, choose])
+
+  // Wait for the visible scene, then prepare only the next family, one image at a time.
+  useEffect(() => {
+    if (!near || !visible || !pageVisible || loading || previous !== null || worlds.length < 2) return
+    const controller = new AbortController()
+    preloadAbort.current = controller
+    const images = root.current?.querySelectorAll<HTMLImageElement>(
+      `.pw-background, .pw-hologram img, [data-world-slide="${world.id}"] img`,
+    )
+    if (!images?.length) return () => controller.abort()
+    void Promise.all(Array.from(images, image => rememberWorldImage(image, controller.signal))).then(async () => {
+      if (!controller.signal.aborted) {
+        await preloadWorldImages(getWorldDelivery(worlds[(active + 1) % worlds.length], mobile).sources, controller.signal)
+      }
+    }).catch(() => { /* A speculative load failure must not interrupt the current scene. */ })
+    return () => controller.abort()
+  }, [near, visible, pageVisible, loading, previous, active, mobile, world.id, worlds])
 
   // Keep the active mobile selector visible without scrolling the page vertically.
   useEffect(() => {
@@ -121,7 +148,7 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
     const context = gsap.context(() => {
       const select = gsap.utils.selector(root)
       const current = `[data-world-slide="${world.id}"]`
-      const complete = () => { if (previous !== null) { busy.current = false; setPrevious(null) } }
+      const complete = () => { if (previous !== null) { selection.current.finish(); setPrevious(null) } }
       if (reduced) { complete(); return }
       const timeline = gsap.timeline({ defaults: { ease: 'power2.out' }, onComplete: complete })
       if (previous !== null) {
@@ -129,7 +156,12 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
         timeline.to(select(`${outgoing} .pw-pack-reveal`), { opacity: 0, y: -12 * travel, scale: .97, duration: .28 }, 0)
           .to(select(`${outgoing} .pw-food-reveal`), { opacity: 0, y: -8 * travel, duration: .25, stagger: .03 }, 0)
           .to(select(`.pw-info${outgoing}`), { opacity: 0, y: -6 * travel, duration: .2 }, 0)
-          .fromTo(root.current, { '--pw-accent': worlds[previous].accent, '--pw-secondary': worlds[previous].secondary, '--pw-hue': worlds[previous].hue }, { '--pw-accent': world.accent, '--pw-secondary': world.secondary, '--pw-hue': world.hue, duration: .7 }, 0)
+        // Each layer's gradients/filters are fixed. Only opacity changes per frame.
+        // Keep the old opaque environment underneath to avoid dimming the chamber.
+        timeline.fromTo(select(`.pw-environment-layer[data-world-light="${world.id}"]`), { opacity: 0 }, { opacity: 1, duration: .7 }, 0)
+          .to(select(`.pw-hologram [data-world-light="${worlds[previous].id}"]`), { opacity: 0, duration: .7 }, 0)
+          .fromTo(select(`.pw-hologram [data-world-light="${world.id}"]:not(.pw-hologram-energy)`), { opacity: 0 }, { opacity: 1, duration: .7 }, 0)
+          .fromTo(select(`.pw-hologram-energy[data-world-light="${world.id}"]`), { opacity: 0 }, { opacity: .68, duration: .7 }, 0)
       }
       const start = previous === null ? 0 : .22
       timeline.fromTo(select(`${current} .pw-pack-reveal`), { opacity: 0, y: 18 * travel, scale: .965 }, { opacity: 1, y: 0, scale: 1, duration: .65 }, start)
@@ -141,7 +173,11 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
   }, [active, reduced, world.id, world.accent, world.secondary, world.hue])
 
   useLayoutEffect(() => {
-    if (!near || reduced) return
+    if (!near) return
+    if (reduced) {
+      gsap.set(root.current!.querySelectorAll('.pw-pack-float, .pw-food-float'), { clearProps: 'transform' })
+      return
+    }
     const drift = window.matchMedia('(max-width: 767px)').matches ? .7 : 1
     const context = gsap.context(() => {
       idle.current = [gsap.to(root.current!.querySelectorAll(`[data-world-slide="${world.id}"] .pw-pack-float`), { y: -7 * drift, duration: 4.2, repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true })]
@@ -149,7 +185,8 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
         idle.current.push(gsap.to(item, { y: (index % 2 ? 5 : -6) * drift, x: (index % 2 ? -3 : 3) * drift, rotation: (index % 2 ? -1.4 : 1.2) * drift, duration: 4.4 + index * .7, repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true }))
       })
     }, root)
-    return () => { context.revert(); idle.current = [] }
+    // Stop the outgoing float at its current pose instead of snapping it to zero.
+    return () => { context.kill(false); idle.current = [] }
   }, [active, near, reduced, world.id])
 
   useEffect(() => {
@@ -157,17 +194,19 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
   }, [running, active, near, reduced])
 
   return <section ref={root} id="product-worlds" className="gg-section world-showcase" dir={language === 'ar' ? 'rtl' : 'ltr'}
-    aria-labelledby="worlds-title" aria-roledescription={c.carousel}
+    aria-labelledby="worlds-title" aria-roledescription={c.carousel} data-transitioning={previous !== null ? true : undefined}
     style={{ '--pw-accent': world.accent, '--pw-secondary': world.secondary, '--pw-hue': world.hue } as CSSProperties}
     onPointerEnter={event => { if (event.pointerType === 'mouse') setHovered(true) }} onPointerLeave={() => setHovered(false)}
     onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false) }}>
-    {near && <img className="pw-background" src={worldCoreAssets.background} width={1916} height={821} alt="" decoding="async" />}
-    <div className="pw-ambient" aria-hidden="true">
-      <span className="pw-environment-lines" />
-      <span className="pw-environment-signals" />
-      <span className="pw-environment-haze" />
-      <span className="pw-environment-floor" />
-    </div>
+    {slides.map(index => <div className="pw-environment-layer" data-world-light={worlds[index].id} key={worlds[index].id} style={themeStyle(worlds[index])} aria-hidden="true">
+      {near && <img className="pw-background" src={worldCoreAssets.background} width={1916} height={821} alt="" decoding="async" />}
+      <div className="pw-ambient">
+        <span className="pw-environment-lines" />
+        <span className="pw-environment-signals" />
+        <span className="pw-environment-haze" />
+        <span className="pw-environment-floor" />
+      </div>
+    </div>)}
     <div className="pw-layout">
       <header className="pw-heading">
         <p className="pw-eyebrow">{c.eyebrow}</p>
@@ -177,20 +216,20 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
       </header>
       <div className="pw-stage" aria-hidden="true" dir="ltr">
         <div className="pw-hologram">
-          {near && <><img src={worldCoreAssets.hologram} width={1672} height={941} alt="" decoding="async" /><img className="pw-hologram-energy" src={worldCoreAssets.hologram} width={1672} height={941} alt="" decoding="async" /></>}
-          <span className="pw-platform-glow" />
+          {near && <img src={worldCoreAssets.hologram} width={1672} height={941} alt="" decoding="async" />}
+          {slides.map(index => <HologramLight key={worlds[index].id} world={worlds[index]} near={near} />)}
         </div>
-        {slides.map(index => <div className="pw-visual" data-world-slide={worlds[index].id} key={worlds[index].id}>
-          <div className="pw-pack-position"><div className="pw-pack-reveal"><div className="pw-pack-float">{near && <img src={worlds[index].pack} width={941} height={1672} alt="" decoding="async" />}</div></div></div>
-          {worlds[index].food.map(food => <div className={`pw-food pw-food-${food.slot}`} key={food.src}><div className="pw-food-reveal"><div className="pw-food-float">{near && (worlds[index].id === 'x-stix' && food.slot === 'main' ? <picture style={{ display: 'contents' }}>
-            <source media="(max-width: 767px)" srcSet="/product-world/x-stix/sticks-scatter.png" width={1254} height={1254} />
-            <img src={food.src} width={food.width} height={food.height} alt="" decoding="async" />
-          </picture> : <img src={food.src} width={food.width} height={food.height} alt="" decoding="async" />)}</div></div></div>)}
+        {slides.map(index => <div className="pw-visual" data-world-slide={worlds[index].id} key={worlds[index].id} style={themeStyle(worlds[index])}>
+          <div className="pw-pack-position"><div className="pw-pack-reveal"><div className="pw-pack-float">{near && <img src={delivery[index].pack} width={941} height={1672} alt="" decoding="async" />}</div></div></div>
+          {worlds[index].food.map((food, foodIndex) => {
+            const image = delivery[index].food[foodIndex]
+            return <div className={`pw-food pw-food-${food.slot}`} key={food.src}><div className="pw-food-reveal"><div className="pw-food-float">{near && image && <img src={image.src} width={image.width} height={image.height} alt="" decoding="async" />}</div></div></div>
+          })}
         </div>)}
       </div>
       <div className="pw-details" aria-live="off">
         <div className="pw-info-stack">
-          {slides.map(index => <div className="pw-info" data-world-slide={worlds[index].id} key={worlds[index].id} inert={index !== active} aria-hidden={index !== active ? true : undefined}>
+          {slides.map(index => <div className="pw-info" data-world-slide={worlds[index].id} key={worlds[index].id} style={themeStyle(worlds[index])} inert={index !== active} aria-hidden={index !== active ? true : undefined}>
             <p className="pw-index" dir="ltr"><strong>{String(index + 1).padStart(2, '0')}</strong><span>/ {String(worlds.length).padStart(2, '0')}</span></p>
             <h3 dir="ltr">{worlds[index].name}</h3>
             <p className="pw-description">{worlds[index].description[language]}</p>
@@ -199,8 +238,8 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
         </div>
         <div className="pw-controls">
           <div className="pw-arrows" dir="ltr">
-            <button type="button" aria-label={c.previous} aria-disabled={loading || previous !== null || worlds.length < 2} onClick={() => { void choose((active - 1 + worlds.length) % worlds.length) }}>←</button>
-            <button type="button" aria-label={c.next} aria-disabled={loading || previous !== null || worlds.length < 2} onClick={() => { void choose((active + 1) % worlds.length) }}>→</button>
+            <button type="button" aria-label={c.previous} aria-disabled={worlds.length < 2} onClick={() => { void choose((selection.current.requested - 1 + worlds.length) % worlds.length) }}>←</button>
+            <button type="button" aria-label={c.next} aria-disabled={worlds.length < 2} onClick={() => { void choose((selection.current.requested + 1) % worlds.length) }}>→</button>
           </div>
           {!reduced && worlds.length > 1 && <button className="pw-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▶' : 'Ⅱ'}</span>{paused ? c.play : c.pause}</button>}
         </div>
@@ -211,12 +250,24 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
       onTouchStart={() => { if (window.matchMedia('(max-width: 767px)').matches) { canRotate.current = false; setTouchingSelectors(true) } }}
       onTouchEnd={() => { if (touchingSelectors) { setTouchingSelectors(false); setInteraction(value => value + 1) } }}
       onTouchCancel={() => { if (touchingSelectors) { setTouchingSelectors(false); setInteraction(value => value + 1) } }}>
-      {worlds.map((item, index) => <button className="pw-selector" type="button" key={item.id} aria-pressed={active === index} aria-label={`${String(index + 1).padStart(2, '0')} / ${item.name}`} aria-disabled={loading || previous !== null} onClick={() => { void choose(index) }} style={{ '--selector-accent': item.accent } as CSSProperties}>
+      {worlds.map((item, index) => <button className="pw-selector" type="button" key={item.id} aria-pressed={active === index} aria-label={`${String(index + 1).padStart(2, '0')} / ${item.name}`} onClick={() => { void choose(index) }} style={{ '--selector-accent': item.accent } as CSSProperties}>
         <span className="pw-selector-number" aria-hidden="true">0{index + 1}</span>
         <span className="pw-selector-copy"><strong dir="ltr">{item.name}</strong><span className="pw-selected-label" aria-hidden="true">{active === index ? c.selected : '—'}</span></span>
-        <img src={item.pack} alt="" width={941} height={1672} loading="lazy" decoding="async" />
+        <img src={getWorldThumbnail(item)} alt="" width={941} height={1672} loading="lazy" decoding="async" />
       </button>)}
     </div>
     <span className="pw-sr-only" role="status">{announcement}</span>
   </section>
+}
+function themeStyle(world: ProductWorldTheme): CSSProperties {
+  return { '--pw-accent': world.accent, '--pw-secondary': world.secondary, '--pw-hue': world.hue } as CSSProperties
+}
+
+function HologramLight({ world, near }: { world: ProductWorldTheme; near: boolean }) {
+  const style = themeStyle(world)
+  return <>
+    <span className="pw-floor-light" data-world-light={world.id} style={style} />
+    {near && <img className="pw-hologram-energy" data-world-light={world.id} style={style} src={worldCoreAssets.hologram} width={1672} height={941} alt="" decoding="async" />}
+    <span className="pw-platform-glow" data-world-light={world.id} style={style} />
+  </>
 }

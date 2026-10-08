@@ -1,0 +1,488 @@
+[
+  {
+    "source": "public/product-world/pop-g/pack.png",
+    "bytes": 1818451,
+    "width": 941,
+    "height": 1672,
+    "sha256": "96a5a7d83de202891aeac62a52bd076877792c8b0eda21fb2a18a86a575e93df",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/pop-g/pack-desktop.webp",
+        "bytes": 1016730,
+        "width": 810,
+        "height": 1440,
+        "transparentPixels": 388878,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/pop-g/pack-mobile.webp",
+        "bytes": 654698,
+        "width": 630,
+        "height": 1120,
+        "transparentPixels": 235536,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "thumb",
+        "path": "public/product-world/web/pop-g/pack-thumb.webp",
+        "bytes": 46792,
+        "width": 135,
+        "height": 240,
+        "transparentPixels": 10226,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/pop-g/popcorn-main.png",
+    "bytes": 1877553,
+    "width": 1242,
+    "height": 1266,
+    "sha256": "1e352174a7df107e9e6474d95e1adc7b143584a7717221a31479b5d2356175f2",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/pop-g/popcorn-main-desktop.webp",
+        "bytes": 432862,
+        "width": 640,
+        "height": 652,
+        "transparentPixels": 147969,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/pop-g/popcorn-main-mobile.webp",
+        "bytes": 232328,
+        "width": 448,
+        "height": 457,
+        "transparentPixels": 72499,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/pop-g/popcorn-scatter.png",
+    "bytes": 1864667,
+    "width": 1122,
+    "height": 1402,
+    "sha256": "36e20ec9f982600bffd4c86aae87bcd04cfbafbbbadad56048d410f8e132f65a",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/pop-g/popcorn-scatter-desktop.webp",
+        "bytes": 525272,
+        "width": 640,
+        "height": 800,
+        "transparentPixels": 219502,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/pop-g/popcorn-scatter-mobile.webp",
+        "bytes": 284382,
+        "width": 448,
+        "height": 560,
+        "transparentPixels": 108581,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/trigger/chili.png",
+    "bytes": 754955,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "c01e62a014fbf10a542f90a2da4b24b1e14b09907b9610fb0fc2982000393d7d",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/trigger/chili-desktop.webp",
+        "bytes": 157020,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 312084,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/trigger/chili-mobile.webp",
+        "bytes": 83130,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 152462,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/trigger/crumbs.png",
+    "bytes": 954583,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "06e8c147f3a547fb94ef50491ec5ced8405fee482e4929240b09b1b1075df1ad",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/trigger/crumbs-desktop.webp",
+        "bytes": 218956,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 313297,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/trigger/pack.png",
+    "bytes": 1555943,
+    "width": 941,
+    "height": 1672,
+    "sha256": "8b8f464be7e59739787536667d984f6d345111dbafe976efaf7963b2dc1ac844",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/trigger/pack-desktop.webp",
+        "bytes": 883220,
+        "width": 810,
+        "height": 1440,
+        "transparentPixels": 513299,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/trigger/pack-mobile.webp",
+        "bytes": 566304,
+        "width": 630,
+        "height": 1120,
+        "transparentPixels": 310226,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "thumb",
+        "path": "public/product-world/web/trigger/pack-thumb.webp",
+        "bytes": 45150,
+        "width": 135,
+        "height": 240,
+        "transparentPixels": 13601,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/trigger/sticks-main.png",
+    "bytes": 1856275,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "9dcd317917e468ebd9e8db59956809fb18be109407ea60df507024802700c2a7",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/trigger/sticks-main-desktop.webp",
+        "bytes": 419682,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 191944,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/trigger/sticks-main-mobile.webp",
+        "bytes": 219500,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 93515,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/trigger/sticks-scatter.png",
+    "bytes": 1531087,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "21cb2d794401d26de71236544512ea13a1de04f31d27c8ae8e2fde79e0b2ae6f",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/trigger/sticks-scatter-desktop.webp",
+        "bytes": 343076,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 245184,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/trigger/sticks-scatter-mobile.webp",
+        "bytes": 184370,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 120029,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/loots/chili.png",
+    "bytes": 754955,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "c01e62a014fbf10a542f90a2da4b24b1e14b09907b9610fb0fc2982000393d7d",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/loots/chili-desktop.webp",
+        "bytes": 157020,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 312084,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/loots/chili-mobile.webp",
+        "bytes": 83130,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 152462,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/loots/corn-main.png",
+    "bytes": 1983484,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "accd5e5975d2cd53f22ed54d13c88e8943b4fe7954d8b2b790c22de795cd811d",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/loots/corn-main-desktop.webp",
+        "bytes": 441546,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 191940,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/loots/corn-main-mobile.webp",
+        "bytes": 224182,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 93695,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/loots/corn-scatter.png",
+    "bytes": 2019485,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "2066275a68539c112395158adf7c67afed9e1edbba7285bf2efdcbf873bf0990",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/loots/corn-scatter-desktop.webp",
+        "bytes": 423166,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 191542,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/loots/corn-scatter-mobile.webp",
+        "bytes": 218070,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 94446,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/loots/crumbs.png",
+    "bytes": 954583,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "06e8c147f3a547fb94ef50491ec5ced8405fee482e4929240b09b1b1075df1ad",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/loots/crumbs-desktop.webp",
+        "bytes": 218956,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 313297,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/loots/pack.png",
+    "bytes": 1907279,
+    "width": 941,
+    "height": 1672,
+    "sha256": "f98de4af4c610a421f8d44944e579f2b43f3446d2fb8b2a360e69c911b0e0de6",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/loots/pack-desktop.webp",
+        "bytes": 1070838,
+        "width": 810,
+        "height": 1440,
+        "transparentPixels": 347405,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/loots/pack-mobile.webp",
+        "bytes": 677530,
+        "width": 630,
+        "height": 1120,
+        "transparentPixels": 210582,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "thumb",
+        "path": "public/product-world/web/loots/pack-thumb.webp",
+        "bytes": 45598,
+        "width": 135,
+        "height": 240,
+        "transparentPixels": 9002,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/x-stix/crumbs.png",
+    "bytes": 954302,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "28c439d63a82a3be0f7176cf14c463bdb2fb38fbdb25f82919bfd0da162d42c5",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/x-stix/crumbs-desktop.webp",
+        "bytes": 213464,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 319900,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/x-stix/onion.png",
+    "bytes": 1557298,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "b0bb3d9bba6110f53f75a4de45de64b2147e7090d75c2bcdecd628f007dd8744",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/x-stix/onion-desktop.webp",
+        "bytes": 293706,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 227083,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/x-stix/onion-mobile.webp",
+        "bytes": 150744,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 111021,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/x-stix/pack.png",
+    "bytes": 2222791,
+    "width": 941,
+    "height": 1672,
+    "sha256": "641643e23417ed801565a4d24093b9f7b1f5831b957ecb50bbd76c41dd549c18",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/x-stix/pack-desktop.webp",
+        "bytes": 1265144,
+        "width": 810,
+        "height": 1440,
+        "transparentPixels": 286361,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/x-stix/pack-mobile.webp",
+        "bytes": 804642,
+        "width": 630,
+        "height": 1120,
+        "transparentPixels": 173432,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "thumb",
+        "path": "public/product-world/web/x-stix/pack-thumb.webp",
+        "bytes": 54074,
+        "width": 135,
+        "height": 240,
+        "transparentPixels": 7424,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/x-stix/sticks-main.png",
+    "bytes": 2368330,
+    "width": 1536,
+    "height": 1024,
+    "sha256": "ba16dc78444b4614ccbf195415d86c594c290b65f6b699bef4e83bb7aeb48980",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/x-stix/sticks-main-desktop.webp",
+        "bytes": 240872,
+        "width": 640,
+        "height": 427,
+        "transparentPixels": 157138,
+        "losslessVisiblePixels": true
+      }
+    ]
+  },
+  {
+    "source": "public/product-world/x-stix/sticks-scatter.png",
+    "bytes": 1561159,
+    "width": 1254,
+    "height": 1254,
+    "sha256": "374e4a4639c385074bf7f3e54742c76972ce778991de6ce6877624a61be23b2e",
+    "variants": [
+      {
+        "variant": "desktop",
+        "path": "public/product-world/web/x-stix/sticks-scatter-desktop.webp",
+        "bytes": 321664,
+        "width": 640,
+        "height": 640,
+        "transparentPixels": 269381,
+        "losslessVisiblePixels": true
+      },
+      {
+        "variant": "mobile",
+        "path": "public/product-world/web/x-stix/sticks-scatter-mobile.webp",
+        "bytes": 171832,
+        "width": 448,
+        "height": 448,
+        "transparentPixels": 131039,
+        "losslessVisiblePixels": true
+      }
+    ]
+  }
+]
