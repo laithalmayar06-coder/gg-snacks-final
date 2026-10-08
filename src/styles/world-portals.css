@@ -1,123 +1,281 @@
-/* Everything here belongs exclusively to the homepage product-world section. */
+/* Scoped entirely to the homepage Product Worlds selector. */
 .home-redesign.phase-five #product-worlds.world-showcase {
-  background-color: #080c14;
-  background-image: linear-gradient(rgb(0 0 0 / 25%), rgb(0 0 0 / 25%)), url("/preview-assets/PRODUCT%20WORLDS%20BG.png.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: clamp(24px, 4svh, 48px) clamp(20px, 3vw, 56px);
+  --pw-accent: #32d5ff;
+  --pw-secondary: #2576ed;
+  --pw-hue: 140deg;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(32px, 4vw, 64px) clamp(24px, 4.6vw, 88px) 32px;
+  background: #060910;
+  color: #f0f4fa;
 }
-#product-worlds > .gg-section-heading,
-#product-worlds > .world-portals { width: 100%; max-width: 1400px; margin-inline: auto; }
-#product-worlds > .gg-section-heading { margin-bottom: clamp(20px, 3svh, 32px); }
-#product-worlds .gg-section-heading .gg-kicker { margin-bottom: 8px; }
-#product-worlds .gg-section-heading h2 { font-size: clamp(32px, min(4vw, 6svh), 60px); }
-#product-worlds .gg-section-heading .gg-body { margin-block: 12px 0; }
-#product-worlds .world-portals { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.5vw, 22px); align-items: start; padding-bottom: 20px; }
-#product-worlds .world-portal { --world-accent: #36baff; --world-light: color-mix(in srgb, var(--world-accent) 78%, white); --world-deep: color-mix(in srgb, var(--world-accent) 68%, black); --pack-tilt: -6deg; --world-visual-height: clamp(210px, 30svh, 320px); position: relative; display: flex; flex-direction: column; min-width: 0; isolation: isolate; color: #edf3ff; text-decoration: none; border: 1px solid color-mix(in srgb, var(--world-accent) 22%, transparent); border-top-color: color-mix(in srgb, var(--world-light) 55%, transparent); background: radial-gradient(ellipse at 50% 26%, color-mix(in srgb, var(--world-deep) 27%, transparent), transparent 68%), #080d16; box-shadow: 0 18px 38px #0004, 0 8px 28px color-mix(in srgb, var(--world-accent) 5%, transparent); transition: border-color .3s ease, box-shadow .3s ease; }
-#product-worlds .world-portal:nth-child(even) { margin-top: 20px; }
-#product-worlds .world-portal::after { content: ''; position: absolute; inset: 7px; border: 1px solid color-mix(in srgb, var(--world-accent) 7%, transparent); pointer-events: none; }
-#product-worlds .world-portal[data-world='trigger'] { --world-accent: #f49232; --pack-tilt: 9deg; }
-#product-worlds .world-portal[data-world='loots'] { --world-accent: #e52d43; --pack-tilt: -3deg; }
-#product-worlds .world-portal[data-world='x-stix'] { --world-accent: #a3cc22; --pack-tilt: 7deg; }
-#product-worlds .world-portal-meta { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; padding: 16px 18px 0; color: var(--world-light); font: 10px/1.5 monospace; letter-spacing: .15em; }
-#product-worlds .world-portal-rule { height: 1px; flex: 1; background: linear-gradient(90deg, color-mix(in srgb, var(--world-light) 40%, transparent), transparent); }
-#product-worlds .world-portal-visual { position: relative; display: grid; place-items: center; height: var(--world-visual-height); padding: 28px 18px; isolation: isolate; overflow: hidden; }
-#product-worlds .world-portal-environment { position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: radial-gradient(ellipse at 50% 42%, color-mix(in srgb, var(--world-light) 13%, transparent), transparent 63%); }
-#product-worlds .world-portal-frame { position: absolute; inset: 14% 12% 10%; border: 1px solid color-mix(in srgb, var(--world-light) 45%, transparent); box-shadow: 0 0 32px color-mix(in srgb, var(--world-deep) 28%, transparent), inset 0 0 24px color-mix(in srgb, var(--world-deep) 15%, transparent); }
-#product-worlds .world-portal-rays { position: absolute; inset: 0; opacity: .55; }
-#product-worlds .world-portal-floor { position: absolute; bottom: 2%; left: 8%; width: 84%; height: 17%; border-radius: 50%; background: radial-gradient(ellipse, #02050cec 8%, color-mix(in srgb, var(--world-deep) 30%, #070b12) 43%, transparent 70%); border-top: 1px solid color-mix(in srgb, var(--world-light) 40%, transparent); transform: rotate(-7deg); }
-#product-worlds .world-portal-pack { position: relative; z-index: 1; display: block; width: auto; height: calc(var(--world-visual-height) - 56px); max-width: 76%; object-fit: contain; transform: rotate(var(--pack-tilt)); filter: drop-shadow(0 16px 12px #000a) drop-shadow(0 0 10px color-mix(in srgb, var(--world-accent) 12%, transparent)); transition: transform .55s cubic-bezier(.2,.7,.2,1); }
-/* POP-G: open orbital rings and cool, airy light. */
-#product-worlds [data-world='pop-g'] .world-portal-frame { inset: 18% 5% 14%; border-radius: 50%; transform: rotate(-24deg); border-bottom-color: color-mix(in srgb, var(--world-accent) 8%, transparent); }
-#product-worlds [data-world='pop-g'] .world-portal-frame::after { content: ''; position: absolute; inset: 15px -9px; border: 1px solid color-mix(in srgb, var(--world-accent) 25%, transparent); border-radius: 50%; }
-#product-worlds [data-world='pop-g'] .world-portal-rays { background: radial-gradient(circle at 22% 22%, var(--world-light) 0 1px, transparent 2px), radial-gradient(circle at 74% 36%, var(--world-accent) 0 1px, transparent 2px), radial-gradient(circle at 27% 69%, var(--world-accent) 0 1px, transparent 2px), linear-gradient(120deg, transparent 35%, color-mix(in srgb, var(--world-accent) 9%, transparent) 50%, transparent 62%); }
-/* TRIGGER: diagonal rails and a hot directional glow. */
-#product-worlds [data-world='trigger'] .world-portal-frame { inset: 10% 18% 8%; transform: skew(-15deg); border-width: 0 2px; border-inline-end-color: color-mix(in srgb, var(--world-accent) 31%, transparent); }
-#product-worlds [data-world='trigger'] .world-portal-rays { background: repeating-linear-gradient(118deg, transparent 0 42px, color-mix(in srgb, var(--world-accent) 15%, transparent) 43px 44px, transparent 46px 76px), radial-gradient(ellipse at 78% 78%, color-mix(in srgb, var(--world-accent) 25%, transparent), transparent 55%); }
-/* LOOTS: nested vault frames, with the pack at the centre. */
-#product-worlds [data-world='loots'] .world-portal-frame { inset: 13% 13% 10%; clip-path: polygon(14% 0, 86% 0, 100% 10%, 100% 90%, 86% 100%, 14% 100%, 0 90%, 0 10%); background: linear-gradient(145deg, color-mix(in srgb, var(--world-accent) 9%, transparent), transparent 55%); }
-#product-worlds [data-world='loots'] .world-portal-frame::after { content: ''; position: absolute; inset: 12px; border: 1px solid color-mix(in srgb, var(--world-light) 31%, transparent); box-shadow: inset 0 0 20px color-mix(in srgb, var(--world-deep) 17%, transparent); }
-#product-worlds [data-world='loots'] .world-portal-rays { background: linear-gradient(90deg, transparent 49.7%, color-mix(in srgb, var(--world-accent) 15%, transparent) 50%, transparent 50.3%), linear-gradient(0deg, transparent 49.7%, color-mix(in srgb, var(--world-accent) 15%, transparent) 50%, transparent 50.3%), radial-gradient(ellipse, color-mix(in srgb, var(--world-accent) 16%, transparent), transparent 64%); }
-/* X-STIX: sharp, offset neon blades. */
-#product-worlds [data-world='x-stix'] .world-portal-frame { inset: 12% 12% 11%; transform: skew(-10deg); clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%); background: linear-gradient(125deg, color-mix(in srgb, var(--world-accent) 13%, transparent) 0%, transparent 18% 78%, color-mix(in srgb, var(--world-accent) 13%, transparent) 100%); }
-#product-worlds [data-world='x-stix'] .world-portal-rays { background: linear-gradient(114deg, transparent 22%, color-mix(in srgb, var(--world-accent) 27%, transparent) 22.3%, transparent 23%), linear-gradient(114deg, transparent 76%, color-mix(in srgb, var(--world-accent) 33%, transparent) 76.3%, transparent 77%), repeating-linear-gradient(0deg, transparent 0 36px, color-mix(in srgb, var(--world-accent) 4%, transparent) 37px 38px); }
-#product-worlds .world-portal-copy { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; padding: 16px 18px 18px; background: linear-gradient(180deg, #080c1600, #070b14c9); }
-#product-worlds .world-portal-copy h3 { margin: 0 0 8px; font: 800 clamp(32px, 3vw, 46px)/1 'Barlow Condensed', sans-serif; letter-spacing: -.015em; text-align: start; }
-#product-worlds .world-portal-copy p { margin: 0 0 12px; min-height: 3.2em; color: #b0bbcf; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
-#product-worlds .world-portal-link { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--world-accent) 20%, transparent); font-size: 12px; line-height: 1.5; color: var(--world-light); }
-#product-worlds .world-portal-arrow { flex: 0 0 34px; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid color-mix(in srgb, var(--world-light) 32%, transparent); background: color-mix(in srgb, var(--world-deep) 13%, transparent); font-size: 18px; transition: background-color .3s, border-color .3s; }
-#product-worlds .world-portal:focus-visible { outline: 2px solid var(--world-light); outline-offset: 5px; border-color: var(--world-light); }
-#product-worlds[dir='rtl'] .world-portal-copy h3, [dir='rtl'] #product-worlds .world-portal-copy h3 { text-align: right; }
-[dir='rtl'] #product-worlds .world-portal-arrow { transform: scaleX(-1); }
-@media (hover: hover) and (pointer: fine) {
- #product-worlds .world-portal:hover { border-color: color-mix(in srgb, var(--world-light) 70%, transparent); box-shadow: 0 22px 45px #0006, 0 0 25px color-mix(in srgb, var(--world-deep) 12%, transparent); }
- #product-worlds .world-portal:is(:hover, :focus-visible) .world-portal-pack { transform: translateY(-8px) rotate(var(--pack-tilt)) scale(1.025); }
- #product-worlds .world-portal:is(:hover, :focus-visible) .world-portal-arrow { border-color: var(--world-light); background: color-mix(in srgb, var(--world-deep) 30%, transparent); }
+#product-worlds .pw-background { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 58%; z-index: -3; pointer-events: none; opacity: 1; filter: contrast(1.22) brightness(.86) saturate(.9); }
+#product-worlds.world-showcase::before { content: ''; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(90deg, #02050ab0, #02050a38 24%, #02050a12 43% 57%, #02050a38 76%, #02050aa8), linear-gradient(180deg, #02050a38, transparent 30%, #02050a30 73%, #030710e6); }
+/* Color blend preserves the photograph's luminance, texture and dark metal. */
+#product-worlds.world-showcase::after {
+  content: ''; position: absolute; inset: 0; z-index: -3; pointer-events: none;
+  background: linear-gradient(100deg, color-mix(in srgb, var(--pw-accent) 84%, #07131a), color-mix(in srgb, var(--pw-accent) 48%, #07101e) 42%, color-mix(in srgb, var(--pw-accent) 40%, #080c16) 65%, color-mix(in srgb, var(--pw-secondary) 70%, #0a1018));
+  mix-blend-mode: color; opacity: .64;
+  mask-image: linear-gradient(90deg, #000, #0009 35%, #0005 50%, #0009 65%, #000);
 }
-@media (max-width: 1100px) {
- #product-worlds .world-portals { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-bottom: 0; }
- #product-worlds .world-portal:nth-child(even) { margin-top: 0; }
- #product-worlds .world-portal-visual { height: 370px; }
- #product-worlds .world-portal-pack { height: 306px; }
- #product-worlds .world-portal-copy h3 { font-size: 48px; }
- #product-worlds .world-portal-copy p { min-height: 3.2em; }
+#product-worlds .pw-ambient { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 32% 24%, color-mix(in srgb, var(--pw-accent) 18%, transparent), transparent 29%), radial-gradient(ellipse at 69% 26%, color-mix(in srgb, var(--pw-secondary) 15%, transparent), transparent 28%), radial-gradient(ellipse at 49% 59%, color-mix(in srgb, var(--pw-accent) 11%, transparent), transparent 42%), radial-gradient(ellipse at 64% 65%, color-mix(in srgb, var(--pw-secondary) 10%, transparent), transparent 31%); }
+/* Visible side illumination stays outside the central product stage. */
+#product-worlds .pw-ambient::before, #product-worlds .pw-ambient::after { content: ''; position: absolute; top: 8%; bottom: 14%; width: 26%; pointer-events: none; mask-image: linear-gradient(transparent, #000 12% 80%, transparent); }
+#product-worlds .pw-ambient::before { left: 0; background: radial-gradient(ellipse at 25% 43%, color-mix(in srgb, var(--pw-accent) 30%, transparent), transparent 78%), linear-gradient(100deg, transparent 12%, color-mix(in srgb, var(--pw-accent) 22%, transparent) 20%, transparent 37%); }
+#product-worlds .pw-ambient::after { right: 0; background: radial-gradient(ellipse at 75% 43%, color-mix(in srgb, var(--pw-accent) 28%, transparent), transparent 76%), radial-gradient(ellipse at 98% 58%, color-mix(in srgb, var(--pw-secondary) 22%, transparent), transparent 64%), linear-gradient(80deg, transparent 63%, color-mix(in srgb, var(--pw-accent) 20%, transparent) 80%, transparent 88%); }
+/* Six light strips and two banner overlays share the existing 0.7s theme interpolation. */
+#product-worlds .pw-ambient > span { position: absolute; display: block; pointer-events: none; }
+#product-worlds .pw-environment-lines {
+  inset: 8% 3% 24%;
+  background:
+    linear-gradient(transparent, color-mix(in srgb, var(--pw-accent) 62%, transparent) 25% 75%, transparent) 9% 30% / 3px 26% no-repeat,
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--pw-accent) 56%, transparent) 20% 80%, transparent) 17% 78% / 9% 2px no-repeat,
+    linear-gradient(transparent, color-mix(in srgb, var(--pw-accent) 48%, transparent) 25% 75%, transparent) 28% 8% / 2px 15% no-repeat,
+    linear-gradient(transparent, color-mix(in srgb, var(--pw-accent) 62%, transparent) 25% 75%, transparent) 91% 27% / 3px 28% no-repeat,
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--pw-accent) 56%, transparent) 20% 80%, transparent) 83% 80% / 10% 2px no-repeat,
+    linear-gradient(transparent, color-mix(in srgb, var(--pw-secondary) 48%, transparent) 25% 75%, transparent) 72% 12% / 2px 14% no-repeat;
 }
-@media (max-width: 600px) {
- #product-worlds .world-portals { grid-template-columns: minmax(0, 1fr); gap: 22px; }
- #product-worlds .world-portal-visual { height: 330px; }
- #product-worlds .world-portal-pack { height: 274px; }
- #product-worlds .world-portal-copy { padding: 20px 24px 24px; }
- #product-worlds .world-portal-copy h3 { font-size: 44px; }
- #product-worlds .world-portal-copy p { min-height: 0; font-size: 14px; }
+#product-worlds .pw-environment-lines::before, #product-worlds .pw-environment-lines::after {
+  content: ''; position: absolute; top: 4%; width: 13%; height: 56%;
+  border-inline: 2px solid color-mix(in srgb, var(--pw-accent) 60%, transparent);
+  border-block: 1px solid color-mix(in srgb, var(--pw-accent) 42%, transparent);
+  background: linear-gradient(135deg, transparent 47.5%, color-mix(in srgb, var(--pw-accent) 36%, transparent) 48% 48.5%, transparent 49%), linear-gradient(45deg, transparent 68%, color-mix(in srgb, var(--pw-accent) 30%, transparent) 68.5% 69%, transparent 69.5%), linear-gradient(90deg, color-mix(in srgb, var(--pw-accent) 18%, transparent), transparent 38% 65%, color-mix(in srgb, var(--pw-accent) 12%, transparent));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--pw-accent) 24%, transparent), inset 0 0 24px color-mix(in srgb, var(--pw-accent) 14%, transparent);
 }
-@media (prefers-reduced-motion: reduce) {
- #product-worlds .world-portal, #product-worlds .world-portal-pack, #product-worlds .world-portal-arrow { transition: none; }
- #product-worlds .world-portal:is(:hover, :focus-visible) .world-portal-pack { transform: rotate(var(--pack-tilt)); }
+#product-worlds .pw-environment-lines::before { left: 1%; transform: skewY(-9deg); }
+#product-worlds .pw-environment-lines::after { right: 1%; transform: skewY(9deg); box-shadow: 0 0 22px color-mix(in srgb, var(--pw-accent) 24%, transparent), inset -10px 0 24px color-mix(in srgb, var(--pw-secondary) 18%, transparent); }
+#product-worlds .pw-environment-signals {
+  inset: 10% 6% 30%;
+  background:
+    radial-gradient(ellipse at 24% 19%, color-mix(in srgb, var(--pw-accent) 65%, transparent) 0 1.5px, color-mix(in srgb, var(--pw-accent) 22%, transparent) 2px, transparent 6px),
+    radial-gradient(ellipse at 29% 23%, #dae9f075 0 1.5px, transparent 4px),
+    radial-gradient(ellipse at 18% 62%, color-mix(in srgb, var(--pw-accent) 56%, transparent) 0 1.5px, transparent 5px),
+    radial-gradient(ellipse at 73% 22%, color-mix(in srgb, var(--pw-secondary) 62%, transparent) 0 1.5px, color-mix(in srgb, var(--pw-secondary) 22%, transparent) 2px, transparent 6px),
+    radial-gradient(ellipse at 78% 18%, #dae9f068 0 1.5px, transparent 4px),
+    radial-gradient(ellipse at 85% 65%, color-mix(in srgb, var(--pw-accent) 58%, transparent) 0 1.5px, transparent 5px);
 }
-
-@media (max-width: 900px) {
-  #product-worlds .world-portals { gap: 20px; align-items: stretch; }
-  #product-worlds .world-portal-visual { height: clamp(276px, 40vw, 310px); padding: 24px 18px; }
-  #product-worlds .world-portal-pack { height: clamp(222px, 32vw, 250px); }
-  #product-worlds .world-portal-copy { padding: 16px 20px 20px; }
-  #product-worlds .world-portal-copy h3 { font-size: clamp(36px, 5vw, 42px); }
-  #product-worlds .world-portal-link { min-height: 48px; }
-  #product-worlds .world-portal-arrow { width: 38px; height: 38px; flex-basis: 38px; }
+#product-worlds .pw-environment-haze {
+  left: 9%; right: 9%; bottom: 23%; height: 20%;
+  background: radial-gradient(ellipse at 24% 72%, color-mix(in srgb, var(--pw-accent) 12%, transparent), transparent 49%), radial-gradient(ellipse at 76% 62%, color-mix(in srgb, var(--pw-secondary) 10%, transparent), transparent 46%), radial-gradient(ellipse at 50% 90%, color-mix(in srgb, var(--pw-accent) 5%, transparent), transparent 65%);
 }
-@media (max-width: 600px) {
-  #product-worlds > .world-portals { max-width: 440px; gap: 18px; }
-  #product-worlds .gg-section-heading h2 { font-size: clamp(30px, 8vw, 38px); line-height: 1.15; }
-  [dir='rtl'] #product-worlds .gg-section-heading h2 { line-height: 1.5; }
-  #product-worlds .world-portal-visual { height: 264px; padding-block: 22px; }
-  #product-worlds .world-portal-pack { height: 216px; }
-  #product-worlds .world-portal-copy { padding: 14px 20px 18px; }
-  #product-worlds .world-portal-copy h3 { font-size: 36px; }
-  #product-worlds .world-portal-copy p { margin-bottom: 10px; }
+/* Soft shafts terminate in the reactive fog, away from the central pack. */
+#product-worlds .pw-environment-haze::before {
+  content: ''; position: absolute; left: 8%; right: 8%; bottom: 50%; height: 220%; pointer-events: none;
+  background: conic-gradient(from 158deg at 24% 0%, transparent 0deg, color-mix(in srgb, var(--pw-accent) 18%, transparent) 10deg, transparent 23deg), conic-gradient(from 179deg at 76% 0%, transparent 0deg, color-mix(in srgb, var(--pw-secondary) 15%, transparent) 13deg, transparent 27deg);
+  mask-image: linear-gradient(transparent, #000 17% 52%, transparent 98%);
 }
-
-/* Native swipe carousel and a separate, uncropped phone background. */
-@media (max-width: 600px) {
-  .home-redesign.phase-five #product-worlds.world-showcase { position: relative; isolation: isolate; padding: 32px 20px 24px; background-image: none; background-color: #080c14; }
-  #product-worlds.world-showcase::before { content: ''; position: absolute; z-index: -1; inset: 0 0 auto; aspect-ratio: 1672 / 941; pointer-events: none; background: linear-gradient(180deg, rgb(0 0 0 / 12%) 0% 45%, #080c14 100%), url("/preview-assets/PRODUCT%20WORLDS%20BG.png.png") center top / 100% auto no-repeat; }
-  #product-worlds > .gg-section-heading { margin-bottom: 20px; }
-  #product-worlds > .world-portals {
+#product-worlds .pw-environment-haze::after {
+  content: ''; position: absolute; inset: -65% 6% 10%; opacity: .45;
+  background: radial-gradient(circle at 19% 44%, #d8e8f766 0 .7px, transparent 1.5px), radial-gradient(circle at 31% 75%, var(--pw-accent) 0 .6px, transparent 1.5px), radial-gradient(circle at 73% 30%, #d8e8f744 0 .7px, transparent 1.5px), radial-gradient(circle at 84% 68%, color-mix(in srgb, var(--pw-secondary) 65%, transparent) 0 .6px, transparent 1.5px);
+}
+#product-worlds .pw-environment-floor {
+  left: 4%; right: 4%; bottom: 13%; height: 23%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--pw-accent) 30%, transparent), transparent) 50% 27% / 26% 2px no-repeat, radial-gradient(ellipse at 13% 55%, color-mix(in srgb, var(--pw-accent) 24%, transparent), transparent 23%), radial-gradient(ellipse at 87% 58%, color-mix(in srgb, var(--pw-secondary) 20%, transparent), transparent 24%), radial-gradient(ellipse at 50% 35%, color-mix(in srgb, var(--pw-accent) 32%, transparent), transparent 31%), linear-gradient(90deg, transparent, color-mix(in srgb, var(--pw-accent) 32%, transparent), transparent) 12% 59% / 15% 2px no-repeat, linear-gradient(90deg, transparent, color-mix(in srgb, var(--pw-secondary) 28%, transparent), transparent) 88% 65% / 13% 2px no-repeat;
+}
+@media (max-width: 767px) {
+  #product-worlds .pw-environment-lines, #product-worlds .pw-environment-signals { opacity: .65; }
+  #product-worlds .pw-environment-haze { bottom: 44%; height: 13%; }
+  #product-worlds .pw-environment-floor { bottom: 40%; height: 13%; }
+}
+#product-worlds .pw-layout { width: 100%; max-width: 1500px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.65fr) minmax(0, .85fr); gap: clamp(12px, 2vw, 34px); align-items: center; }
+#product-worlds .pw-heading { position: relative; z-index: 3; min-width: 0; align-self: center; padding-bottom: 68px; }
+#product-worlds .pw-eyebrow { font: 11px/1.6 monospace; letter-spacing: .15em; color: #bfccd9; margin: 0 0 24px; }
+#product-worlds .pw-heading h2 { font: 800 clamp(44px, 5.2vw, 84px)/.95 'Barlow Condensed', sans-serif; letter-spacing: -.025em; margin: 0; text-wrap: nowrap; text-shadow: 0 4px 24px #0008; }
+#product-worlds .pw-heading h2 span { display: block; }
+#product-worlds .pw-heading h2 span:last-child { color: #c9d8e8; }
+#product-worlds .pw-heading-rule { display: block; height: 2px; width: 86px; margin-top: 30px; background: linear-gradient(90deg, var(--pw-accent), transparent); box-shadow: 0 0 15px color-mix(in srgb, var(--pw-accent) 30%, transparent); }
+#product-worlds .pw-stage { position: relative; min-width: 0; height: clamp(440px, 38vw, 590px); pointer-events: none; }
+#product-worlds .pw-hologram { position: absolute; bottom: -1%; left: -13%; width: 126%; aspect-ratio: 1672 / 941; isolation: isolate; }
+/* Small floor footprint: blurred light beneath the untouched metallic platform. */
+#product-worlds .pw-hologram::before { content: ''; position: absolute; z-index: -1; left: -4%; bottom: 3%; width: 108%; height: 17%; border-radius: 50%; pointer-events: none; background: radial-gradient(ellipse at 45% 40%, color-mix(in srgb, var(--pw-accent) 34%, transparent), transparent 69%), radial-gradient(ellipse at 70% 55%, color-mix(in srgb, var(--pw-secondary) 22%, transparent), transparent 65%); filter: blur(4px); }
+#product-worlds .pw-hologram img { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+#product-worlds .pw-hologram-energy { filter: sepia(1) saturate(5) hue-rotate(var(--pw-hue)); opacity: .68; mix-blend-mode: screen; mask-image: linear-gradient(#000 0% 63%, transparent 79%); }
+#product-worlds .pw-platform-glow { position: absolute; width: 77%; height: 12%; left: 11.5%; bottom: 24%; border: 1px solid color-mix(in srgb, var(--pw-accent) 65%, transparent); border-radius: 50%; box-shadow: 0 0 24px color-mix(in srgb, var(--pw-accent) 20%, transparent), inset 0 0 22px color-mix(in srgb, var(--pw-accent) 13%, transparent); background: radial-gradient(ellipse, color-mix(in srgb, var(--pw-accent) 15%, transparent), transparent 72%); }
+#product-worlds .pw-visual { position: absolute; inset: 0; }
+#product-worlds .pw-pack-position { position: absolute; z-index: 2; bottom: 15%; left: 50%; width: 53%; height: 80%; transform: translateX(-50%); }
+#product-worlds .pw-pack-reveal, #product-worlds .pw-pack-float { width: 100%; height: 100%; }
+#product-worlds .pw-pack-float img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 18px 14px #0009) drop-shadow(0 0 5px color-mix(in srgb, var(--pw-accent) 16%, transparent)); }
+#product-worlds .pw-food { position: absolute; z-index: 3; pointer-events: none; }
+#product-worlds .pw-food img { display: block; width: 100%; height: auto; filter: drop-shadow(0 8px 9px #0007); }
+#product-worlds .pw-food-main { left: 0; top: 48%; width: 23%; }
+#product-worlds .pw-food-scatter { right: -1%; top: 20%; width: 23%; }
+#product-worlds .pw-food-detail { right: 1%; bottom: 15%; width: 17%; }
+#product-worlds .pw-food-crumbs { left: 8%; top: 24%; width: 13%; opacity: .6; z-index: 1; }
+#product-worlds .pw-details { position: relative; z-index: 4; min-width: 0; padding-top: 18px; }
+#product-worlds .pw-info-stack { display: grid; }
+#product-worlds .pw-info { grid-area: 1 / 1; min-width: 0; }
+#product-worlds .pw-info[inert] { pointer-events: none; }
+#product-worlds .pw-index { display: flex; align-items: baseline; gap: 12px; margin: 0 0 16px; color: #8796aa; font: 12px/1.5 monospace; }
+#product-worlds .pw-index strong { color: var(--pw-accent); font-size: 28px; font-weight: 400; }
+#product-worlds .pw-info h3 { font: 800 clamp(44px, 4.7vw, 72px)/1 'Barlow Condensed', sans-serif; letter-spacing: -.025em; margin: 0 0 18px; }
+#product-worlds .pw-description { margin: 0 0 28px; min-height: 3.4em; color: #c2cbd8; font-size: clamp(14px, 1.1vw, 16px); line-height: 1.7; max-width: 29ch; }
+#product-worlds .pw-explore { display: flex; align-items: center; gap: 6px; min-height: 48px; width: 88%; min-width: min(100%, 190px); padding: 13px 15px; border: 1px solid color-mix(in srgb, var(--pw-accent) 55%, transparent); background: linear-gradient(105deg, color-mix(in srgb, var(--pw-accent) 12%, #070c14), #080d16d9); color: #edf6ff; font-size: 11px; font-weight: 700; letter-spacing: .06em; box-shadow: inset 0 1px #ffffff0d, 0 0 18px color-mix(in srgb, var(--pw-accent) 7%, transparent); transition: border-color .25s, box-shadow .25s; }
+#product-worlds .pw-explore > span { margin-inline-start: auto; color: var(--pw-accent); font-size: 19px; }
+#product-worlds .pw-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }
+#product-worlds .pw-arrows { display: flex; gap: 6px; }
+#product-worlds .pw-arrows button { width: 44px; height: 44px; border: 1px solid #b5c4dd3b; background: #070c16b3; color: #e2eaf4; font-size: 20px; }
+#product-worlds .pw-pause { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 4px 0; border: 0; color: #bdc7d7; background: none; font-size: 11px; }
+#product-worlds .pw-pause > span { color: var(--pw-accent); }
+#product-worlds [aria-disabled='true'] { cursor: wait; }
+#product-worlds .pw-status { min-height: 2.8em; font-size: 11px; line-height: 1.4; margin: 10px 0 0; color: #c7d5e6; }
+#product-worlds .pw-selectors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; max-width: 1220px; margin: 20px auto 0; gap: 16px; padding: 8px 4px; }
+#product-worlds .pw-selector { position: relative; display: flex; align-items: center; gap: 12px; min-width: 0; min-height: 104px; padding: 12px 16px; background: linear-gradient(125deg, #131d2ade, #060b13ed); border: 1px solid #8797b62e; border-top-color: #aebfdd45; color: #c0cbd9; text-align: start; box-shadow: inset 0 1px #ffffff06; opacity: .88; transition: transform .45s ease, border-color .65s, box-shadow .65s, opacity .45s; }
+#product-worlds .pw-selector::after { content: ''; position: absolute; bottom: 0; inset-inline: 16px; height: 2px; background: var(--selector-accent); opacity: .14; transition: opacity .65s, box-shadow .65s; }
+#product-worlds .pw-selector-number { align-self: flex-start; padding-top: 7px; color: #8b9bb0; font: 10px/1.5 monospace; }
+#product-worlds .pw-selector-copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 8px; }
+#product-worlds .pw-selector-copy strong { font: 700 clamp(22px, 2.3vw, 34px)/1 'Barlow Condensed', sans-serif; letter-spacing: .025em; white-space: nowrap; }
+#product-worlds .pw-selected-label { min-height: 12px; font-size: 8px; letter-spacing: .12em; color: #c6d2e2; }
+#product-worlds .pw-selector img { width: 48px; height: 80px; object-fit: contain; margin-inline-start: auto; opacity: .64; filter: brightness(.96); transition: opacity .45s, transform .45s, filter .45s; }
+#product-worlds .pw-selector[aria-pressed='true'] { transform: translateY(-8px); opacity: 1; border-color: color-mix(in srgb, var(--selector-accent) 80%, transparent); box-shadow: 0 7px 20px color-mix(in srgb, var(--selector-accent) 16%, transparent), inset 0 0 22px color-mix(in srgb, var(--selector-accent) 5%, transparent); color: #f4f7ff; }
+#product-worlds .pw-selector[aria-pressed='true']::after { opacity: 1; box-shadow: 0 3px 14px color-mix(in srgb, var(--selector-accent) 65%, transparent); }
+#product-worlds .pw-selector[aria-pressed='true'] img { opacity: 1; filter: brightness(1.05); transform: translateY(-3px); }
+#product-worlds :is(button, a):focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+#product-worlds .pw-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#product-worlds[dir='rtl'] .pw-heading h2 { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(36px, 4vw, 62px); line-height: 1.35; letter-spacing: 0; }
+#product-worlds[dir='rtl'] .pw-info h3 { text-align: right; }
+#product-worlds[dir='rtl'] .pw-index { justify-content: flex-end; }
+@media (hover: hover) {
+  #product-worlds .pw-selector:hover { border-color: var(--selector-accent); }
+  #product-worlds .pw-explore:hover { border-color: var(--pw-accent); box-shadow: 0 0 24px color-mix(in srgb, var(--pw-accent) 16%, transparent); }
+  #product-worlds .pw-arrows button:hover { border-color: var(--pw-accent); color: var(--pw-accent); }
+}
+@media (max-width: 1100px) and (min-width: 768px) {
+  #product-worlds .pw-layout { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 0 30px; }
+  #product-worlds .pw-heading { grid-column: 1 / -1; padding: 0; margin-bottom: 14px; }
+  #product-worlds .pw-heading h2 { font-size: 54px; }
+  #product-worlds .pw-heading h2 span { display: inline; margin-inline-end: .2em; }
+  #product-worlds .pw-heading-rule { display: none; }
+  #product-worlds .pw-eyebrow { margin-bottom: 12px; }
+  #product-worlds .pw-stage { height: 430px; }
+  #product-worlds .pw-selector { padding-inline: 10px; gap: 8px; }
+  #product-worlds .pw-selector-number { display: none; }
+  #product-worlds .pw-selector img { width: 36px; height: 66px; }
+}
+/* The extra header index is mobile-only; the desktop info panel stays intact. */
+@media (min-width: 768px) {
+  #product-worlds .pw-mobile-index { display: none; }
+}
+@media (max-width: 767px) {
+  .home-redesign.phase-five #product-worlds.world-showcase {
+    --pw-mobile-stage-height: clamp(284px, 78vw, 346px);
+    --pw-mobile-scene-height: calc(clamp(320px, 88vw, 390px) + 180px);
+    padding: 24px 18px 16px;
+  }
+  /* Crop the chamber around the stage, not the full height of the content below. */
+  #product-worlds .pw-background {
+    height: var(--pw-mobile-scene-height);
+    object-position: center 54%;
+    opacity: .92;
+    mask-image: linear-gradient(#000 0% 76%, transparent 100%);
+  }
+  #product-worlds.world-showcase::before {
+    height: var(--pw-mobile-scene-height);
+    background: linear-gradient(180deg, #040810a3, #04081024 32%, transparent 58%, #060910 100%);
+  }
+  #product-worlds.world-showcase::after {
+    height: var(--pw-mobile-scene-height);
+    mask-image: linear-gradient(#0008, #000 30% 65%, transparent);
+  }
+  #product-worlds .pw-ambient { height: var(--pw-mobile-scene-height); mask-image: linear-gradient(#000 0% 82%, #0009 92%, transparent 100%); }
+  #product-worlds .pw-ambient::before, #product-worlds .pw-ambient::after { top: 24%; bottom: 8%; width: 30%; }
+  #product-worlds .pw-environment-lines { inset: 25% 1% 12%; }
+  #product-worlds .pw-environment-lines::before, #product-worlds .pw-environment-lines::after {
+    border-block: 0;
+    opacity: .6;
+    mask-image: linear-gradient(transparent, #000 20% 70%, transparent);
+  }
+  #product-worlds .pw-environment-signals { inset: 28% 3% 15%; }
+  #product-worlds .pw-environment-haze { bottom: 9%; height: 18%; }
+  #product-worlds .pw-environment-floor { bottom: 5%; height: 20%; }
+  #product-worlds .pw-layout { display: flex; flex-direction: column; gap: 0; }
+  #product-worlds .pw-heading { width: 100%; max-width: 460px; padding: 0; }
+  #product-worlds .pw-eyebrow { max-width: calc(100% - 72px); font-size: 10px; letter-spacing: .1em; margin-bottom: 10px; }
+  #product-worlds .pw-heading h2 { font-size: clamp(40px, 12vw, 52px); line-height: .98; }
+  #product-worlds .pw-heading-rule { width: 48px; margin-top: 10px; }
+  #product-worlds .pw-mobile-index { position: absolute; inset-inline-end: 0; top: 0; gap: 6px; margin: 0; font-size: 10px; }
+  #product-worlds .pw-mobile-index strong { font-size: 16px; }
+  #product-worlds .pw-stage { width: min(100%, 430px); height: var(--pw-mobile-stage-height); flex: none; margin-top: 6px; }
+  #product-worlds .pw-hologram { width: 112%; left: -6%; bottom: 0; }
+  #product-worlds .pw-pack-position { height: 89%; width: 64%; bottom: 9%; }
+  #product-worlds .pw-food-main { width: 19%; left: 5%; top: 39%; }
+  #product-worlds .pw-food-scatter { width: 18%; right: 4%; top: 20%; }
+  #product-worlds .pw-food-detail { width: 13%; right: 7%; bottom: 18%; }
+  #product-worlds .pw-food-crumbs { display: none; }
+  #product-worlds .pw-details { width: 100%; max-width: 460px; padding-top: 0; }
+  #product-worlds .pw-info .pw-index { display: none; }
+  #product-worlds .pw-info h3 { font-size: clamp(36px, 10vw, 42px); margin-bottom: 6px; }
+  #product-worlds .pw-description { min-height: calc(3.1em - 18px); margin-bottom: 8px; max-width: none; font-size: 14px; line-height: 1.55; }
+  #product-worlds .pw-explore { box-sizing: border-box; width: 100%; max-width: 360px; min-width: 0; min-height: 46px; padding: 8px 14px; }
+  #product-worlds .pw-controls { margin-top: 6px; justify-content: space-between; gap: 8px; }
+  #product-worlds .pw-pause { max-width: calc(100% - 104px); text-align: start; }
+  #product-worlds .pw-status { min-height: 1.4em; margin-top: 0; }
+  #product-worlds .pw-selectors {
     display: grid;
     grid-template-columns: none;
     grid-auto-flow: column;
-    grid-auto-columns: 87vw;
+    grid-auto-columns: min(78vw, 320px);
     gap: 12px;
-    width: calc(100% + 40px);
+    box-sizing: border-box;
+    width: calc(100% + 36px);
     max-width: none;
-    margin-inline: -20px;
-    padding: 8px 20px 18px;
+    margin: 0 -18px;
+    padding: 16px 18px 10px;
     overflow-x: auto;
-    overflow-y: hidden;
     overscroll-behavior-inline: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 20px;
-    scrollbar-width: thin;
-    scrollbar-color: #899cb566 transparent;
+    scroll-padding-inline: 18px;
+    scrollbar-width: none;
   }
-  #product-worlds .world-portal { scroll-snap-align: start; scroll-snap-stop: always; min-width: 0; }
+  #product-worlds .pw-selectors::-webkit-scrollbar { display: none; }
+  #product-worlds .pw-selector { scroll-snap-align: start; min-height: 92px; padding: 10px 14px; gap: 10px; }
+  #product-worlds .pw-selector-copy { gap: 6px; }
+  #product-worlds .pw-selector-copy strong { font-size: 30px; }
+  #product-worlds .pw-selector img { width: 40px; height: 70px; }
+  #product-worlds[dir='rtl'] .pw-heading h2 { font-size: clamp(30px, 9vw, 40px); line-height: 1.25; }
+}
+/* Keep the denser corn and onion illustrations subordinate to the real pack. */
+#product-worlds [data-world-slide='loots'] .pw-food-main,
+#product-worlds [data-world-slide='loots'] .pw-food-scatter { width: 20%; }
+#product-worlds [data-world-slide='x-stix'] .pw-food-detail { width: 14%; }
+@media (max-width: 767px) {
+  #product-worlds [data-world-slide='loots'] .pw-food-main,
+  #product-worlds [data-world-slide='loots'] .pw-food-scatter { width: 18%; }
+  #product-worlds [data-world-slide='x-stix'] .pw-food-detail { width: 12%; }
+  /* The open breadstick cluster reads clearly at phone size; avoid repeating it. */
+  #product-worlds [data-world-slide='x-stix'] .pw-food-main { width: 22%; left: 3%; top: 40%; }
+  #product-worlds [data-world-slide='x-stix'] .pw-food-scatter { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #product-worlds *, #product-worlds *::after { transition: none !important; }
+  #product-worlds .pw-selector[aria-pressed='true'], #product-worlds .pw-selector[aria-pressed='true'] img { transform: none; }
+}
+
+/* Final wide-desktop environment balance; tablet/mobile keep their approved treatment. */
+@media (min-width: 1101px) {
+  #product-worlds.world-showcase::after {
+    mask-image: linear-gradient(90deg, #000d1, #0009 35%, #0005 50%, #0009 65%, #000d1);
+  }
+  #product-worlds .pw-ambient::before,
+  #product-worlds .pw-ambient::after { opacity: .82; }
+
+  /* Open, feathered edge traces replace the hard rectangular/X-panel impression. */
+  #product-worlds .pw-environment-lines::before,
+  #product-worlds .pw-environment-lines::after {
+    border-inline: 1px solid color-mix(in srgb, var(--pw-accent) 36%, transparent);
+    border-block: 0;
+    background: linear-gradient(135deg, transparent 47.8%, color-mix(in srgb, var(--pw-accent) 18%, transparent) 48% 48.15%, transparent 48.4%), linear-gradient(45deg, transparent 68.3%, color-mix(in srgb, var(--pw-accent) 15%, transparent) 68.5% 68.65%, transparent 68.9%), linear-gradient(90deg, color-mix(in srgb, var(--pw-accent) 15%, transparent), transparent 34% 70%, color-mix(in srgb, var(--pw-accent) 10%, transparent));
+    box-shadow: inset 6px 0 20px color-mix(in srgb, var(--pw-accent) 12%, transparent);
+    mask-image: linear-gradient(transparent, #0008 12%, #000 30% 70%, #0007 88%, transparent);
+  }
+  #product-worlds .pw-environment-lines::after {
+    box-shadow: inset -6px 0 20px color-mix(in srgb, var(--pw-secondary) 12%, transparent);
+  }
+
+  /* Two soft ceiling beams fall toward the stage shoulders, leaving the pack in contrast. */
+  #product-worlds .pw-environment-haze::before {
+    height: 340%;
+    background: conic-gradient(from 157deg at 14% 0%, transparent 0deg, color-mix(in srgb, var(--pw-accent) 14%, transparent) 12deg, transparent 24deg), conic-gradient(from 179deg at 86% 0%, transparent 0deg, color-mix(in srgb, var(--pw-secondary) 12%, transparent) 12deg, transparent 25deg);
+    mask-image: linear-gradient(transparent, #000 8% 48%, #0008 72%, transparent 98%);
+  }
 }
