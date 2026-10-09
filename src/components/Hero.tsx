@@ -1,6 +1,5 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, type MouseEvent } from 'react'
 import gsap from 'gsap'
-import { Link } from 'react-router'
 import { useLanguage } from '../i18n/LanguageContext'
 import { heroPreviewLogo } from '../data/heroPreview'
 import { heroLayers, heroContent } from '../data/heroLayers'
@@ -10,6 +9,28 @@ export default function Hero() {
   const { language, t } = useLanguage()
   const content = heroContent[language]
   const root = useRef<HTMLElement>(null)
+
+  const scrollToWorlds = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    const section = document.getElementById('product-worlds')
+    if (!section) return
+    event.preventDefault()
+    const header = root.current?.closest('.site-shell')?.querySelector<HTMLElement>(':scope > .site-header')
+    const headerStyle = header ? window.getComputedStyle(header) : null
+    const offset = header && headerStyle && ['fixed', 'sticky'].includes(headerStyle.position)
+      ? header.getBoundingClientRect().height + Math.max(0, Number.parseFloat(headerStyle.top) || 0) : 0
+    const top = Math.max(0, window.scrollY + section.getBoundingClientRect().top - offset - 12)
+    const heading = section.querySelector<HTMLElement>('#worlds-title')
+    if (heading) {
+      // Move keyboard focus without causing a second scroll.
+      if (!heading.hasAttribute('tabindex')) {
+        heading.setAttribute('tabindex', '-1')
+        heading.addEventListener('blur', () => heading.removeAttribute('tabindex'), { once: true })
+      }
+      heading.focus({ preventScroll: true })
+    }
+    window.scrollTo({ top, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })
+  }
 
   useLayoutEffect(() => {
     const element = root.current
@@ -81,7 +102,7 @@ export default function Hero() {
       )}</h1>
       <p className="prepared-description">{content.copy.map(line => <span key={line}>{line}</span>)}</p>
       <div className="prepared-action hero-actions">
-        <Link to="/products" className="prepared-cta">{content.cta}<span aria-hidden="true">→</span></Link>
+        <a href="#product-worlds" className="prepared-cta" onClick={scrollToWorlds}>{content.cta}<span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
