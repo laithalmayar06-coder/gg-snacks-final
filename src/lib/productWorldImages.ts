@@ -79,6 +79,11 @@ function prepare(src: string, priority: Priority, signal?: AbortSignal): Promise
   return promise
 }
 
+// Readiness means decoded and retained, not merely requested or downloaded.
+export function areWorldImagesReady(sources: string[]) {
+  return sources.every(src => ready.has(absolute(src)))
+}
+
 export function prepareWorldImages(sources: string[]) {
   return Promise.all([...new Set(sources)].map(src => prepare(src, 'high'))).then(() => undefined)
 }

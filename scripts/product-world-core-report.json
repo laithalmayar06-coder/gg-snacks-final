@@ -1,0 +1,38 @@
+[
+  {
+    "source": "public/product-world/core/world-bg.png",
+    "output": "public/product-world/core/world-bg.webp",
+    "width": 1916,
+    "height": 821,
+    "sourceBytes": 2393839,
+    "webpBytes": 1585024,
+    "savingPercent": 33.79,
+    "used": true,
+    "originalSha256": "c2dc2d7647e43d3e101eec28a08494f6972f031238f5878ba477c50c3aa59639",
+    "webpSha256": "28beb69f6eecaed06908ddf8969e36424eadae711681bd0f0be9ff3017042c98",
+    "sourceHasAlpha": false,
+    "sourceHasProfile": false,
+    "transparentPixels": 0,
+    "alphaDifferences": 0,
+    "visibleRgbDifferences": 0,
+    "transparentRgbDifferences": 0
+  },
+  {
+    "source": "public/product-world/core/hologram-neutral.png",
+    "output": "public/product-world/core/hologram-neutral.webp",
+    "width": 1672,
+    "height": 941,
+    "sourceBytes": 1526992,
+    "webpBytes": 990150,
+    "savingPercent": 35.16,
+    "used": true,
+    "originalSha256": "0b6872ae4b183d2162e5f8cd7b57839abdef0aa11c1b9872f298ea512bb94f2e",
+    "webpSha256": "02b6ca4d4bc84d62949d55270610aa1565f5b3e3a6a5cacbd42c2d00865f605e",
+    "sourceHasAlpha": true,
+    "sourceHasProfile": false,
+    "transparentPixels": 692673,
+    "alphaDifferences": 0,
+    "visibleRgbDifferences": 0,
+    "transparentRgbDifferences": 71821
+  }
+]

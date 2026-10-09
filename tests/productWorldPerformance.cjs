@@ -5,7 +5,7 @@ function load(relative,globals={}){
  const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  vm.runInNewContext(code,{exports,module:{exports},console,URL,DOMException,...globals},{filename:relative});return exports;
 }
-const {productWorldThemes:worlds,WORLD_ROTATION_MS}=load('src/data/productWorldSelector.ts');
+const {productWorldThemes:worlds,worldCoreAssets,WORLD_ROTATION_MS}=load('src/data/productWorldSelector.ts');
 const {getWorldDelivery,getWorldThumbnail}=load('src/data/productWorldDelivery.ts');
 assert.equal(WORLD_ROTATION_MS,5800);
 const report=JSON.parse(fs.readFileSync(root+'/scripts/product-world-delivery-report.json'));
@@ -27,6 +27,17 @@ for(const entry of report){
  assert.equal(require('crypto').createHash('sha256').update(source).digest('hex'),entry.sha256);
  for(const v of entry.variants){assert(v.losslessVisiblePixels);assert(v.transparentPixels>0);assert(v.width<=entry.width&&v.height<=entry.height);assert(v.bytes<entry.bytes)}
 }
+const coreReport=JSON.parse(fs.readFileSync(root+'/scripts/product-world-core-report.json','utf8'));
+for(const entry of coreReport){
+ const source=fs.readFileSync(root+'/'+entry.source),output=fs.readFileSync(root+'/'+entry.output);
+ const hash=bytes=>require('crypto').createHash('sha256').update(bytes).digest('hex');
+ assert.equal(hash(source),entry.originalSha256);assert.equal(hash(output),entry.webpSha256);
+ assert.equal(source.length,entry.sourceBytes);assert.equal(output.length,entry.webpBytes);
+ assert.equal(source.readUInt32BE(16),entry.width);assert.equal(source.readUInt32BE(20),entry.height);
+ assert.equal(output.toString('ascii',0,4),'RIFF');assert.equal(output.toString('ascii',8,12),'WEBP');
+ assert.equal(entry.alphaDifferences,0);assert.equal(entry.visibleRgbDifferences,0);
+ assert(output.length<source.length*.95);assert(Object.values(worldCoreAssets).includes('/'+entry.output.replace(/^public\//,'')));
+}
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 function harness(){
  const requests=[];
@@ -45,9 +56,9 @@ function harness(){
  {
   const {api,requests}=harness();let complete=false;
   const work=api.prepareWorldImages(['/a','/b','/c']).then(()=>{complete=true});
-  assert.equal(requests.length,2);requests[0].load();requests[1].load();await tick();assert(!complete);assert.equal(requests.length,2);
+  assert.equal(requests.length,2);assert(!api.areWorldImagesReady(['/a','/b','/c']));requests[0].load();requests[1].load();await tick();assert(!complete);assert.equal(requests.length,2);assert(!api.areWorldImagesReady(['/a']));
   requests[0].finishDecode();await tick();assert.equal(requests.length,3);
-  requests[1].finishDecode();requests[2].done();await work;assert(complete);
+  requests[1].finishDecode();requests[2].done();await work;assert(complete);assert(api.areWorldImagesReady(['/a','/b','/c']));
   await api.prepareWorldImages(['/a','/b','/c']);assert.equal(requests.length,3);
  }
  // A manual selection advances before queued speculation; aborted preload stops chaining.
@@ -73,7 +84,7 @@ function harness(){
   const retry=api.prepareWorldImages(['/retry']);assert.equal(requests.length,2);requests[1].done();await retry;
   const abort=new AbortController();abort.abort();await api.rememberWorldImage({src:'/abandoned',decode:()=>Promise.resolve()},abort.signal);
   const fresh=api.prepareWorldImages(['/abandoned']);assert.equal(requests.length,3);requests[2].done();await fresh;
-  api.releaseWorldImages();const reload=api.prepareWorldImages(['/retry']);assert.equal(requests.length,4);requests[3].done();await reload;
+  api.releaseWorldImages();assert(!api.areWorldImagesReady(['/retry']));const reload=api.prepareWorldImages(['/retry']);assert.equal(requests.length,4);requests[3].done();await reload;
  }
- console.log('PASS: four families/breakpoints, delivery paths, source hashes, alpha/pixel checks, decode gate, two-request limit, serial preloading, foreground priority, deduplication, cancellation and failure retry.');
+ console.log('PASS: four families/breakpoints, delivery paths, core WebP integrity, original hashes, alpha/pixel checks, decoded readiness gate, two-request limit, serial preloading, foreground priority, deduplication, cancellation and failure retry.');
 })().catch(error=>{console.error(error);process.exitCode=1});

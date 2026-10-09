@@ -5,8 +5,8 @@ export const worldSelectorCopy = {
 } as const
 
 export const worldCoreAssets = {
-  background: '/product-world/core/world-bg.png',
-  hologram: '/product-world/core/hologram-neutral.png',
+  background: '/product-world/core/world-bg.webp',
+  hologram: '/product-world/core/hologram-neutral.webp',
 }
 
 export const productWorldThemes = [

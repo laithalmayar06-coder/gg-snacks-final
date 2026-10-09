@@ -5,7 +5,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { useHomeFamilies } from './HomepageSections'
 import { productWorldThemes, worldCoreAssets, worldSelectorCopy, WORLD_ROTATION_MS, type ProductWorldTheme } from '../data/productWorldSelector'
 import { getWorldDelivery, getWorldThumbnail, WORLD_MOBILE_QUERY } from '../data/productWorldDelivery'
-import { prepareWorldImages, preloadWorldImages, rememberWorldImage, releaseWorldImages } from '../lib/productWorldImages'
+import { areWorldImagesReady, prepareWorldImages, preloadWorldImages, rememberWorldImage, releaseWorldImages } from '../lib/productWorldImages'
 import { createWorldSelection } from '../lib/productWorldSelection'
 import '../styles/world-portals.css'
 
@@ -28,6 +28,9 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
   const [active, setActive] = useState(0)
   const [previous, setPrevious] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
+  const [readyScene, setReadyScene] = useState('')
+  const [readyNext, setReadyNext] = useState('')
+  const [rotationDue, setRotationDue] = useState('')
   const [error, setError] = useState(false)
   const [announcement, setAnnouncement] = useState('')
   const [paused, setPaused] = useState(false)
@@ -43,7 +46,11 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
   const world = worlds[active]
   const delivery = useMemo(() => worlds.map(item => getWorldDelivery(item, mobile)), [worlds, mobile])
   const running = visible && pageVisible && !paused && !hovered && !focused && !touchingSelectors && !reduced && !error
-  canRotate.current = running
+  const sceneKey = world.id + ':' + mobile
+  const nextIndex = (active + 1) % worlds.length
+  const nextKey = worlds[nextIndex].id + ':' + mobile
+  const rotationKey = sceneKey + ':' + interaction
+  canRotate.current = running && readyScene === sceneKey
   const slides = previous === null ? [active] : [previous, active]
 
   useEffect(() => {
@@ -76,19 +83,28 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
 
   const choose = useCallback(async (index: number, manual = true) => {
     if (manual) setInteraction(value => value + 1)
+    const profile = window.matchMedia(WORLD_MOBILE_QUERY).matches
+    // Automatic rotation never starts preparation or takes the busy guard while waiting.
+    if (!manual && (!canRotate.current || profile !== mobile || !areWorldImagesReady(getWorldDelivery(worlds[index], profile).sources))) return
     if (worlds.length < 2 || !selection.current.request(index, manual)) return
     preloadAbort.current?.abort()
-    setLoading(true); setError(false)
+    if (!manual) {
+      selection.current.commit(index)
+      setPrevious(active); setActive(index)
+      return
+    }
+    setError(false)
     try {
       const next = worlds[index]
       let preparedForMobile: boolean
       do {
         preparedForMobile = window.matchMedia(WORLD_MOBILE_QUERY).matches
-        await prepareWorldImages(getWorldDelivery(next, preparedForMobile).sources)
+        const sources = getWorldDelivery(next, preparedForMobile).sources
+        setLoading(!areWorldImagesReady(sources))
+        await prepareWorldImages(sources)
         if (!alive.current) return
       } while (preparedForMobile !== window.matchMedia(WORLD_MOBILE_QUERY).matches)
       if (!alive.current) return
-      if (!manual && !canRotate.current) { selection.current.finish(); setLoading(false); return }
       selection.current.commit(index)
       setPrevious(active); setActive(index); setLoading(false)
       if (manual) setAnnouncement(next.name)
@@ -96,13 +112,20 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
       if (alive.current) { setLoading(false); setError(true) }
       selection.current.finish()
     }
-  }, [active, worlds])
+  }, [active, worlds, mobile])
+
+  // Keep the 5.8s dwell, but a late next-family decode can finish silently after it.
+  useEffect(() => {
+    setRotationDue('')
+    if (!running || loading || readyScene !== sceneKey || worlds.length < 2) return
+    const timer = window.setTimeout(() => setRotationDue(rotationKey), WORLD_ROTATION_MS)
+    return () => window.clearTimeout(timer)
+  }, [running, loading, readyScene, sceneKey, rotationKey, worlds.length])
 
   useEffect(() => {
-    if (!running || loading || worlds.length < 2) return
-    const timer = window.setTimeout(() => { void choose((active + 1) % worlds.length, false) }, WORLD_ROTATION_MS)
-    return () => window.clearTimeout(timer)
-  }, [running, loading, active, choose, worlds.length, interaction])
+    if (rotationDue !== rotationKey || readyNext !== nextKey || !running || loading || previous !== null) return
+    void choose(nextIndex, false)
+  }, [rotationDue, rotationKey, readyNext, nextKey, running, loading, previous, nextIndex, choose])
 
   // Drain after React removes the outgoing scene, never inside a running timeline.
   useEffect(() => {
@@ -111,22 +134,32 @@ function WorldSelector({ worlds, language }: { worlds: ProductWorldTheme[]; lang
     if (requested !== null) void choose(requested)
   }, [loading, previous, interaction, choose])
 
-  // Wait for the visible scene, then prepare only the next family, one image at a time.
+  // The initial scene must really decode before its rotation clock can start.
   useEffect(() => {
-    if (!near || !visible || !pageVisible || loading || previous !== null || worlds.length < 2) return
+    if (!near) return
     const controller = new AbortController()
-    preloadAbort.current = controller
     const images = root.current?.querySelectorAll<HTMLImageElement>(
       `.pw-background, .pw-hologram img, [data-world-slide="${world.id}"] img`,
     )
     if (!images?.length) return () => controller.abort()
-    void Promise.all(Array.from(images, image => rememberWorldImage(image, controller.signal))).then(async () => {
-      if (!controller.signal.aborted) {
-        await preloadWorldImages(getWorldDelivery(worlds[(active + 1) % worlds.length], mobile).sources, controller.signal)
-      }
+    void Promise.all(Array.from(images, image => rememberWorldImage(image, controller.signal))).then(() => {
+      if (!controller.signal.aborted) setReadyScene(sceneKey)
+    }).catch(() => { /* Keep the current scene and manual navigation available on failure. */ })
+    return () => controller.abort()
+  }, [near, sceneKey, world.id])
+
+  // Silent, sequential next-family preparation; it never owns the selection queue.
+  useEffect(() => {
+    if (!near || !visible || !pageVisible || paused || reduced || loading || previous !== null || readyScene !== sceneKey || worlds.length < 2) return
+    const controller = new AbortController()
+    preloadAbort.current = controller
+    setReadyNext('')
+    const sources = getWorldDelivery(worlds[nextIndex], mobile).sources
+    void preloadWorldImages(sources, controller.signal).then(() => {
+      if (!controller.signal.aborted && areWorldImagesReady(sources)) setReadyNext(nextKey)
     }).catch(() => { /* A speculative load failure must not interrupt the current scene. */ })
     return () => controller.abort()
-  }, [near, visible, pageVisible, loading, previous, active, mobile, world.id, worlds])
+  }, [near, visible, pageVisible, paused, reduced, loading, previous, readyScene, sceneKey, nextIndex, nextKey, mobile, worlds])
 
   // Keep the active mobile selector visible without scrolling the page vertically.
   useEffect(() => {

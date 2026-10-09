@@ -22,9 +22,10 @@ const tick = () => new Promise(resolve => setImmediate(resolve));
 
 // Test the real component with deterministic hook, image-preparation and GSAP adapters.
 // This exercises lifecycle/input wiring, not browser paint or layout performance.
-function harness(width = 1440, reduced = false, language = 'en') {
+function harness(width = 1440, reduced = false, language = 'en', options = {}) {
   const slots = [], pendingEffects = [], timelines = [], contexts = [], requests = [], timers = new Map();
   let cursor = 0, dirty = false, tree, owner, nextTimer = 0, mounted = true;
+  const decoded = new Set(), decodes = new Map(), preloads = [], observers = [], mediaListeners = new Map(), pageListeners = new Map();
   const equal = (a, b) => a && b && a.length === b.length && a.every((value, i) => Object.is(value, b[i]));
   const hooks = {
     useRef(value) { const i = cursor++; return slots[i] ??= { current: value }; },
@@ -53,9 +54,9 @@ function harness(width = 1440, reduced = false, language = 'en') {
   hooks.useEffect = (fn, deps) => effect(fn, deps, false);
   hooks.useLayoutEffect = (fn, deps) => effect(fn, deps, true);
   const jsx = { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }), Fragment: Symbol('fragment') };
-  const document = { hidden: false, addEventListener() {}, removeEventListener() {} };
+  const document = { hidden: false, addEventListener: (name, fn) => pageListeners.set(name, fn), removeEventListener: name => pageListeners.delete(name) };
   const window = {
-    matchMedia: query => ({ matches: query.includes('reduced-motion') ? reduced : width <= 767, addEventListener() {}, removeEventListener() {} }),
+    matchMedia: query => ({ get matches() { return query.includes('reduced-motion') ? reduced : width <= 767; }, addEventListener: (name, fn) => mediaListeners.set(query, fn), removeEventListener: () => mediaListeners.delete(query) }),
     setTimeout: (fn, ms) => { const id = ++nextTimer; timers.set(id, { fn, ms }); return id; },
     clearTimeout: id => timers.delete(id),
   };
@@ -89,19 +90,32 @@ function harness(width = 1440, reduced = false, language = 'en') {
     '../data/productWorldSelector': data, '../data/productWorldDelivery': delivery,
     '../lib/productWorldSelection': selection,
     '../lib/productWorldImages': {
-      prepareWorldImages: sources => new Promise((resolve, reject) => requests.push({ sources, resolve, reject })),
-      preloadWorldImages: async () => {}, rememberWorldImage: async () => {}, releaseWorldImages() {},
+      areWorldImagesReady: sources => Boolean(options.readiness && sources.every(src => decoded.has(src))),
+      prepareWorldImages: sources => options.readiness && sources.every(src => decoded.has(src)) ? Promise.resolve() : new Promise((resolve, reject) => requests.push({ sources, resolve, reject })),
+      preloadWorldImages: (sources, signal) => options.readiness ? new Promise((resolve, reject) => preloads.push({ sources, signal, resolve, reject })) : Promise.resolve(),
+      rememberWorldImage: async (image, signal) => { await image.decode(); if (!signal.aborted) decoded.add(image.src); },
+      releaseWorldImages() { decoded.clear(); },
     },
     '../styles/world-portals.css': {},
   };
   const api = load('src/components/ProductWorlds.tsx', name => {
     assert(name in imports, name); return imports[name];
   }, { window, document, IntersectionObserver: class {
-    constructor(callback) { this.callback = callback; }
+    constructor(callback, options) { this.callback = callback; this.options = options; observers.push(this); }
     observe() { this.callback([{ isIntersecting: true }]); }
     disconnect() {}
   } }, '\nexport { WorldSelector };');
-  const dom = { querySelector: () => null, querySelectorAll: () => [] };
+  const dom = { querySelector: () => null, querySelectorAll: query => {
+    if (!options.readiness || !query.includes('.pw-background')) return [];
+    const sources = new Set([data.worldCoreAssets.background, data.worldCoreAssets.hologram, ...delivery.getWorldDelivery(worlds[active()], width <= 767).sources]);
+    return nodes().filter(n => n.type === 'img' && sources.has(n.props.src)).map(n => ({ src: n.props.src, decode() {
+      if (decoded.has(this.src)) return Promise.resolve();
+      if (!decodes.has(this.src)) {
+        let resolve; const promise = new Promise(done => { resolve = done; }); decodes.set(this.src, { promise, resolve });
+      }
+      return decodes.get(this.src).promise;
+    } }));
+  } };
   function flush() {
     let turns = 0;
     do {
@@ -124,12 +138,24 @@ function harness(width = 1440, reduced = false, language = 'en') {
   const complete = () => { timelines.at(-1).complete(); flush(); };
   async function settle(success = true) {
     const request = requests.shift(); assert(request, 'Expected pending image preparation');
-    if (success) request.resolve(); else request.reject(new Error('decode failed'));
+    if (success) { request.sources.forEach(src => decoded.add(src)); request.resolve(); } else request.reject(new Error('decode failed'));
     await tick(); if (mounted) flush(); return request;
   }
+  const flushAsync = async () => { await tick(); if (mounted) flush(); };
+  async function readyCurrent() { for (const [src, d] of decodes) { decoded.add(src); d.resolve(); } decodes.clear(); await flushAsync(); }
+  async function readyPreload(success = true) {
+    const job = preloads.shift(); assert(job, 'Expected silent preload');
+    if (success) { if (!job.signal.aborted) job.sources.forEach(src => decoded.add(src)); job.resolve(); } else job.reject(new Error('network failed'));
+    await flushAsync(); return job;
+  }
+  function fireTimer() { assert.equal(timers.size, 1); const [id, timer] = [...timers][0]; assert.equal(timer.ms, 5800); timers.delete(id); timer.fn(); flush(); }
+  function pause() { byClass('pw-pause')[0].props.onClick(); flush(); }
+  function visibility(visible) { observers.find(o => o.options?.threshold).callback([{ isIntersecting: visible }]); flush(); }
+  function pageVisibility(visible) { document.hidden = !visible; pageListeners.get('visibilitychange')?.(); flush(); }
+  function resize(value) { width = value; mediaListeners.get('(max-width: 767px)')?.(); flush(); }
   function unmount() { mounted = false; for (const slot of slots) slot?.cleanup?.(); }
   flush();
-  return { nodes, byClass, active, click, next, complete, settle, timelines, contexts, requests, timers, unmount };
+  return { nodes, byClass, active, click, next, complete, settle, timelines, contexts, requests, timers, unmount, preloads, readyCurrent, readyPreload, fireTimer, pause, visibility, pageVisibility, resize, flushAsync };
 }
 (async () => {
   // Latest manual request wins; automated requests never replace it.
@@ -206,5 +232,69 @@ function harness(width = 1440, reduced = false, language = 'en') {
     const h = harness(); h.complete(); h.click(1); const count = h.timelines.length;
     h.unmount(); await h.settle(); assert.equal(h.timelines.length, count);
   }
-  console.log('Product Worlds transitions passed: four families, EN/AR, six viewport profiles, rapid selections, failure recovery, reduced motion and cleanup (mocked lifecycle; not browser profiling).');
+  // Cold scene, expired dwell and slow next-family decode: never show automatic loading.
+  for (const width of [390, 1440]) {
+    const h = harness(width, false, 'en', { readiness: true }); h.complete();
+    const status = () => h.byClass('pw-status')[0].props.children;
+    assert.equal(h.timers.size, 0); assert.equal(h.preloads.length, 0); assert.equal(status(), '');
+    await h.readyCurrent(); assert.equal(h.timers.size, 1); assert.equal(h.preloads.length, 1);
+    h.fireTimer(); assert.equal(h.active(), 0); assert.equal(h.requests.length, 0); assert.equal(status(), '');
+    for (const index of [1, 2, 3, 0]) {
+      const job = await h.readyPreload();
+      assert.deepEqual([...job.sources], [...delivery.getWorldDelivery(worlds[index], width <= 767).sources]);
+      assert.equal(h.active(), index); assert.equal(status(), ''); assert.equal(h.requests.length, 0);
+      h.complete(); await h.flushAsync();
+      if (index !== 0) h.fireTimer();
+    }
+    h.unmount();
+  }
+  // Early readiness does not shorten the existing dwell.
+  {
+    const h = harness(390, false, 'en', { readiness: true }); h.complete(); await h.readyCurrent();
+    await h.readyPreload(); assert.equal(h.active(), 0); assert.equal(h.timers.size, 1);
+    h.fireTimer(); assert.equal(h.active(), 1); assert.equal(h.byClass('pw-status')[0].props.children, ''); h.complete(); h.unmount();
+  }
+  // Pause or loss of visibility while preparation finishes cannot cause a late auto-switch.
+  for (const mode of ['pause', 'visibility', 'pageVisibility']) {
+    const h = harness(390, false, 'en', { readiness: true }); h.complete(); await h.readyCurrent(); h.fireTimer();
+    if (mode === 'pause') h.pause(); else h[mode](false);
+    const job = await h.readyPreload(); assert(job.signal.aborted); assert.equal(h.active(), 0); assert.equal(h.timers.size, 0);
+    if (mode === 'pause') h.pause(); else h[mode](true);
+    assert.equal(h.timers.size, 1); await h.readyPreload(); assert.equal(h.active(), 0);
+    h.fireTimer(); assert.equal(h.active(), 1); h.complete(); h.unmount();
+  }
+  // Manual work takes priority during a silent wait; rapid choices still use the Phase 2 queue.
+  {
+    const h = harness(390, false, 'en', { readiness: true }); h.complete(); await h.readyCurrent(); h.fireTimer();
+    h.click(3); h.click(2); assert(h.preloads[0].signal.aborted);
+    assert.equal(h.byClass('pw-status')[0].props.children, data.worldSelectorCopy.en.loading);
+    await h.readyPreload(); assert.equal(h.active(), 0);
+    await h.settle(); assert.equal(h.active(), 3); h.complete();
+    await h.settle(); assert.equal(h.active(), 2); h.complete(); h.unmount();
+  }
+  // Warm manual selections do not flash loading feedback.
+  {
+    const h = harness(390, false, 'en', { readiness: true }); h.complete(); await h.readyCurrent(); await h.readyPreload();
+    h.click(1); assert.equal(h.byClass('pw-status')[0].props.children, '');
+    await h.flushAsync(); assert.equal(h.active(), 1); assert.equal(h.requests.length, 0); h.complete(); h.unmount();
+  }
+  // A breakpoint change invalidates readiness for the old delivery profile.
+  {
+    const h = harness(1440, false, 'en', { readiness: true }); h.complete(); await h.readyCurrent();
+    h.resize(390); assert.equal(h.timers.size, 0); await h.readyPreload(); assert.equal(h.active(), 0);
+    await h.readyCurrent(); const job = h.preloads[0]; assert(job.sources.every(src => src.includes('-mobile.webp')));
+    h.fireTimer(); assert.equal(h.active(), 0); await h.readyPreload(); assert.equal(h.active(), 1); h.complete(); h.unmount();
+  }
+  // Speculative failure stays silent and does not consume manual retry capability.
+  {
+    const h = harness(390, false, 'en', { readiness: true }); h.complete(); await h.readyCurrent(); h.fireTimer();
+    await h.readyPreload(false); assert.equal(h.active(), 0); assert.equal(h.byClass('pw-status')[0].props.children, '');
+    h.click(1); await h.settle(); assert.equal(h.active(), 1); h.complete(); h.unmount();
+  }
+  {
+    const h = harness(390, true, 'en', { readiness: true }); await h.readyCurrent();
+    assert.equal(h.timers.size, 0); assert.equal(h.preloads.length, 0); h.click(1); await h.settle();
+    assert.equal(h.active(), 1); assert.equal(h.timelines.length, 0); h.unmount();
+  }
+  console.log('Product Worlds transitions passed: four families, EN/AR, six viewport profiles, cold-scene readiness, silent slow preparation, 5.8s dwell, pause/visibility, warm manual selection, rapid clicks, breakpoint changes, failure recovery, reduced motion and cleanup (mocked lifecycle; not browser profiling).');
 })().catch(error => { console.error(error); process.exitCode = 1; });
