@@ -21,7 +21,7 @@ const cases = [
   ['/admin/contact', '/admin/:section', '../cms/CmsAdmin', 'Checking staff access'],
   ['/arena', '/arena', 'PublicPage', 'gg-app-preview'],
   ['/tournaments', '/tournaments', 'PublicPage', 'event-details'],
-  ['/find-gg', '/find-gg', 'PublicPage', 'store-results'],
+  ['/find-gg', '/find-gg', 'PublicPage', 'find-gg-results'],
   ['/feedback', '/feedback', 'PublicPage', 'feedback-family'],
   ['/business', '/business', 'PublicPage', 'enquiry-requestType'],
   ['/contact', '/contact', 'PublicPage', 'enquiry-message'],
@@ -59,25 +59,41 @@ for (const language of ['en', 'ar']) {
         assert.ok(/type="submit"[^>]*disabled/.test(html))
         assert.ok(html.includes(language === 'en' ? 'YOUR FEEDBACK MATTERS TO US' : 'رأيك يهمنا'))
       }
-      if (url === '/find-gg') { assert.ok(!html.includes('Sample store A') && !html.includes('متجر نموذجي أ')); assert.ok(html.includes('store-results')) }
+      if (url === '/find-gg') { assert.ok(!html.includes('Sample store A') && !html.includes('متجر نموذجي أ')); assert.ok(html.includes('find-gg-results')) }
       if (url === '/business' || url === '/contact') assert.ok(html.includes(language === 'en' ? 'Send your enquiry to GG Snacks.' : 'أرسل استفسارك إلى جي جي سناكس.'))
     }
     if (page === 'Home') {
       assert.equal((html.match(/<main\b/g) ?? []).length, 1)
       assert.ok(html.indexOf('</main>') < html.indexOf('<footer'))
       assert.ok(html.includes('to=') === false)
-      const sections = ['home-hero', 'product-worlds', 'featured-products', 'gg-universe', 'why-gg', 'gg-arena', 'gg-tournaments', 'find-gg', 'contact']
+      const sections = ['home-hero', 'product-worlds', 'gg-tournaments', 'gg-universe', 'gg-arena', 'find-gg', 'contact']
       let previous = -1
       for (const id of sections) {
         const position = html.indexOf(`id="${id}"`)
         assert.ok(position > previous, `${language}: missing or misplaced homepage section ${id}`)
         previous = position
       }
-      for (const slug of ['pop-g', 'trigger', 'loots', 'x-stix']) assert.ok(html.includes(`href="/products/${slug}"`))
-      assert.ok(html.includes('id="rate-your-snack"'), 'Keep the existing rating entry anchor')
-      assert.ok(/id="gg-city"[^>]*disabled/.test(html))
-      assert.ok(/id="gg-district"[^>]*disabled/.test(html))
-      assert.ok(html.includes(language === 'en' ? 'SNACKS BUILT' : 'سناكات صُممت'))
+      // The selector renders one active Explore link, with four accessible family buttons.
+      for (const [index, name] of ['POP-G', 'TRIGGER', 'LOOTS', 'X-STIX'].entries()) {
+        assert.ok(html.includes('aria-label="0' + (index + 1) + ' / ' + name + '"'))
+      }
+      assert.equal((html.match(/class="pw-selector"/g) ?? []).length, 4)
+      assert.ok(/class="pw-selector"[^>]*aria-pressed="true"/.test(html))
+      assert.ok(html.includes('href="/products/pop-g"'))
+      assert.ok(!html.includes('id="featured-products"') && !html.includes('id="why-gg"'))
+      assert.ok(html.indexOf('<footer') > previous)
+      assert.ok(html.includes('href="/feedback"'), 'Keep the visible rating entry route')
+      // Working Find GG controls use useId-derived label associations.
+      for (const field of ['city', 'district']) {
+        const select = html.match(new RegExp('<select[^>]*id="([^"]+-' + field + ')"[^>]*>'))
+        assert.ok(select, 'Find GG ' + field + ' control exists')
+        assert.ok(html.includes('for="' + select[1] + '"'))
+        assert.ok(!select[0].includes('disabled'))
+      }
+      const { heroContent } = require('../src/data/heroLayers.ts')
+      for (const line of heroContent[language].headline) assert.ok(html.includes('>' + line + '</span>'))
+      assert.ok(html.includes('href="#product-worlds"'), 'Hero keeps the approved on-page CTA')
+      assert.equal((html.match(/<h1\b/g) ?? []).length, 1)
 
     }
     if (page === 'RateSnack' && !url.includes('invalid')) {

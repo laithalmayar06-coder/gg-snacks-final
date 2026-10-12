@@ -3,7 +3,7 @@ import { pageCopy, pageTitles, publicPaths, type PublicPath } from './publicCont
 import { homepageContent } from './homepage'
 import { translations } from '../i18n/translations'
 
-export const siteOrigin = 'https://gg-snacks-final.vercel.app'
+export const siteOrigin = 'https://www.gg-snacks.com'
 // Only stable public routes: CMS-managed product slugs can change independently of a build.
 export const sitemapPaths = ['/', '/products', ...publicPaths]
 export function pageMetadata(pathname: string, language: SiteLanguage, product?: { name: string; description?: string }) {

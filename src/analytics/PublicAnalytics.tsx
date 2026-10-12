@@ -10,7 +10,7 @@ export default function PublicAnalytics() {
  const lastPath = useRef<string | null>(null)
  useEffect(() => {
   // Avoid local development/preview noise and loading any script on direct staff visits.
-  if (!import.meta.env.PROD || window.location.hostname !== 'gg-snacks-final.vercel.app') return
+  if (!import.meta.env.PROD || window.location.hostname !== 'www.gg-snacks.com') return
   const path = analyticsPath(pathname)
   if (!path) { lastPath.current = null; return }
   try {
@@ -33,7 +33,7 @@ export default function PublicAnalytics() {
    const target = event.target instanceof Element ? event.target.closest('.hero-actions a') : null
    if (!(target instanceof HTMLAnchorElement)) return
    const url = new URL(target.href)
-   if (url.origin === window.location.origin && url.pathname === '/products') {
+   if (window.location.pathname === '/' && url.origin === window.location.origin && url.pathname === '/' && url.hash === '#product-worlds') {
     try { track('explore_products_click') } catch { /* Best-effort telemetry only. */ }
    }
   }
