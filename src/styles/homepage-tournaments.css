@@ -1,162 +1,99 @@
-/* Isolated homepage tournament campaign; the public tournament route is unchanged. */
-#gg-tournaments.tourney-showcase {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding: 44px 24px 36px;
-  border-block: 1px solid #8490b12b;
-  background: #050916;
-  color: #edf4ff;
+/* Homepage Section 3 only. The tournament information route is unchanged. */
+#gg-tournaments.arena-gateway {
+  position: relative; isolation: isolate; overflow: clip; color: #f4f7fa; background: #080b1c;
+  min-height: clamp(690px, 56.25vw, 1080px); display: grid; align-items: center;
+  padding: clamp(64px, 6vw, 110px) max(6%, calc((100% - 1680px) / 2));
+  border-block: 1px solid #718ad21a; scroll-margin-top: 100px;
 }
-.tourney-showcase::after {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, #03071180, transparent 24% 66%, #0307118c), radial-gradient(ellipse at 50% 39%, transparent 40%, #02040a59);
+.arena-gateway .gateway-environment { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; direction: ltr; }
+.arena-gateway .gateway-scene { position: absolute; inset: 0; }
+.arena-gateway .gateway-background, .arena-gateway .gateway-background img,
+.arena-gateway .gateway-overlay, .arena-gateway .gateway-walkway { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.arena-gateway .gateway-environment::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, #060b1799, #060b1733 38%, transparent 63%), linear-gradient(0deg, #080b1caa, transparent 18% 90%, #080b1c44);
 }
-.tourney-showcase .tourney-content { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin-inline: auto; }
-.tourney-showcase .tourney-heading { position: relative; z-index: 2; max-width: 880px; margin-inline: auto; text-align: center; }
-.tourney-showcase .tourney-heading-logo { display: block; width: auto; height: 82px; margin: 0 auto 8px; object-fit: contain; filter: drop-shadow(0 3px 17px #94b9ff27); }
-.tourney-showcase .tourney-heading h2 {
-  margin: 0;
-  font: 700 clamp(38px, 4.2vw, 64px)/1.1 'Barlow Condensed', sans-serif;
-  letter-spacing: .14em;
-  text-wrap: balance;
-  overflow-wrap: anywhere;
-  color: #dce4f4;
-  text-shadow: 0 2px 2px #0009, 0 0 28px #a2b4e025;
+.arena-gateway .gateway-overlay { opacity: .55; }
+.arena-gateway .gateway-fog { opacity: .5; }
+.arena-gateway .gateway-floor { opacity: .75; }
+.arena-gateway .gateway-step { stroke: #72e6ff; stroke-width: 3; stroke-linecap: round; opacity: .65; }
+.arena-gateway .gateway-step:nth-child(n+6) { stroke: #e49cff; }
+.arena-gateway .gateway-walkway-mobile { display: none; }
+.arena-gateway .gateway-content { width: min(48%, 640px); min-width: 0; position: relative; justify-self: left; }
+.arena-gateway .gateway-kicker { display: flex; align-items: center; gap: 18px; margin: 0 0 22px; font: 600 11px/1.6 Arial, sans-serif; letter-spacing: .2em; color: #9fdef1; }
+.arena-gateway .gateway-kicker i { height: 1px; width: 64px; background: linear-gradient(90deg, #00cfff, #d276fc); }
+.arena-gateway .gateway-title { margin: 0; font: 800 clamp(64px, 6.1vw, 110px)/.98 'Barlow Condensed', sans-serif; letter-spacing: -.018em; }
+.arena-gateway .gateway-title > span { display: block; }
+.arena-gateway .gateway-title > span:last-child { color: #a2efff; background: linear-gradient(100deg, #ecfaff 0%, #83e6ff 50%, #bdb2f7 100%); background-clip: text; -webkit-text-fill-color: transparent; }
+.arena-gateway .gateway-tagline { margin: 24px 0 0; color: #e7eaf6; font-size: clamp(11px, 1vw, 14px); font-weight: 700; line-height: 1.8; letter-spacing: .1em; }
+.arena-gateway .gateway-introduction { max-width: 410px; color: #aebed0; font-size: 15px; line-height: 1.85; margin: 14px 0 0; overflow-wrap: anywhere; }
+.arena-gateway .gateway-dates { margin: 30px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 490px; }
+.arena-gateway .gateway-date { min-width: 0; padding: 18px 16px; border: 1px solid #68cce13b; border-top-color: #68dff4a3; background: linear-gradient(130deg, #162b42b8, #0b1225cf); box-shadow: inset 0 1px #b4eaff12, 0 4px 18px #00cfff08; }
+.arena-gateway .gateway-date + .gateway-date { border-color: #b58ae13b; border-top-color: #c48ff5a3; box-shadow: inset 0 1px #edc8ff12, 0 4px 18px #c469ef08; background: linear-gradient(130deg, #22223bb3, #0b1225cf); }
+.arena-gateway .gateway-date dt { display: flex; align-items: flex-start; gap: 7px; color: #bbcddd; font-size: 10px; font-weight: 600; line-height: 1.7; letter-spacing: .07em; }
+.arena-gateway .gateway-date dd { margin: 8px 0 0; color: #f2f6ff; font: 700 clamp(23px, 2vw, 32px)/1.2 'Barlow Condensed', sans-serif; letter-spacing: .025em; }
+.arena-gateway .gateway-action { margin-top: 24px; }
+.arena-gateway .gateway-cta { min-height: 48px; display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; max-width: 100%; padding: 14px 22px; border: 1px solid #5bdefb9c; background: linear-gradient(110deg, #0c334bd9, #171b35e0); box-shadow: inset 0 0 20px #00cfff08; color: #f3fcff; font-size: 11px; font-weight: 700; line-height: 1.6; letter-spacing: .12em; }
+.arena-gateway .gateway-icon { flex: 0 0 auto; }
+.arena-gateway .gateway-date .gateway-icon { width: 16px; height: 16px; margin-top: 1px; color: #8ceaff; }
+.arena-gateway .gateway-date + .gateway-date .gateway-icon { color: #d4a1f5; }
+.arena-gateway .gateway-date dt > span { min-width: 0; }
+.arena-gateway .gateway-cta > .gateway-icon { width: 20px; height: 20px; color: #a5efff; }
+@media (min-width: 768px) {
+  .arena-gateway .gateway-content { isolation: isolate; }
+  .arena-gateway .gateway-content::before { content: ''; position: absolute; inset: 25% -16px -20px; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 0% 65%, #00cfff0d, transparent 65%), radial-gradient(ellipse at 80% 95%, #b967e90b, transparent 55%); }
 }
-.tourney-showcase .tourney-registration { margin: 14px 0 0; color: #dae1f1; font-size: clamp(11px, 1.05vw, 14px); font-weight: 400; line-height: 1.7; letter-spacing: .23em; text-wrap: balance; }
-.tourney-showcase .tourney-date { margin: 9px 0 0; color: #aab7d3; font-size: 10px; line-height: 1.8; letter-spacing: .23em; text-wrap: balance; }
-
-.tourney-showcase .tourney-environment { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: radial-gradient(ellipse at 50% 52%, #28235f80, transparent 55%), radial-gradient(ellipse at 2% 62%, #003b6266, transparent 42%), radial-gradient(ellipse at 98% 62%, #57216955, transparent 42%), #050916; }
-.tourney-showcase .tourney-stadium { position: absolute; inset: 0; width: 100%; height: 100%; }
-.tourney-showcase .tourney-stadium-lights { filter: drop-shadow(0 0 4px #83aaff) drop-shadow(0 0 12px #777cec88); }
-.tourney-showcase .tourney-floor-sheen {
-  position: absolute;
-  inset: 68% 0 0;
-  opacity: .75;
-  background:
-    linear-gradient(99deg, transparent 4%, #44dfff17 6%, transparent 8% 13%, #55caff20 14%, transparent 16% 29%, #8c86ff12 30%, transparent 34% 67%, #947dff1a 68%, transparent 71% 82%, #df6aff22 84%, transparent 87% 94%, #c778ff14 96%, transparent),
-    radial-gradient(ellipse at 25% 0, #2997e529, transparent 47%),
-    radial-gradient(ellipse at 77% 0, #b644d22b, transparent 47%);
-  mask-image: linear-gradient(#000b, #000 20%, transparent 96%);
-  pointer-events: none;
+.arena-gateway .gateway-cta:focus-visible { outline: 2px solid #8decff; outline-offset: 5px; }
+.arena-gateway .gateway-date-note { margin: 12px 0 0; color: #a5b4c9; font-size: 11px; line-height: 1.6; }
+.arena-gateway .gateway-mobile-stage { display: none; }
+.arena-gateway[dir='rtl'] .gateway-kicker,
+.arena-gateway[dir='rtl'] .gateway-tagline,
+.arena-gateway[dir='rtl'] .gateway-date dt,
+.arena-gateway[dir='rtl'] .gateway-cta { letter-spacing: 0; font-family: 'IBM Plex Sans Arabic', sans-serif; }
+.arena-gateway[dir='rtl'] .gateway-title { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(46px, 5.2vw, 86px); line-height: 1.4; letter-spacing: 0; }
+.arena-gateway[dir='rtl'] .gateway-introduction { font-family: 'IBM Plex Sans Arabic', sans-serif; margin-inline-end: auto; }
+.arena-gateway[dir='rtl'] .gateway-date dd { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(20px, 1.8vw, 28px); letter-spacing: 0; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .arena-gateway .gateway-cta { transition: transform .2s ease, border-color .2s ease; }
+  .arena-gateway .gateway-cta:hover { transform: translateY(-2px); border-color: #aff3ff; }
 }
-
-/* Suspended cloth banners provide the same tall side framing as the reference. */
-.tourney-showcase .tourney-banner {
-  --banner-color: #5fd9ff;
-  position: absolute;
-  top: 14%;
-  width: clamp(106px, 11.5vw, 172px);
-  height: clamp(260px, 27vw, 356px);
-  padding-top: 48px;
-  border-top: 2px solid var(--banner-color);
-  border-inline: 1px solid color-mix(in srgb, var(--banner-color) 36%, transparent);
-  background:
-    linear-gradient(105deg, #ffffff0a, transparent 18% 46%, #02081780 49%, transparent 55% 85%, #ffffff08),
-    linear-gradient(158deg, #11192e, #070c1b 50%, color-mix(in srgb, var(--banner-color) 18%, #070e22));
-  box-shadow: 0 -4px 15px color-mix(in srgb, var(--banner-color) 12%, transparent), 14px 0 22px #0006;
-  transform-origin: center top;
+@media (min-width: 768px) and (max-width: 1023px) {
+  #gg-tournaments.arena-gateway { min-height: 710px; padding-inline: 5%; }
+  .arena-gateway .gateway-content { width: 53%; }
+  .arena-gateway .gateway-title { font-size: clamp(58px, 7.5vw, 76px); }
+  .arena-gateway .gateway-background img, .arena-gateway .gateway-overlay { object-position: 57% center; }
+  .arena-gateway .gateway-date { padding: 15px 11px; }
 }
-.tourney-showcase .tourney-banner::before { content: ''; position: absolute; inset: -48px 10px auto; height: 46px; border-inline: 1px solid #a0b1d155; }
-.tourney-showcase .tourney-banner::after { content: ''; position: absolute; inset: 0; border-bottom: 1px solid color-mix(in srgb, var(--banner-color) 65%, transparent); background: linear-gradient(140deg, transparent 54%, color-mix(in srgb, var(--banner-color) 24%, transparent) 54.2%, transparent 56% 64%, color-mix(in srgb, var(--banner-color) 16%, transparent) 64.2%, transparent 73%); }
-.tourney-showcase .tourney-banner-left { left: 9%; transform: perspective(700px) rotateY(17deg) rotateZ(5deg); }
-.tourney-showcase .tourney-banner-right { --banner-color: #c576ff; right: 9%; transform: perspective(700px) rotateY(-17deg) rotateZ(-5deg); }
-.tourney-showcase .tourney-banner img { position: relative; z-index: 1; display: block; width: 44%; height: auto; margin-inline: auto; object-fit: contain; opacity: .86; filter: drop-shadow(0 0 15px color-mix(in srgb, var(--banner-color) 18%, transparent)); }
-.tourney-showcase .tourney-banner-lines { position: absolute; inset: 55% 0 0; background: repeating-linear-gradient(130deg, transparent 0 18px, color-mix(in srgb, var(--banner-color) 8%, transparent) 19px 20px, transparent 22px 47px); mask-image: linear-gradient(transparent, #000); }
-.tourney-showcase .tourney-spotlight { position: absolute; top: 37%; width: 21%; height: 35%; opacity: .26; filter: blur(7px); }
-.tourney-showcase .tourney-spotlight-left { left: 23%; background: linear-gradient(28deg, #87deff, transparent 70%); clip-path: polygon(0 100%, 42% 0, 100% 0, 12% 100%); }
-.tourney-showcase .tourney-spotlight-right { right: 23%; background: linear-gradient(-28deg, #c58aff, transparent 70%); clip-path: polygon(88% 100%, 0 0, 58% 0, 100% 100%); }
-
-.tourney-showcase .tourney-centerpiece { position: relative; height: clamp(270px, 23vw, 332px); width: 100%; max-width: 720px; margin-inline: auto; }
-.tourney-showcase .tourney-trophy-glow { position: absolute; inset: 4% 20% -3%; background: radial-gradient(ellipse at 50% 69%, #c5b1ff26, #5f71d619 35%, transparent 68%); }
-.tourney-showcase .tourney-trophy { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: 240 / 330; transform: translateX(-50%); filter: drop-shadow(-7px 0 9px #7ebfff21) drop-shadow(7px 0 9px #de9dff21) drop-shadow(0 12px 14px #0008); }
-.tourney-showcase .tourney-trophy > svg { display: block; width: 100%; height: 100%; }
-.tourney-showcase .tourney-trophy-reflection { position: absolute; top: calc(100% - 13px); left: 50%; width: 220px; height: 80px; overflow: hidden; opacity: .14; transform: translateX(-50%); filter: blur(2px); mask-image: linear-gradient(#0008, transparent); }
-.tourney-showcase .tourney-trophy-reflection > svg { display: block; width: 100%; height: 300px; transform: scaleY(-1); }
-
-.tourney-showcase .tourney-footer { position: relative; z-index: 3; width: min(100%, 510px); margin: 0 auto; text-align: center; }
-.tourney-showcase .tourney-countdown {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  position: relative;
-  isolation: isolate;
-  padding: 16px 10px;
-  border: 1px solid transparent;
-  border-radius: 15px;
-  background: linear-gradient(155deg, #172039f2, #080d1bf5 58%) padding-box, linear-gradient(105deg, #52cdff, #768cb780 43%, #a16aca 68%, #df6bf3) border-box;
-  box-shadow: -8px 0 30px #309fd81a, 8px 0 30px #b34fde1a, 0 10px 30px #0008, inset 0 1px #b7d4f11c;
+@media (max-width: 767px) {
+  #gg-tournaments.arena-gateway { min-height: 0; display: block; padding: 28px 6% 32px; scroll-margin-top: 76px; }
+  .arena-gateway .gateway-content { width: 100%; max-width: 520px; margin-inline: auto; }
+  .arena-gateway .gateway-scene { top: calc(clamp(106px, 30vw, 130px) + 10px); bottom: auto; height: auto; aspect-ratio: 9 / 16; }
+  .arena-gateway .gateway-environment::after { background: linear-gradient(180deg, #080b1c55, transparent 32% 66%, #080b1c 92%); }
+  .arena-gateway .gateway-background img { object-position: center top; }
+  .arena-gateway .gateway-overlay { object-fit: cover; object-position: 75% center; }
+  .arena-gateway .gateway-beams { opacity: .4; }
+  .arena-gateway .gateway-fog { opacity: .38; }
+  .arena-gateway .gateway-walkway-desktop { display: none; }
+  .arena-gateway .gateway-walkway-mobile { display: block; }
+  .arena-gateway .gateway-walkway-mobile .gateway-step:nth-child(n+4) { stroke: #e49cff; }
+  .arena-gateway .gateway-kicker { margin-bottom: 12px; font-size: 10px; gap: 14px; letter-spacing: .16em; }
+  .arena-gateway .gateway-title { font-size: clamp(46px, 12.5vw, 68px); line-height: 1; }
+  .arena-gateway .gateway-tagline { font-size: 10px; letter-spacing: .045em; margin-top: 14px; }
+  .arena-gateway .gateway-introduction { font-size: 13px; line-height: 1.8; max-width: 360px; margin-top: 8px; text-shadow: 0 1px 8px #080b1c; }
+  .arena-gateway .gateway-mobile-stage { display: block; min-height: clamp(270px, 80vw, 410px); margin-block-start: 10px; pointer-events: none; }
+  .arena-gateway .gateway-dates { margin-top: 0; gap: 10px; max-width: none; grid-template-columns: repeat(2, minmax(0, 1fr)); text-align: start; }
+  .arena-gateway .gateway-date { display: flex; flex-direction: column; padding: 14px 11px; background: linear-gradient(130deg, #14283be8, #0b1225f0); }
+  .arena-gateway .gateway-date + .gateway-date { background: linear-gradient(130deg, #22223be8, #0b1225f0); }
+  .arena-gateway .gateway-date dt { min-block-size: 3.2em; font-size: 10px; line-height: 1.6; letter-spacing: .025em; }
+  .arena-gateway .gateway-date dd { margin-block-start: auto; padding-block-start: 8px; font-size: clamp(24px, 6.3vw, 30px); font-variant-numeric: tabular-nums; }
+  .arena-gateway .gateway-action { margin-top: 20px; }
+  .arena-gateway .gateway-cta { box-sizing: border-box; width: 100%; min-height: 48px; gap: 16px; padding-inline: 18px; text-align: start; }
+  .arena-gateway .gateway-date-note { text-align: center; }
+  .arena-gateway[dir='rtl'] .gateway-title { font-size: clamp(38px, 10.7vw, 58px); line-height: 1.3; }
+  .arena-gateway[dir='rtl'] .gateway-tagline { font-size: 12px; }
+  .arena-gateway[dir='rtl'] .gateway-date dt { font-size: 11px; }
+  .arena-gateway[dir='rtl'] .gateway-date dd { font-size: clamp(19px, 5.4vw, 25px); }
 }
-.tourney-showcase .tourney-countdown-unit { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding-inline: 8px; }
-.tourney-showcase .tourney-countdown-unit + .tourney-countdown-unit { border-inline-start: 1px solid #a3b0d24d; }
-.tourney-showcase .tourney-countdown-unit strong { font: 400 29px/1.1 Arial, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: .04em; text-shadow: 0 0 16px #9cb3ff22; }
-.tourney-showcase .tourney-countdown-unit > span { color: #c3cce0; font-size: 9px; line-height: 1.5; letter-spacing: .14em; }
-.tourney-showcase .tourney-date-note { margin: 9px 0 0; color: #a9b6cc; font-size: 11px; line-height: 1.6; }
-.tourney-showcase .tourney-registration-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: min(100%, 352px); min-height: 48px; margin-top: 16px; padding: 12px 20px; border: 1px solid #8f9fbc69; border-radius: 28px; background: linear-gradient(170deg, #3a42566b, #1d26385e); color: #bec8dc; box-shadow: inset 0 1px #dfe8ff14, 0 4px 22px #0004; font-size: 11px; line-height: 1.6; letter-spacing: .08em; cursor: not-allowed; }
-.tourney-showcase .tourney-registration-button > svg { width: 15px; height: 15px; flex-shrink: 0; opacity: .75; }
-.tourney-showcase .tourney-description { margin: 16px 0 0; color: #b4bfd3; font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
-.tourney-showcase .tourney-details-link { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; margin-top: 6px; padding: 8px 12px; color: #b8c8e3; font-size: 9px; line-height: 1.7; letter-spacing: .18em; transition: color .2s ease; }
-.tourney-showcase .tourney-details-link > span { font-size: 15px; }
-.tourney-showcase .tourney-details-link:hover { color: #86eaff; }
-.tourney-showcase .tourney-details-link:focus-visible { outline: 2px solid #84deff; outline-offset: 3px; }
-
-[dir='rtl'] .tourney-showcase .tourney-heading h2 { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(32px, 3.7vw, 50px); line-height: 1.45; letter-spacing: 0; }
-[dir='rtl'] .tourney-showcase :is(.tourney-registration, .tourney-date, .tourney-countdown-unit > span, .tourney-registration-button, .tourney-details-link) { letter-spacing: 0; }
-[dir='rtl'] .tourney-showcase .tourney-countdown-unit > span { font-size: 11px; }
-[dir='rtl'] .tourney-showcase .tourney-registration-button { font-size: 13px; }
-[dir='rtl'] .tourney-showcase .tourney-details-link { font-size: 11px; }
-
-@media (max-width: 1000px) {
-  #gg-tournaments.tourney-showcase { padding-top: 36px; }
-  .tourney-showcase .tourney-heading { max-width: 650px; }
-  .tourney-showcase .tourney-heading-logo { height: 72px; }
-  .tourney-showcase .tourney-heading h2 { font-size: 44px; letter-spacing: .1em; }
-  .tourney-showcase .tourney-banner { top: 24%; width: 96px; height: 248px; padding-top: 30px; }
-  .tourney-showcase .tourney-banner-left { left: 4%; }
-  .tourney-showcase .tourney-banner-right { right: 4%; }
-  .tourney-showcase .tourney-stadium { width: 1200px; max-width: none; left: 50%; transform: translateX(-50%); }
-  .tourney-showcase .tourney-centerpiece { height: 290px; }
-  [dir='rtl'] .tourney-showcase .tourney-heading h2 { font-size: 37px; }
-}
-
-@media (max-width: 600px) {
-  #gg-tournaments.tourney-showcase { padding: 28px 20px 24px; }
-  .tourney-showcase::after { background: linear-gradient(180deg, #03071188, transparent 30% 72%, #030711aa); }
-  .tourney-showcase .tourney-heading-logo { height: 60px; margin-bottom: 10px; }
-  .tourney-showcase .tourney-heading h2 { font-size: clamp(29px, 8.2vw, 40px); letter-spacing: .06em; line-height: 1.1; }
-  .tourney-showcase .tourney-registration { margin-top: 12px; font-size: 10px; letter-spacing: .13em; line-height: 1.8; }
-  .tourney-showcase .tourney-date { margin-top: 8px; font-size: 9px; letter-spacing: .1em; }
-  .tourney-showcase .tourney-stadium { top: 65px; bottom: auto; width: 920px; height: 575px; }
-  .tourney-showcase .tourney-banner { top: 210px; width: 68px; height: 162px; padding-top: 21px; opacity: .8; }
-  .tourney-showcase .tourney-banner-left { left: -10px; transform: perspective(500px) rotateY(12deg) rotateZ(5deg); }
-  .tourney-showcase .tourney-banner-right { right: -10px; transform: perspective(500px) rotateY(-12deg) rotateZ(-5deg); }
-  .tourney-showcase .tourney-banner::before { inset-inline: 8px; top: -26px; height: 24px; }
-  .tourney-showcase .tourney-banner img { width: 49%; }
-  .tourney-showcase .tourney-spotlight { top: 29%; height: 36%; width: 34%; opacity: .22; }
-  .tourney-showcase .tourney-spotlight-left { left: 6%; }
-  .tourney-showcase .tourney-spotlight-right { right: 6%; }
-  .tourney-showcase .tourney-floor-sheen { top: 62%; }
-  .tourney-showcase .tourney-centerpiece { height: 244px; margin-top: 10px; }
-  .tourney-showcase .tourney-trophy-reflection { width: 178px; height: 58px; }
-  .tourney-showcase .tourney-trophy-reflection > svg { height: 244px; }
-  .tourney-showcase .tourney-footer { width: min(100%, 370px); }
-  .tourney-showcase .tourney-countdown { padding: 13px 4px; border-radius: 12px; }
-  .tourney-showcase .tourney-countdown-unit { padding-inline: 4px; gap: 6px; }
-  .tourney-showcase .tourney-countdown-unit strong { font-size: 26px; }
-  .tourney-showcase .tourney-countdown-unit > span { font-size: 8px; letter-spacing: .08em; }
-  .tourney-showcase .tourney-date-note { margin-top: 8px; font-size: 10px; }
-  .tourney-showcase .tourney-registration-button { min-height: 46px; width: min(100%, 300px); margin-top: 12px; padding: 10px 14px; font-size: 10px; }
-  .tourney-showcase .tourney-details-link { margin-top: 2px; }
-  [dir='rtl'] .tourney-showcase .tourney-heading h2 { font-size: clamp(27px, 7.8vw, 34px); line-height: 1.45; }
-  [dir='rtl'] .tourney-showcase .tourney-registration { font-size: 11px; }
-  [dir='rtl'] .tourney-showcase .tourney-date { font-size: 10px; }
-  [dir='rtl'] .tourney-showcase .tourney-countdown-unit > span { font-size: 10px; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .tourney-showcase .tourney-details-link { transition: none; }
+  .arena-gateway .gateway-cta { transition: none; }
 }
