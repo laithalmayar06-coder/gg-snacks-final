@@ -1,6 +1,6 @@
 export const homepageStory = {
   en: {
-    label: 'OUR STORY',
+    label: '04 / OUR STORY',
     heading: 'THIS IS GG',
     subtitle: 'MORE THAN SNACKS',
     description: [
@@ -12,13 +12,13 @@ export const homepageStory = {
     pillars: ['Taste', 'Quality', 'Gaming Culture'],
     pillarDescriptions: [
       'Bold flavours for every session.',
-      'Premium ingredients. Higher standards.',
+      'Quality in every detail.',
       'Built by gamers for what’s next.',
     ],
     cta: "BE PART OF WHAT'S NEXT",
   },
   ar: {
-    label: 'قصتنا',
+    label: '04 / قصتنا',
     heading: 'هذه هي جي جي',
     subtitle: 'أكثر من مجرد سناك',
     description: [
@@ -30,7 +30,7 @@ export const homepageStory = {
     pillars: ['المذاق', 'الجودة', 'ثقافة الألعاب'],
     pillarDescriptions: [
       'نكهات جريئة لكل جلسة لعب.',
-      'مكونات فاخرة. معايير أعلى.',
+      'الجودة في كل تفصيل.',
       'من اللاعبين لما هو قادم.',
     ],
     cta: 'كن جزءًا مما هو قادم',
