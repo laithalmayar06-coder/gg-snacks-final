@@ -1,0 +1,26 @@
+[
+  {
+    "source": "desktop/neon_qr_portal_arena.png",
+    "delivery": "desktop/neon_qr_portal_arena.webp",
+    "width": 1672,
+    "height": 941,
+    "sourceBytes": 2151182,
+    "deliveryBytes": 1682942,
+    "hasAlpha": false,
+    "lossless": true,
+    "identicalDecodedRGBA": true,
+    "sourceSHA256": "9bc0a96728c71512f2b394fa16223ddc4777f98bfd19fe2d0f038930331228ab"
+  },
+  {
+    "source": "mobile/neon_portal_arena_with_qr_hologram.png",
+    "delivery": "mobile/neon_portal_arena_with_qr_hologram.webp",
+    "width": 941,
+    "height": 1672,
+    "sourceBytes": 2027586,
+    "deliveryBytes": 1534684,
+    "hasAlpha": false,
+    "lossless": true,
+    "identicalDecodedRGBA": true,
+    "sourceSHA256": "2c6e59464504db4c3acc008301519fffe30835dcfc4d4ad98528485d78f04952"
+  }
+]
