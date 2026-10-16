@@ -1,0 +1,103 @@
+/* Homepage Section 6. The standalone store finder and its CMS controls are untouched. */
+#find-gg.home-find {
+  position: relative; isolation: isolate; overflow: hidden;
+  background: #06080e; color: #f4f7fa; scroll-margin-top: 90px;
+  padding: clamp(64px, 6vw, 100px) 0;
+}
+.home-find-environment { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.home-find-atmosphere { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+.home-find-environment::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, #06080e55 0%, #06080e22 36%, transparent 58%),
+    linear-gradient(180deg, #06080e 0%, transparent 12%, transparent 90%, #06080e 100%);
+}
+.home-find-light {
+  position: absolute; inset: 16% 0 12% 36%; opacity: .9;
+  background: radial-gradient(ellipse at 34% 45%, #008cff17, transparent 57%),
+    radial-gradient(ellipse at 83% 68%, #8444e323, transparent 63%);
+}
+.home-find-layout {
+  position: relative; width: min(calc(100% - 112px), 1456px); margin-inline: auto;
+  min-height: clamp(490px, 37vw, 650px); display: grid; direction: ltr;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.25fr);
+  grid-template-areas: 'copy scene' 'ending scene'; gap: 28px 24px; align-content: center;
+}
+.home-find-copy { position: relative; z-index: 2; grid-area: copy; align-self: end; min-width: 0; }
+.home-find-kicker { margin: 0 0 22px; color: #9db4cb; font-size: 11px; line-height: 1.5; letter-spacing: .2em; font-weight: 600; }
+.home-find-title { margin: 0; font: 800 clamp(64px, 6.4vw, 106px)/.98 'Barlow Condensed', sans-serif; letter-spacing: -.02em; }
+.home-find-title > span { display: block; }
+.home-find-title > span:last-child { color: #48d1f1; }
+.home-find-support { margin: 26px 0 0; font: 600 clamp(20px, 1.7vw, 27px)/1.45 'Barlow Condensed', sans-serif; letter-spacing: .025em; }
+.home-find-support > span { display: block; }
+.home-find-description { max-width: 330px; margin: 23px 0 0; color: #b7c2d1; font-size: 15px; line-height: 1.75; }
+.home-find-ending { position: relative; z-index: 2; grid-area: ending; align-self: start; min-width: 0; }
+.home-find-status {
+  display: inline-flex; align-items: center; gap: 12px; margin: 0; min-height: 48px; padding: 12px 21px;
+  border: 1px solid #50cceca6; border-radius: 10px 3px 10px 3px; background: #06213070;
+  box-shadow: inset 0 0 18px #00cfff08; color: #d5f7ff;
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; line-height: 1.5;
+}
+.home-find-status > span { flex: 0 0 7px; width: 7px; height: 7px; border-radius: 50%; background: #48d1f1; box-shadow: 0 0 10px #00cfff55; }
+.home-find-scene { position: relative; z-index: 1; grid-area: scene; align-self: center; min-width: 0; margin: 0; pointer-events: none; }
+.home-find-art { position: relative; width: 100%; aspect-ratio: 883 / 650; }
+.home-find-map {
+  position: absolute; z-index: 1; inset: 0; width: 100%; height: auto;
+  /* Fade the supplied cutout's lower fringe into the environment, without altering the file. */
+  mask-image: linear-gradient(180deg, #000 88%, #000a 97%, transparent 100%);
+}
+.home-find-floor {
+  position: absolute; left: 12%; right: 2%; bottom: 1%; height: 18%; opacity: .7;
+  background: radial-gradient(ellipse, #3458e829, #6e36c610 45%, transparent 72%);
+}
+.home-find-pin { position: absolute; z-index: 2; display: block; width: 8%; aspect-ratio: 129 / 173; }
+.home-find-pin-image { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+.home-find-pin--central { left: 40%; top: 24%; }
+.home-find-pin--east { left: 68%; top: 49%; width: 6.5%; }
+.home-find-pin--distant { left: 72%; top: 30%; width: 5%; opacity: .8; }
+.home-find-ripple { position: absolute; width: 115%; height: auto; left: -7.5%; top: 68%; opacity: .6; }
+.home-find-fog {
+  position: absolute; z-index: 3; left: -3%; bottom: -3%; width: 106%; height: auto;
+  opacity: .22; pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 10% 90%, transparent);
+}
+.home-find-geography { position: relative; z-index: 4; display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin-top: 4px; color: #8eabc0; font-size: 10px; letter-spacing: .17em; line-height: 1.6; }
+.home-find-geography > span { width: 44px; height: 1px; background: linear-gradient(90deg, #44c6ef99, #ae6dea88); }
+.home-find[dir='rtl'] .home-find-copy,
+.home-find[dir='rtl'] .home-find-ending,
+.home-find[dir='rtl'] .home-find-geography { direction: rtl; text-align: right; }
+.home-find[dir='rtl'] .home-find-title { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(39px, 3.7vw, 64px); line-height: 1.4; letter-spacing: 0; }
+.home-find[dir='rtl'] .home-find-support { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: clamp(18px, 1.4vw, 23px); line-height: 1.7; letter-spacing: 0; }
+.home-find[dir='rtl'] .home-find-kicker,
+.home-find[dir='rtl'] .home-find-status,
+.home-find[dir='rtl'] .home-find-geography { letter-spacing: 0; }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .home-find-layout { width: calc(100% - 64px); grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 24px 16px; min-height: 460px; }
+  .home-find-title { font-size: clamp(58px, 7.4vw, 74px); }
+  .home-find[dir='rtl'] .home-find-title { font-size: 34px; }
+  .home-find-description { font-size: 14px; }
+  .home-find-atmosphere { position: absolute; bottom: 0; height: auto; object-fit: contain; }
+  .home-find-fog { opacity: .19; }
+}
+@media (max-width: 767px) {
+  #find-gg.home-find { padding-block: 42px 44px; scroll-margin-top: 68px; }
+  .home-find-layout { width: calc(100% - 40px); min-height: 0; grid-template-columns: minmax(0, 1fr); grid-template-areas: 'copy' 'scene' 'ending'; gap: 22px; }
+  .home-find-kicker { margin-bottom: 14px; font-size: 10px; }
+  .home-find-title { font-size: clamp(56px, 14.7vw, 82px); line-height: .98; }
+  .home-find-support { margin-top: 18px; font-size: clamp(20px, 5.2vw, 25px); line-height: 1.4; }
+  .home-find-description { max-width: 360px; margin-top: 13px; font-size: 14px; line-height: 1.65; }
+  .home-find-scene { width: 100%; max-width: 570px; justify-self: center; }
+  .home-find-art { aspect-ratio: 883 / 650; }
+  .home-find-geography { margin-top: 6px; font-size: 9px; }
+  .home-find-status { min-height: 46px; padding: 11px 18px; font-size: 12px; }
+  .home-find-light { inset: 25% 0 8%; }
+  /* Keep both sides of the wide environment visible behind the portrait map stage. */
+  .home-find-atmosphere { position: absolute; bottom: clamp(80px, 22vw, 116px); height: auto; object-fit: contain; object-position: center bottom; mask-image: linear-gradient(180deg, transparent, #000 18% 88%, transparent); }
+  .home-find-environment::after { background: linear-gradient(180deg, #06080e44, transparent 48%, transparent 90%, #06080e); }
+  .home-find-fog { opacity: .17; width: 100%; left: 0; bottom: -1%; }
+  .home-find[dir='rtl'] .home-find-title { font-size: clamp(34px, 8.8vw, 49px); line-height: 1.45; }
+  .home-find[dir='rtl'] .home-find-support { font-size: 18px; line-height: 1.7; }
+}
+@media (max-width: 359px) {
+  .home-find-layout { width: calc(100% - 36px); gap: 20px; }
+  .home-find-title { font-size: 54px; }
+}

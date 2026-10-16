@@ -13,7 +13,7 @@ import { useCms } from '../cms/CmsProvider'
 import { cmsPublicCopy } from '../cms/copy'
 import ProductImage from './ProductImage'
 import VisualSlot from './VisualSlot'
-import StoreFinder from './StoreFinder'
+import HomepageFindGG from './HomepageFindGG'
 import '../styles/featured-products.css'
 
 export function useHomeFamilies() { return useCatalog().filter(family => family.isActive !== false) }
@@ -108,5 +108,5 @@ export function TournamentsTeaser({ showPageLink = true }: { showPageLink?: bool
 }
 
 export function FindGGTeaser() {
-  return <StoreFinder />
+  return <HomepageFindGG />
 }

@@ -60,6 +60,15 @@ for (const language of ['en', 'ar']) {
         assert.ok(html.includes(language === 'en' ? 'YOUR FEEDBACK MATTERS TO US' : 'رأيك يهمنا'))
       }
       if (url === '/find-gg') { assert.ok(!html.includes('Sample store A') && !html.includes('متجر نموذجي أ')); assert.ok(html.includes('find-gg-results')) }
+      if (url === '/find-gg') {
+        // The standalone locator retains its existing real filtering controls.
+        for (const field of ['city', 'district']) {
+          const select = html.match(new RegExp('<select[^>]*id="([^"]+-' + field + ')"[^>]*>'))
+          assert.ok(select, 'Find GG ' + field + ' control exists')
+          assert.ok(html.includes('for="' + select[1] + '"'))
+          assert.ok(!select[0].includes('disabled'))
+        }
+      }
       if (url === '/business' || url === '/contact') assert.ok(html.includes(language === 'en' ? 'Send your enquiry to GG Snacks.' : 'أرسل استفسارك إلى جي جي سناكس.'))
     }
     if (page === 'Home') {
@@ -83,13 +92,10 @@ for (const language of ['en', 'ar']) {
       assert.ok(!html.includes('id="featured-products"') && !html.includes('id="why-gg"'))
       assert.ok(html.indexOf('<footer') > previous)
       assert.ok(html.includes('href="/feedback"'), 'Keep the visible rating entry route')
-      // Working Find GG controls use useId-derived label associations.
-      for (const field of ['city', 'district']) {
-        const select = html.match(new RegExp('<select[^>]*id="([^"]+-' + field + ')"[^>]*>'))
-        assert.ok(select, 'Find GG ' + field + ' control exists')
-        assert.ok(html.includes('for="' + select[1] + '"'))
-        assert.ok(!select[0].includes('disabled'))
-      }
+      // Homepage Section 6 is an honest Coming Soon teaser, not a store search.
+      const finder = html.match(/<section id="find-gg"[\s\S]*?<\/section>/)?.[0]
+      assert.ok(finder && finder.includes('home-find-status'))
+      assert.ok(!/<form|<select|<button/.test(finder))
       const { heroContent } = require('../src/data/heroLayers.ts')
       for (const line of heroContent[language].headline) assert.ok(html.includes('>' + line + '</span>'))
       assert.ok(html.includes('href="#product-worlds"'), 'Hero keeps the approved on-page CTA')
