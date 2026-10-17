@@ -1,58 +1,13 @@
 import { footerGroups } from '../data/footer'
-import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { contactItems } from '../data/contact'
 import { useLanguage } from '../i18n/LanguageContext'
 import '../styles/contact-footer.css'
 import { siteContent } from '../data/siteContent'
-import { homepageContent } from '../data/homepage'
 import { publicNavigation, secondaryNavigation } from '../data/publicContent'
-import SiteContactValue, { SocialLinks } from './SiteContactValue'
-import { useCms } from '../cms/CmsProvider'
+import { SocialLinks } from './SiteContactValue'
+import HomepageContact from './HomepageContact'
 
-gsap.registerPlugin(ScrollTrigger)
-
-export default function ContactFooter() {
-  const { t, language } = useLanguage()
-  const copy = homepageContent[language]
-  const managedContact = useCms().contact_settings?.[0]
-  const root = useRef<HTMLElement>(null)
-
-  useLayoutEffect(() => {
-    const media = gsap.matchMedia()
-    media.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.from('.contact-copy, .contact-preview', {
-        opacity: 0, y: 12, duration: .75, stagger: .12, ease: 'power2.out',
-        scrollTrigger: { trigger: root.current, start: 'top 85%', once: true },
-      })
-    }, root)
-    return () => media.revert()
-  }, [])
-
-  return <>
-    <section id="contact" ref={root} className="gg-contact" aria-labelledby="contact-title">
-      <div className="contact-copy">
-        <p className="contact-kicker">{t.contactLabel}</p>
-        <h2 id="contact-title">{t.contactTitle}</h2>
-        <p className="contact-intro">{t.contactIntro}</p>
-        <p className="contact-description">{t.contactDescription}</p>
-        <div className="gg-enquiry-types"><h3>{copy.contactCategories}</h3><ul>{copy.enquiries.map(item => <li key={item}>{item}</li>)}</ul></div>
-        <dl className="contact-details">{contactItems.map((key, index) => <div key={key}>
-          <dt><span aria-hidden="true" dir="ltr">{String(index + 1).padStart(2, '0')}</span>{t.contactItemLabels[key]}</dt>
-          <dd><SiteContactValue kind={key} /></dd>
-        </div>)}{(managedContact?.phone || siteContent.contact.phone) && <div><dt>{t.contactPhone}</dt><dd><SiteContactValue kind="phone" /></dd></div>}</dl>
-      </div>
-      <div className="contact-preview" aria-labelledby="contact-preview-title">
-        <div className="contact-preview-header"><h3 id="contact-preview-title">{t.contactFormTitle}</h3><span aria-hidden="true" dir="ltr">09 / GG</span></div>
-        <p className="contact-preview-note">{t.contactFormNote}</p>
-        <Link to="/contact" className="gg-button gg-button-primary">{publicNavigation.find(link => link.path === '/contact')!.label[language]}<span aria-hidden="true">↗</span></Link>
-      </div>
-    </section>
-
-  </>
-}
+export default function ContactFooter() { return <HomepageContact /> }
 
 export function SiteFooter() {
   const { language, setLanguage, t } = useLanguage()
