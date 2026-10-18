@@ -10,6 +10,20 @@
   background: #060910;
   color: #f0f4fa;
 }
+/* Neutral Hero handoff above the themed environments, below the positioned content.
+   Shorter than the exit fade; no family color or animation is coupled across sections. */
+.home-redesign.phase-five #product-worlds.world-showcase::before {
+  content: ''; position: absolute; inset-inline: 0; top: 0;
+  height: clamp(36px, 4vw, 72px); z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, #060910, #06091000);
+}
+/* A static edge fade above the environment surfaces, below all content and selectors.
+   Independent of family themes and their opacity crossfade; no extra scroll space. */
+.home-redesign.phase-five #product-worlds.world-showcase::after {
+  content: ''; position: absolute; inset-inline: 0; bottom: 0;
+  height: clamp(48px, 6vw, 112px); z-index: -1; pointer-events: none;
+  background: linear-gradient(0deg, #080b1c, #080b1c00);
+}
 #product-worlds .pw-background { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 58%; z-index: -3; pointer-events: none; opacity: 1; filter: contrast(1.22) brightness(.86) saturate(.9); }
 #product-worlds .pw-environment-layer::before { content: ''; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(90deg, #02050ab0, #02050a38 24%, #02050a12 43% 57%, #02050a38 76%, #02050aa8), linear-gradient(180deg, #02050a38, transparent 30%, #02050a30 73%, #030710e6); }
 /* At most two opaque environment surfaces crossfade; their theme values stay fixed. */

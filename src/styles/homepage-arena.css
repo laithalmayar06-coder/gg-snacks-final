@@ -81,7 +81,9 @@
   .digital-arena-lights--landscape { display: none; }
   .digital-arena-lights--portrait { display: block; height: auto; aspect-ratio: 941 / 1672; }
   .digital-arena-environment::after {
-    background: linear-gradient(180deg, #06080e9e 0, #06080e47 48vw, transparent 80vw, transparent 140vw, #06080e 179vw);
+    /* Close only the mobile top edge into Story; retain the portrait scene shading. */
+    background: linear-gradient(180deg, #06080e, #06080e00 clamp(32px, 8vw, 48px)),
+      linear-gradient(180deg, #06080e9e 0, #06080e47 48vw, transparent 80vw, transparent 140vw, #06080e 179vw);
   }
   .digital-arena-fog { left: 12%; right: 4%; top: 135vw; bottom: auto; height: 18vw; }
   .digital-arena-layout { width: auto; margin: 0; padding: 34px 24px 40px; }
