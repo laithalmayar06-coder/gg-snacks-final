@@ -10,7 +10,8 @@ import { FeaturedProducts, FindGGTeaser } from '../components/HomepageSections'
 import '../styles/design-system.css'
 import '../styles/homepage.css'
 import '../styles/phase2.css'
-import ContactFooter, { SiteFooter } from '../components/ContactFooter'
+import ContactFooter from '../components/ContactFooter'
+import HomepageFooter from '../components/HomepageFooter'
 import { useLanguage } from '../i18n/LanguageContext'
 
 import '../styles/phase5.css'
@@ -30,6 +31,6 @@ export default function Home() {
       <HomepageStory />
       {SHOW_WHY_GG && <WhyGG />}
       <HomepageArena /><FindGGTeaser /><ContactFooter />
-    </main><SiteFooter />
+    </main><HomepageFooter />
   </div>
 }
