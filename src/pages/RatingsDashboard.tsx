@@ -1,3 +1,4 @@
+import BrandMark from '../components/BrandMark'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useStaffSession } from '../auth/StaffSession'
@@ -68,7 +69,7 @@ export default function RatingsDashboard() {
   const languages = [...new Set(['en', 'ar', ...rows.map(row => row.language ?? 'unknown')])]
   const pageCount = Math.max(1, Math.ceil(filtered.length / 25))
   return <main className="ratings-dashboard admin-page" lang="en" dir="ltr">
-    <header className="dashboard-header"><div><p className="dashboard-kicker">GG / STAFF DASHBOARD</p><h1>Ratings overview</h1><p className="admin-permission">Read-only · All metrics follow the filters · Dates in Jeddah time</p></div><div className="dashboard-actions"><span>{session?.user.email}</span><Link to="/">Homepage</Link><button type="button" disabled={loggingOut} onClick={() => void logout()}>{loggingOut ? 'Signing out…' : 'Logout'}</button><button type="button" disabled={loading} onClick={() => setReload(value => value + 1)}>Refresh</button></div></header>
+    <header className="dashboard-header"><div><p className="dashboard-kicker"><BrandMark className="official-brand-mark--staff" alt="GG" /> / STAFF DASHBOARD</p><h1>Ratings overview</h1><p className="admin-permission">Read-only · All metrics follow the filters · Dates in Jeddah time</p></div><div className="dashboard-actions"><span>{session?.user.email}</span><Link to="/">Homepage</Link><button type="button" disabled={loggingOut} onClick={() => void logout()}>{loggingOut ? 'Signing out…' : 'Logout'}</button><button type="button" disabled={loading} onClick={() => setReload(value => value + 1)}>Refresh</button></div></header>
     {loading ? <p role="status" className="dashboard-message">Loading ratings…</p> : error ? <p role="alert" className="dashboard-message">{error}</p> : <>
       {truncated && <p className="dashboard-message">Showing the latest 10,000 ratings only. These totals and comparisons are for this partial snapshot.</p>}
       <section className="dashboard-filters" aria-label="Filter ratings">

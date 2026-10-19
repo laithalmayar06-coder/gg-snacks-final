@@ -95,7 +95,7 @@ export default function Hero() {
       </div>)}
     </div>
     <div className="prepared-content" dir={language === 'ar' ? 'rtl' : 'ltr'}>
-      <img className="prepared-signature" src={heroPreviewLogo} alt={t.brandName} width={356} height={440} decoding="async" />
+      <img className="prepared-signature" src={heroPreviewLogo} alt={t.brandName} width="1268" height="1241" decoding="async" />
       <p className="prepared-eyebrow" dir="ltr">GG SNACKS</p>
       <h1 className="prepared-headline">{content.headline.map((line, index) =>
         <span key={line} className={index === 2 ? 'prepared-gradient' : undefined}>{line}</span>

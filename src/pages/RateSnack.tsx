@@ -1,3 +1,4 @@
+import BrandMark from '../components/BrandMark'
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import { Link, useParams } from 'react-router'
 import gsap from 'gsap'
@@ -74,7 +75,7 @@ function RatingExperience({ productSlug, flavorSlug }: { productSlug?: string; f
   }, [rating, submitted])
 
   return <div ref={root} className="rating-page" style={{ '--rating-accent': flavor?.accentColor ?? product?.accentColor ?? '#6bf4ff' } as CSSProperties}>
-    <header className="rating-nav"><Link to="/" className="rating-logo" aria-label={t.brandName}><span dir="ltr">GG / SNACKS</span></Link><div className="rating-languages" role="group" aria-label={t.footerLanguage}>{(['en', 'ar'] as const).map(value => <button type="button" key={value} lang={value} aria-pressed={value === language} onClick={() => setLanguage(value)}>{value === 'en' ? 'English' : 'العربية'}</button>)}</div></header>
+    <header className="rating-nav"><Link to="/" className="rating-logo" aria-label={t.brandName}><BrandMark /></Link><div className="rating-languages" role="group" aria-label={t.footerLanguage}>{(['en', 'ar'] as const).map(value => <button type="button" key={value} lang={value} aria-pressed={value === language} onClick={() => setLanguage(value)}>{value === 'en' ? 'English' : 'العربية'}</button>)}</div></header>
     <main className="rating-main">
       <div className="rating-panel">
         {!product || !flavor ? <div className="rating-error"><span className="rating-marker" aria-hidden="true">×</span><h1>{t.ratingNotFound}</h1><Link className="rating-home" to="/">{t.ratingBack}</Link></div> : submitted ? <div className="rating-success"><span className="rating-marker" aria-hidden="true">✓</span><h1 ref={success} tabIndex={-1}>{t.ratingSuccess}</h1><p>{t.ratingThanks}</p><p className="rating-note">{t.ratingSaved}</p><Link className="rating-home" to="/">{t.ratingBack}</Link></div> : <>

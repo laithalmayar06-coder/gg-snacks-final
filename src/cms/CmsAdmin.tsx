@@ -1,3 +1,4 @@
+import BrandMark from '../components/BrandMark'
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useParams } from 'react-router'
 import { useStaffSession } from '../auth/StaffSession'
@@ -67,7 +68,7 @@ export default function CmsAdmin() {
     finally { if (mounted.current) setBusy(false) }
   }
   return <div className="cms-shell" dir="ltr" lang="en"><AdminNavigation /><main className="cms-main admin-page">
-    <header className="cms-header"><div><p>GG / CONTENT MANAGEMENT</p><h1>{section?.title ?? 'Unknown CMS section'}</h1></div><button type="button" disabled={busy || loading} onClick={() => { if (!draft || JSON.stringify(draft) === JSON.stringify(original ?? newCmsRow(section)) || window.confirm('Reload and discard unsaved changes?')) setReload(value => value + 1) }}>Reload</button></header>
+    <header className="cms-header"><div><p><BrandMark className="official-brand-mark--staff" alt="GG" /> / CONTENT MANAGEMENT</p><h1>{section?.title ?? 'Unknown CMS section'}</h1></div><button type="button" disabled={busy || loading} onClick={() => { if (!draft || JSON.stringify(draft) === JSON.stringify(original ?? newCmsRow(section)) || window.confirm('Reload and discard unsaved changes?')) setReload(value => value + 1) }}>Reload</button></header>
     {loading && <p role="status">Checking staff access and loading content…</p>}
     {error && <p className="cms-error" role="alert">{error}</p>}{success && <p className="cms-success" role="status">{success}</p>}
     {!loading && role && section && <>

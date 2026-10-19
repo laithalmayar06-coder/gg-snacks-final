@@ -79,7 +79,7 @@ export default function StoreFinder({ standalone = false }: { standalone?: boole
           <li><FinderIcon kind="map" /><span>{copy.directions}</span></li>
         </ul>
         <div className="find-gg-signature">
-          <img src={heroPreviewLogo} alt="" width="355" height="426" loading="lazy" decoding="async" />
+          <img src={heroPreviewLogo} alt="" width="1268" height="1241" loading="lazy" decoding="async" />
           <span>{copy.brand}</span>
         </div>
         {!standalone && <Link className="find-gg-directory-link" to="/find-gg">{copy.allStores}<span aria-hidden="true">{language === 'ar' ? '↖' : '↗'}</span></Link>}

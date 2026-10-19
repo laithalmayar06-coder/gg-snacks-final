@@ -1,3 +1,4 @@
+import { officialLogo } from '../data/brand'
 import { useId, useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -100,7 +101,7 @@ export default function WhyGG() {
         <span className="why-core-orbit" aria-hidden="true" />
         <span className="why-core-orbit why-core-orbit-inner" aria-hidden="true" />
         <span className="why-core-plasma" aria-hidden="true" />
-        <img src="/preview-assets/web/LOGO%20.PNG.png" alt="GG" width="355" height="426" loading="lazy" decoding="async" />
+        <img src={officialLogo.src} alt="GG" width={officialLogo.width} height={officialLogo.height} loading="lazy" decoding="async" />
         <span className="why-core-glass" aria-hidden="true" />
       </div>
       <ul className="why-gg-features">

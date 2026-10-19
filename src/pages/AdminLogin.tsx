@@ -1,3 +1,4 @@
+import BrandMark from '../components/BrandMark'
 import { useRef, useState } from 'react'
 import { Link, Navigate } from 'react-router'
 import { useStaffSession } from '../auth/StaffSession'
@@ -11,7 +12,7 @@ export default function AdminLogin() {
   const [error, setError] = useState('')
   const lock = useRef(false)
   if (session) return <Navigate to="/admin/mfa" replace />
-  return <main className="ratings-dashboard staff-login" lang="en" dir="ltr"><p className="dashboard-kicker">GG / STAFF ACCESS</p><h1>Staff sign in</h1><form className="dashboard-block" aria-busy={busy} onSubmit={async event => {
+  return <main className="ratings-dashboard staff-login" lang="en" dir="ltr"><p className="dashboard-kicker"><BrandMark className="official-brand-mark--staff" alt="GG" /> / STAFF ACCESS</p><h1>Staff sign in</h1><form className="dashboard-block" aria-busy={busy} onSubmit={async event => {
     event.preventDefault()
     if (lock.current) return
     lock.current = true; setBusy(true); setError('')

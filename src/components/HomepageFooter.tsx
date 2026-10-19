@@ -62,7 +62,7 @@ export default function HomepageFooter() {
           <div className="closing-brand-stage">
             <img className="closing-brand-halo" {...homepageContactAssets.halo} alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <img className="closing-brand-platform" {...homepageContactAssets.platform} alt="" aria-hidden="true" loading="lazy" decoding="async" />
-            <Link to="/" aria-label={t.brandName}><img className="closing-brand-logo" src={homepageFooterLogo} width="356" height="440" alt="" loading="lazy" decoding="async" /></Link>
+            <Link to="/" aria-label={t.brandName}><img className="closing-brand-logo" src={homepageFooterLogo} width="1268" height="1241" alt="" loading="lazy" decoding="async" /></Link>
           </div>
           <p className="closing-tagline">{copy.tagline}</p>
           <p className="closing-origin">{t.footerLocation}</p>

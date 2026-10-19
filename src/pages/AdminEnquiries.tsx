@@ -1,3 +1,4 @@
+import BrandMark from '../components/BrandMark'
 import { adminUxCopy } from '../data/adminUxCopy'
 import { useEffect, useRef, useState } from 'react'
 import { useStaffSession } from '../auth/StaffSession'
@@ -57,7 +58,7 @@ export default function AdminEnquiries() {
  }
  if (!allowed) return <main className="ratings-dashboard"><p role="status">{c.loading}</p></main>
  return <><AdminNavigation /><main className="ratings-dashboard admin-page admin-enquiries" lang={language} dir={language === 'ar' ? 'rtl' : 'ltr'}>
-  <header className="cms-header"><div><p className="dashboard-kicker">{ux.staff}</p><h1>{c.title}</h1><p className="admin-permission">{access.role === 'viewer' ? ux.readOnly : ux.admin}</p></div></header>
+  <header className="cms-header"><div><p className="dashboard-kicker"><BrandMark className="official-brand-mark--staff" />{ux.staff}</p><h1>{c.title}</h1><p className="admin-permission">{access.role === 'viewer' ? ux.readOnly : ux.admin}</p></div></header>
   <div className="dashboard-filters">
    <label>{c.type}<select disabled={saving} value={type} onChange={e => { setType(e.target.value); setPage(0) }}><option value="">{c.all}</option>{requestTypes.map(item => <option key={item.id} value={item.id}>{item.label[language]}</option>)}</select></label>
    <label>{c.status}<select disabled={saving} value={status} onChange={e => { setStatus(e.target.value); setPage(0) }}><option value="">{c.all}</option>{statuses.map(item => <option key={item} value={item}>{c[item]}</option>)}</select></label>

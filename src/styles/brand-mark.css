@@ -1,0 +1,9 @@
+/* Logo-only sizing: retain the existing placement footprints and never distort artwork. */
+.official-brand-mark { display: block; width: 48px; height: 44px; max-width: 100%; object-fit: contain; flex-shrink: 0; }
+.brand > .official-brand-mark { width: 68px; height: 57px; }
+.official-brand-mark--staff { display: inline-block; width: 25px; height: 25px; vertical-align: middle; margin-inline-end: 6px; }
+.official-brand-mark--stage { width: clamp(65px, 7vw, 110px); height: auto; margin-inline: auto; }
+.official-brand-mark--universe { width: clamp(110px, 13vw, 190px); height: auto; }
+@media (max-width: 600px) {
+  .home-redesign.phase-five:has(#home-hero) > .site-header .official-brand-mark { width: 48px; height: 40px; }
+}

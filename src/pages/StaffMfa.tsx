@@ -1,3 +1,4 @@
+import BrandMark from '../components/BrandMark'
 import { useEffect, useRef, useState } from 'react'
 import { Navigate } from 'react-router'
 import { useStaffSession } from '../auth/StaffSession'
@@ -55,7 +56,7 @@ export default function StaffMfa() {
   if (loading || sessionError) return <main className="ratings-dashboard staff-login"><p role={sessionError ? 'alert' : 'status'}>{sessionError || 'Restoring session…'}</p></main>
   if (!session) return <Navigate to="/admin/login" replace />
   if (hasProtectedStaffAccess(access) && !accessLoading && !accessError) return <Navigate to="/dashboard/ratings" replace />
-  return <main className="ratings-dashboard staff-login" dir="ltr" lang="en"><p className="dashboard-kicker">GG / STAFF ACCESS</p><h1>Staff verification</h1>
+  return <main className="ratings-dashboard staff-login" dir="ltr" lang="en"><p className="dashboard-kicker"><BrandMark className="official-brand-mark--staff" alt="GG" /> / STAFF ACCESS</p><h1>Staff verification</h1>
     {accessLoading ? <p role="status">Checking staff access…</p> : accessError || !access.role ? <><p role="alert">{accessError || 'Access denied. This account is not authorized staff.'}</p>{accessError && <button onClick={refreshAccess}>Retry access check</button>}</> : <>
       {error && <p role="alert">{error}</p>}
       {pending ? <><p role="status">Loading authenticator devices…</p>{error && <button onClick={() => setRetry(value => value + 1)}>Retry</button>}</> : <section className="dashboard-block">

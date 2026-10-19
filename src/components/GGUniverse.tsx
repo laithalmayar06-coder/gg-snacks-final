@@ -1,3 +1,4 @@
+import BrandMark from './BrandMark'
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -50,7 +51,7 @@ export default function GGUniverse() {
         <i className="universe-corner universe-corner--tl" /><i className="universe-corner universe-corner--tr" />
         <i className="universe-corner universe-corner--bl" /><i className="universe-corner universe-corner--br" />
         <span className="universe-media-cross">+</span>
-        <span className="universe-media-wordmark" dir="ltr">GG</span>
+        <BrandMark className="official-brand-mark--universe" size={190} />
       </div>
       </VisualSlot><figcaption id="universe-media-caption"><span className="universe-media-status">{t.universeMediaStatus}</span><span>{t.universeMediaCaption}</span></figcaption>
     </figure>
