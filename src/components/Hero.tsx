@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, type MouseEvent } from 'react'
 import gsap from 'gsap'
 import { useLanguage } from '../i18n/LanguageContext'
 import { heroPreviewLogo } from '../data/heroPreview'
-import { heroLayers, heroContent } from '../data/heroLayers'
+import { heroLayers, heroContent, heroBackground, getHeroDelivery, HERO_MOBILE_MEDIA, heroHiddenSource } from '../data/heroLayers'
 import '../styles/hero-preview.css'
 
 export default function Hero() {
@@ -87,10 +87,13 @@ export default function Hero() {
 
   return <section id="home-hero" ref={root} className="hero prepared-hero" aria-label={t.home} tabIndex={-1}>
     <div className="prepared-scene" aria-hidden="true" dir="ltr">
-      <img className="prepared-environment" src="/hero/hero bg.png" alt="" width={1672} height={941} fetchPriority="high" decoding="async" />
+      <img className="prepared-environment" src={heroBackground} alt="" width={1672} height={941} fetchPriority="high" decoding="async" />
       {heroLayers.map(layer => <div key={layer.id} className={`prepared-layer prepared-${layer.id}${layer.id.startsWith('chip') || layer.id.startsWith('popcorn') ? ' prepared-snack' : ''}`}>
         <div className="prepared-entrance"><div className="prepared-float">
-          <img src={layer.src} alt="" width={layer.width} height={layer.height} decoding="async" draggable={false} />
+          <picture>
+            {layer.id === 'crumbs' && <source media={HERO_MOBILE_MEDIA} srcSet={heroHiddenSource} type="image/gif" />}
+            <img {...getHeroDelivery(layer.id)} alt="" width={layer.width} height={layer.height} fetchPriority={layer.id === 'controller' ? 'high' : undefined} decoding="async" draggable={false} />
+          </picture>
         </div></div>
       </div>)}
     </div>

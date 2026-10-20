@@ -1,0 +1,318 @@
+{
+  "policy": "Lossless WebP; visible RGB and alpha verified against Lanczos3 resized originals. Native background retained to protect portrait crop and dark gradients.",
+  "assets": [
+    {
+      "source": "public/hero/hero bg.png",
+      "id": "environment",
+      "originalBytes": 1957783,
+      "width": 1672,
+      "height": 941,
+      "originalSha256": "0aa4c82cce6d5ba91224219c9198f4f660618e07575ce0ec634ef05fadec76f2",
+      "variants": [
+        {
+          "output": "public/hero/web/environment-1672.webp",
+          "width": 1672,
+          "height": 941,
+          "bytes": 1491010,
+          "sha256": "08694d371777f2f1b1fc89d104c16a9125b909775f14f4c0ed97d8e7933cfc16",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 0,
+          "quality98ComparisonBytes": 414482,
+          "selected": "lossless: exact native visible pixels, no gradient compression"
+        }
+      ]
+    },
+    {
+      "source": "public/hero/controller.png",
+      "id": "controller",
+      "originalBytes": 1721561,
+      "width": 1774,
+      "height": 887,
+      "originalSha256": "0a42a00e4fab224fb7bb5853360886a525a7b4d87ebf8055affe96e0ab747e1c",
+      "variants": [
+        {
+          "output": "public/hero/web/controller-640.webp",
+          "width": 640,
+          "height": 320,
+          "bytes": 179288,
+          "sha256": "fcbd05130dc785da938e49a849b9a8ccf4ba5fdda6cedf2d4fef94118eceddaf",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 91191
+        },
+        {
+          "output": "public/hero/web/controller-960.webp",
+          "width": 960,
+          "height": 480,
+          "bytes": 377422,
+          "sha256": "d4e739402d232b6b7ee1f5039efed0b02a1a52e6338b5ab7843968153d4584c7",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 206730
+        },
+        {
+          "output": "public/hero/web/controller-1440.webp",
+          "width": 1440,
+          "height": 720,
+          "bytes": 824392,
+          "sha256": "d903fb64e63a45b11e1d8a36d18817290d832b4cf992e7a2dfcc0da279b65dad",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 466143
+        },
+        {
+          "output": "public/hero/web/controller-1774.webp",
+          "width": 1774,
+          "height": 887,
+          "bytes": 1199320,
+          "sha256": "176ec130a64db2691738fbdb81f117c7c874294651ce9724e4739d5ba82688b7",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 707973
+        }
+      ]
+    },
+    {
+      "source": "public/hero/chip 1.png",
+      "id": "chip-one",
+      "originalBytes": 1135639,
+      "width": 1254,
+      "height": 1254,
+      "originalSha256": "f4b1fcf4bf05ad0fab43f5dbaad7a91c1932db26acf49ae2adfcbf02ce4a3cd4",
+      "variants": [
+        {
+          "output": "public/hero/web/chip-one-192.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 25094,
+          "sha256": "74df6328074e6867812309446fee81a23d0ec50edcd40ee0abc571ea14604924",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 26594
+        },
+        {
+          "output": "public/hero/web/chip-one-320.webp",
+          "width": 320,
+          "height": 320,
+          "bytes": 65996,
+          "sha256": "034ed0da4171db398ec2fa066903926e8062fff596b0746b2c2060b7425c598c",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 74679
+        },
+        {
+          "output": "public/hero/web/chip-one-480.webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 144894,
+          "sha256": "7857fdfa6bec24f0c1fb794f29b16200136bc085814889828111ea90afaaff3d",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 168730
+        },
+        {
+          "output": "public/hero/web/chip-one-640.webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 250670,
+          "sha256": "3fc0b1a5917bb866782b75eaf91255059c564198d8ea83713ca38b70dad583ae",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 300414
+        }
+      ]
+    },
+    {
+      "source": "public/hero/chip 2.png",
+      "id": "chip-two",
+      "originalBytes": 1021128,
+      "width": 1254,
+      "height": 1254,
+      "originalSha256": "452f58dca4c941e9b8e1179ad8f68d8e7b4e67bb3644391a86f37a1d6f9e562d",
+      "variants": [
+        {
+          "output": "public/hero/web/chip-two-192.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 23526,
+          "sha256": "7fb206f74c17ba9a11b6b1470062644a0576b753380c73bcdb1a8af0335b4366",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 27412
+        },
+        {
+          "output": "public/hero/web/chip-two-320.webp",
+          "width": 320,
+          "height": 320,
+          "bytes": 59916,
+          "sha256": "4abe40db657c32b5a29cebffae3cf2873c24bb3546dfa326b7bb9225794c998c",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 76859
+        },
+        {
+          "output": "public/hero/web/chip-two-480.webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 131036,
+          "sha256": "41ea91936f413bd0183d62f59e2532f7692a4a838b60992cac888ea6ac4b58db",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 173421
+        },
+        {
+          "output": "public/hero/web/chip-two-640.webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 225322,
+          "sha256": "822f1653e40b9f909f228ec7a031ce59fd34366e7f45bdf125fb1b57ca9b97f8",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 308456
+        }
+      ]
+    },
+    {
+      "source": "public/hero/popcorn 1.png",
+      "id": "popcorn-one",
+      "originalBytes": 1140474,
+      "width": 1254,
+      "height": 1254,
+      "originalSha256": "de612fafdff622c5ca9df002d4db9e4d15a9707e3ac9e47e7e7eec2bcaeec336",
+      "variants": [
+        {
+          "output": "public/hero/web/popcorn-one-192.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 30038,
+          "sha256": "def6571d89e5362d96ef3bbe04d00437af2da15a69347e81a01e62887af86787",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 22604
+        },
+        {
+          "output": "public/hero/web/popcorn-one-320.webp",
+          "width": 320,
+          "height": 320,
+          "bytes": 69852,
+          "sha256": "82407fd5ea79b2fcf52865423b67498c7e341d822677858ae8a197ed404832db",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 63583
+        },
+        {
+          "output": "public/hero/web/popcorn-one-480.webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 143412,
+          "sha256": "77dae451d4cb831e27e0c1bd585a9f6a94348ba52f5e51f4a6de95d3561b5b54",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 143666
+        },
+        {
+          "output": "public/hero/web/popcorn-one-640.webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 242124,
+          "sha256": "297ea4088f22afe04dcfb78cff9fe5aabcc41b6e142a18d7b6e0dd82eb82e1d1",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 255708
+        }
+      ]
+    },
+    {
+      "source": "public/hero/pop corn2.png",
+      "id": "popcorn-two",
+      "originalBytes": 852491,
+      "width": 1254,
+      "height": 1254,
+      "originalSha256": "1b1bba84829f7447c5d9eff58bb3afa0e6e6ae6eadc518c0db8b8a8dc662cf10",
+      "variants": [
+        {
+          "output": "public/hero/web/popcorn-two-192.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 21844,
+          "sha256": "b09addbcf4aa02aaa363472005baca8208c0b13048de56966af79712f74799f0",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 27032
+        },
+        {
+          "output": "public/hero/web/popcorn-two-320.webp",
+          "width": 320,
+          "height": 320,
+          "bytes": 50280,
+          "sha256": "eef8c965ac1f6027e8e1fa9a456019aaa0cb93d8ab0d582a9a8235335478e930",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 75734
+        },
+        {
+          "output": "public/hero/web/popcorn-two-480.webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 103576,
+          "sha256": "77c7d735267b11a3ad823df3a85efbf96462a3f7d47d358d87b6bac4dc75afbc",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 170774
+        },
+        {
+          "output": "public/hero/web/popcorn-two-640.webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 174520,
+          "sha256": "00fd97daea76ef14a3803a02913dd5b440367dc551630c3872740be1e7792aa9",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 303696
+        }
+      ]
+    },
+    {
+      "source": "public/hero/crumbs.png",
+      "id": "crumbs",
+      "originalBytes": 954583,
+      "width": 1254,
+      "height": 1254,
+      "originalSha256": "06e8c147f3a547fb94ef50491ec5ced8405fee482e4929240b09b1b1075df1ad",
+      "variants": [
+        {
+          "output": "public/hero/web/crumbs-128.webp",
+          "width": 128,
+          "height": 128,
+          "bytes": 13266,
+          "sha256": "68a091a5ad39fa91f0b97b46753cc7f60594d0591024dace49076dffac0b7d66",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 11792
+        },
+        {
+          "output": "public/hero/web/crumbs-256.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 42230,
+          "sha256": "827b4994d8dc843fe4096e4252757291bdc48325e167adbb46491a281c71a6ef",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 49525
+        },
+        {
+          "output": "public/hero/web/crumbs-384.webp",
+          "width": 384,
+          "height": 384,
+          "bytes": 84460,
+          "sha256": "b70036470dffe96121b479c04530c30750616d30f304e8e1da2a894e84369300",
+          "losslessVisibleRgb": true,
+          "identicalAlpha": true,
+          "transparentPixels": 113086
+        }
+      ]
+    }
+  ],
+  "originalTotalBytes": 8783659
+}
