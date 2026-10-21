@@ -1,0 +1,233 @@
+{
+  "strategy": "Native dimensions, lossless WebP; unchanged backgrounds/pins/ripples. Contact/Footer share URLs. No responsive downscaling or extra preloads.",
+  "sharpVersion": "0.34.5",
+  "assets": [
+    {
+      "source": "public/section 6/find-gg-cinematic-background.webp",
+      "width": 2400,
+      "height": 1100,
+      "hasAlpha": false,
+      "hasProfile": false,
+      "originalBytes": 123570,
+      "originalSha256": "0149287f420906a75d3c2fc1a8ecd961a4d64d16b600159a5e49d4f8d1dd5eb9",
+      "output": "public/section 6/find-gg-cinematic-background.webp",
+      "deliveryBytes": 123570,
+      "deliverySha256": "0149287f420906a75d3c2fc1a8ecd961a4d64d16b600159a5e49d4f8d1dd5eb9",
+      "savingsPercent": 0
+    },
+    {
+      "source": "public/section 6/find-gg-saudi-map.png",
+      "width": 883,
+      "height": 615,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 983401,
+      "originalSha256": "9bb1ccd84f2a33f6f3e4e6b6087aaf780308984b6e28276b5591c678dbf2c8aa",
+      "output": "public/section 6/web/find-gg-saudi-map.webp",
+      "deliveryBytes": 680840,
+      "deliverySha256": "bb97218dcb419a647eea2f9628c67712317b4c4e53e862a14c8d4296d6d016c7",
+      "savingsPercent": 30.77,
+      "lossless": true,
+      "alphaDifferences": 0,
+      "visibleRgbDifferences": 0,
+      "transparentRgbDifferences": 350714,
+      "visibleRgbaSha256": "d27214ec235fe59b23523dc58927e37b13f6902a3d84ec448b9aa17dd559a57e"
+    },
+    {
+      "source": "public/section 6/find-gg-clean-fog.png",
+      "width": 1600,
+      "height": 430,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 398748,
+      "originalSha256": "975f74a8e329a7c71e47be7950582d854c1e2092a2a5d593bdf6e844c4e56559",
+      "output": "public/section 6/web/find-gg-clean-fog.webp",
+      "deliveryBytes": 283026,
+      "deliverySha256": "2847d25f8852154b2231c347ab79bb6141da3b5b81188ac07798a67a8f0aff49",
+      "savingsPercent": 29.02,
+      "lossless": true,
+      "alphaDifferences": 0,
+      "visibleRgbDifferences": 0,
+      "transparentRgbDifferences": 343041,
+      "visibleRgbaSha256": "fdfd899925ce0b1f0b4f486061115a1302b8859e773963482ff7af9eb4db1c77"
+    },
+    {
+      "source": "public/section 6/pin-blue.png",
+      "width": 129,
+      "height": 173,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 38914,
+      "originalSha256": "11a4d1a9f5647823d0c206705b210626573281e1d03140d83d138ad1d29b637a",
+      "output": "public/section 6/pin-blue.png",
+      "deliveryBytes": 38914,
+      "deliverySha256": "11a4d1a9f5647823d0c206705b210626573281e1d03140d83d138ad1d29b637a",
+      "savingsPercent": 0
+    },
+    {
+      "source": "public/section 6/pin-purple.png",
+      "width": 112,
+      "height": 161,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 32660,
+      "originalSha256": "1da5da3d452bebee116d6fafd2c1f6522325984dd8f75de06f683a5bb750dbf6",
+      "output": "public/section 6/pin-purple.png",
+      "deliveryBytes": 32660,
+      "deliverySha256": "1da5da3d452bebee116d6fafd2c1f6522325984dd8f75de06f683a5bb750dbf6",
+      "savingsPercent": 0
+    },
+    {
+      "source": "public/section 6/ripple-blue.png",
+      "width": 127,
+      "height": 111,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 27358,
+      "originalSha256": "44d43b55ca6c7442445156b23aa21235c8bb21548c30e147b0ecbeac78514dcc",
+      "output": "public/section 6/ripple-blue.png",
+      "deliveryBytes": 27358,
+      "deliverySha256": "44d43b55ca6c7442445156b23aa21235c8bb21548c30e147b0ecbeac78514dcc",
+      "savingsPercent": 0
+    },
+    {
+      "source": "public/section 6/ripple-purple.png",
+      "width": 109,
+      "height": 102,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 22954,
+      "originalSha256": "0ccb385af977d40ea2aec671187cf320795406d77ccd5add1ceca325dd9219f6",
+      "output": "public/section 6/ripple-purple.png",
+      "deliveryBytes": 22954,
+      "deliverySha256": "0ccb385af977d40ea2aec671187cf320795406d77ccd5add1ceca325dd9219f6",
+      "savingsPercent": 0
+    },
+    {
+      "source": "public/section 7/contact-signal-background.webp",
+      "width": 2400,
+      "height": 1350,
+      "hasAlpha": false,
+      "hasProfile": false,
+      "originalBytes": 44602,
+      "originalSha256": "97ae3e7a8bb0732150866919dadeb9bdb02979b38f034750068ffb7d198ba174",
+      "output": "public/section 7/contact-signal-background.webp",
+      "deliveryBytes": 44602,
+      "deliverySha256": "97ae3e7a8bb0732150866919dadeb9bdb02979b38f034750068ffb7d198ba174",
+      "savingsPercent": 0
+    },
+    {
+      "source": "public/section 7/contact-fog-overlay.png",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 1163225,
+      "originalSha256": "ca9e37e04de40dc956fa1c9d0d63becc941105169245c2b457ef61e3027a131c",
+      "output": "public/section 7/web/contact-fog-overlay.webp",
+      "deliveryBytes": 891836,
+      "deliverySha256": "94171739f5a30635899eec14c251b1e3b903bc2d3297529d9720bfd17652b9e5",
+      "savingsPercent": 23.33,
+      "lossless": true,
+      "alphaDifferences": 0,
+      "visibleRgbDifferences": 0,
+      "transparentRgbDifferences": 494924,
+      "visibleRgbaSha256": "4dad0c53a5e5f3604b0e74c95ee084a3a153840591c906381abe0baeaaf3868e"
+    },
+    {
+      "source": "public/section 7/contact-neon-platform.png",
+      "width": 1320,
+      "height": 700,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 640672,
+      "originalSha256": "7388d6f48804b9a84b8e64375c91322f334b992af4081cd5b386a0735bb9c1c4",
+      "output": "public/section 7/web/contact-neon-platform.webp",
+      "deliveryBytes": 487574,
+      "deliverySha256": "87a7eb5d1518da9e4b69f73b232c8dae036f97b2fce946076fcb6410c3be2dd1",
+      "savingsPercent": 23.9,
+      "lossless": true,
+      "alphaDifferences": 0,
+      "visibleRgbDifferences": 0,
+      "transparentRgbDifferences": 157675,
+      "visibleRgbaSha256": "7239edacfdfcb62ef75cbf11d385eb1aa64ebb14489a454046c48951949c6164"
+    },
+    {
+      "source": "public/section 7/contact-signal-halo.png",
+      "width": 1450,
+      "height": 950,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 165623,
+      "originalSha256": "5bac840b2db3c72a4045f4abc4d283cdd2282113a79f69bbc60d33775ddfce47",
+      "output": "public/section 7/web/contact-signal-halo.webp",
+      "deliveryBytes": 111110,
+      "deliverySha256": "b0ce9f73b68d16aa01569887a6360b6f17da41db6ad97bba42f018771c1c9687",
+      "savingsPercent": 32.91,
+      "lossless": true,
+      "alphaDifferences": 0,
+      "visibleRgbDifferences": 0,
+      "transparentRgbDifferences": 992968,
+      "visibleRgbaSha256": "00941adead95bd08beb41c78befd1040f7233b0f19071cdd220603e3b5983fee"
+    },
+    {
+      "source": "public/section 7/contact-hologram-envelopes.png",
+      "width": 800,
+      "height": 600,
+      "hasAlpha": true,
+      "hasProfile": false,
+      "originalBytes": 44981,
+      "originalSha256": "186e966c0c816455ab39adc0e9b08e7e188b6fd6f40ec5f078573c62c9326da3",
+      "output": "public/section 7/web/contact-hologram-envelopes.webp",
+      "deliveryBytes": 26254,
+      "deliverySha256": "dcfeb7dc767fc798ec704c9669538023776da5a5554c0e8c79a050645eb9e1b4",
+      "savingsPercent": 41.63,
+      "lossless": true,
+      "alphaDifferences": 0,
+      "visibleRgbDifferences": 0,
+      "transparentRgbDifferences": 143380,
+      "visibleRgbaSha256": "3917e48c75cce520e7898de5f76079fbc640223b4a55a116cffd1ac48cbc441d"
+    }
+  ],
+  "totals": {
+    "originalBytes": 3686708,
+    "deliveryBytes": 2770698,
+    "savedBytes": 916010,
+    "savingsPercent": 24.85
+  },
+  "viewportDelivery": [
+    {
+      "width": 320,
+      "uniqueImageBytes": 2770698
+    },
+    {
+      "width": 375,
+      "uniqueImageBytes": 2770698
+    },
+    {
+      "width": 390,
+      "uniqueImageBytes": 2770698
+    },
+    {
+      "width": 430,
+      "uniqueImageBytes": 2770698
+    },
+    {
+      "width": 768,
+      "uniqueImageBytes": 2770698
+    },
+    {
+      "width": 1024,
+      "uniqueImageBytes": 2770698
+    },
+    {
+      "width": 1440,
+      "uniqueImageBytes": 2770698
+    },
+    {
+      "width": 1920,
+      "uniqueImageBytes": 2770698
+    }
+  ],
+  "measurementNote": "File byte totals for these 12 unique images once loaded, not measured network transfers; Contact/Footer reuse is counted once. Official logo and other sections excluded."
+}

@@ -22,8 +22,8 @@ export const homepageContactSubjects = ['general', 'distribution', 'partnership'
 const directory = '/section%207/'
 export const homepageContactAssets = {
   background: { src: directory + 'contact-signal-background.webp', width: 2400, height: 1350 },
-  halo: { src: directory + 'contact-signal-halo.png', width: 1450, height: 950 },
-  platform: { src: directory + 'contact-neon-platform.png', width: 1320, height: 700 },
-  fog: { src: directory + 'contact-fog-overlay.png', width: 1672, height: 941 },
-  envelopes: { src: directory + 'contact-hologram-envelopes.png', width: 800, height: 600 },
+  halo: { src: directory + 'web/contact-signal-halo.webp', width: 1450, height: 950 },
+  platform: { src: directory + 'web/contact-neon-platform.webp', width: 1320, height: 700 },
+  fog: { src: directory + 'web/contact-fog-overlay.webp', width: 1672, height: 941 },
+  envelopes: { src: directory + 'web/contact-hologram-envelopes.webp', width: 800, height: 600 },
 } as const

@@ -36,9 +36,9 @@ for (language of ['en', 'ar']) {
  const images = [...html.matchAll(/<img\b[^>]*>/g)].map(m => m[0])
  const paths = images.map(tag => tag.match(/src="([^"]+)"/)[1])
  assert.equal(new Set(paths).size, 7)
- assert.equal(paths.filter(p => p.endsWith('/find-gg-saudi-map.png')).length, 1, 'Map stays a single foreground image')
+ assert.equal(paths.filter(p => p.endsWith('/web/find-gg-saudi-map.webp')).length, 1, 'Map stays a single foreground image')
  assert.equal(paths.filter(p => p.endsWith('/find-gg-cinematic-background.webp')).length, 1)
- assert.equal(paths.filter(p => p.endsWith('/find-gg-clean-fog.png')).length, 1)
+ assert.equal(paths.filter(p => p.endsWith('/web/find-gg-clean-fog.webp')).length, 1)
  assert.ok(!paths.some(p => p.endsWith('/find-gg-atmosphere.webp')), 'Old plain background is not downloaded')
  for (const image of images) {
   assert.ok(image.includes('loading="lazy"') && image.includes('decoding="async"'))

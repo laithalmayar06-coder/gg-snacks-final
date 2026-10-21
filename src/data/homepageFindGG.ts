@@ -24,8 +24,8 @@ export const homepageFindGG = {
 const directory = '/section%206/'
 export const homepageFindGGAssets = {
   atmosphere: { src: directory + 'find-gg-cinematic-background.webp', width: 2400, height: 1100 },
-  fog: { src: directory + 'find-gg-clean-fog.png', width: 1600, height: 430 },
-  map: { src: directory + 'find-gg-saudi-map.png', width: 883, height: 615 },
+  fog: { src: directory + 'web/find-gg-clean-fog.webp', width: 1600, height: 430 },
+  map: { src: directory + 'web/find-gg-saudi-map.webp', width: 883, height: 615 },
   bluePin: { src: directory + 'pin-blue.png', width: 129, height: 173 },
   purplePin: { src: directory + 'pin-purple.png', width: 112, height: 161 },
   blueRipple: { src: directory + 'ripple-blue.png', width: 127, height: 111 },
