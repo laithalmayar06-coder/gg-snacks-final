@@ -9,7 +9,41 @@
     "hasAlpha": false,
     "lossless": true,
     "identicalDecodedRGBA": true,
-    "sourceSHA256": "9bc0a96728c71512f2b394fa16223ddc4777f98bfd19fe2d0f038930331228ab"
+    "sourceSHA256": "9bc0a96728c71512f2b394fa16223ddc4777f98bfd19fe2d0f038930331228ab",
+    "deliverySHA256": "99cbcc588bc6a6edce4eee9aedc810b3f5baf8799b82b545e0453c6ba9f46479",
+    "candidates": [
+      {
+        "quality": 98,
+        "delivery": "desktop/neon_qr_portal_arena-v1-q98.webp",
+        "width": 1672,
+        "height": 941,
+        "hasAlpha": false,
+        "lossless": false,
+        "bytes": 471892,
+        "sha256": "7d4759a43a71f37b15c18d1c0ec33378b6d2fe0d575e2b7849e5868db15d2474",
+        "savingsPercent": 71.96,
+        "alphaDifferences": 0,
+        "meanAbsoluteRgbError": 1.8356,
+        "psnrRgb": 36.217,
+        "maxRgbError": 79
+      },
+      {
+        "quality": 95,
+        "delivery": "desktop/neon_qr_portal_arena-v1-q95.webp",
+        "width": 1672,
+        "height": 941,
+        "hasAlpha": false,
+        "lossless": false,
+        "bytes": 371034,
+        "sha256": "619feb8a786f1dcdee665ba4d766a2207e07f95d7f0946fa9b93996328c7f602",
+        "savingsPercent": 77.95,
+        "alphaDifferences": 0,
+        "meanAbsoluteRgbError": 1.9529,
+        "psnrRgb": 36.011,
+        "maxRgbError": 77
+      }
+    ],
+    "comparisonNote": "Lossy pixel metrics and amplified differences are diagnostic, not proof of visual equivalence. Human approval required. PNG and lossless rollback sources remain intact."
   },
   {
     "source": "mobile/neon_portal_arena_with_qr_hologram.png",
@@ -21,6 +55,40 @@
     "hasAlpha": false,
     "lossless": true,
     "identicalDecodedRGBA": true,
-    "sourceSHA256": "2c6e59464504db4c3acc008301519fffe30835dcfc4d4ad98528485d78f04952"
+    "sourceSHA256": "2c6e59464504db4c3acc008301519fffe30835dcfc4d4ad98528485d78f04952",
+    "deliverySHA256": "fad305eb76b212ae7efe488c987d03b9d9715d39e4d52b6089e752b1c072fe3b",
+    "candidates": [
+      {
+        "quality": 98,
+        "delivery": "mobile/neon_portal_arena_with_qr_hologram-v1-q98.webp",
+        "width": 941,
+        "height": 1672,
+        "hasAlpha": false,
+        "lossless": false,
+        "bytes": 397912,
+        "sha256": "e4d0add59f1857b91440fd388adfae0bba83acf5aac6e7ccca2178508e5e771b",
+        "savingsPercent": 74.07,
+        "alphaDifferences": 0,
+        "meanAbsoluteRgbError": 1.6502,
+        "psnrRgb": 36.837,
+        "maxRgbError": 79
+      },
+      {
+        "quality": 95,
+        "delivery": "mobile/neon_portal_arena_with_qr_hologram-v1-q95.webp",
+        "width": 941,
+        "height": 1672,
+        "hasAlpha": false,
+        "lossless": false,
+        "bytes": 311204,
+        "sha256": "ce4c638b594e6a9426263db5e348542432f79703ec4a7873381bb40ee56e333a",
+        "savingsPercent": 79.72,
+        "alphaDifferences": 0,
+        "meanAbsoluteRgbError": 1.7513,
+        "psnrRgb": 36.649,
+        "maxRgbError": 78
+      }
+    ],
+    "comparisonNote": "Lossy pixel metrics and amplified differences are diagnostic, not proof of visual equivalence. Human approval required. PNG and lossless rollback sources remain intact."
   }
 ]

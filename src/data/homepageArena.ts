@@ -17,7 +17,14 @@ export const homepageArena = {
   },
 } as const
 
-export const digitalArenaArtwork = {
+// Preserved approved lossless assets for a one-line rollback.
+export const digitalArenaLosslessArtwork = {
   desktop: '/digital-arena/desktop/neon_qr_portal_arena.webp',
   mobile: '/digital-arena/mobile/neon_portal_arena_with_qr_hologram.webp',
+} as const
+
+// Approved Q98 delivery; retain native dimensions and the existing picture behavior.
+export const digitalArenaArtwork = {
+  desktop: "/digital-arena/desktop/neon_qr_portal_arena-v1-q98.webp",
+  mobile: "/digital-arena/mobile/neon_portal_arena_with_qr_hologram-v1-q98.webp",
 } as const

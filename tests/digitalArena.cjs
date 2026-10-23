@@ -67,6 +67,46 @@ for (const item of report) {
  assert.ok(item.deliveryBytes < item.sourceBytes)
 }
 
+// Candidate hashes tie delivery files to the independently decoded optimization report.
+const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex')
+for (const item of report) {
+ const kind = item.width > item.height ? 'desktop' : 'mobile'
+ const baseline = fs.readFileSync('public/digital-arena/' + item.delivery)
+ assert.equal(sha256(baseline), item.deliverySHA256, 'Lossless rollback bytes preserved')
+ assert.equal(data.digitalArenaLosslessArtwork[kind], '/digital-arena/' + item.delivery)
+ assert.deepEqual(item.candidates.map(candidate => candidate.quality), [98, 95])
+ for (const candidate of item.candidates) {
+  const candidatePath = 'public/digital-arena/' + candidate.delivery
+  // Q95 is comparison-only metadata, intentionally absent from a clean release.
+  // Validate it when available locally; the approved Q98 is always required.
+  if (candidate.quality === 95 && !fs.existsSync(candidatePath)) continue
+  const bytes = fs.readFileSync(candidatePath)
+  assert.equal(bytes.length, candidate.bytes)
+  assert.equal(sha256(bytes), candidate.sha256, 'Candidate matches decoded verification report')
+  assert.equal(bytes.toString('ascii', 0, 4), 'RIFF')
+  assert.equal(bytes.toString('ascii', 8, 12), 'WEBP')
+  assert.equal(candidate.width, item.width)
+  assert.equal(candidate.height, item.height)
+  assert.equal(candidate.hasAlpha, item.hasAlpha)
+  assert.equal(candidate.alphaDifferences, 0)
+  assert.equal(candidate.lossless, false, 'Do not describe lossy candidates as pixel-identical')
+  assert.ok(bytes.length < baseline.length)
+ }
+ const selected = item.candidates.find(candidate => candidate.quality === 98)
+ assert.equal(data.digitalArenaArtwork[kind], '/digital-arena/' + selected.delivery)
+}
+// Verify rendered source/fallback routing at every requested breakpoint in both locales.
+for (language of ['en', 'ar']) {
+ const html = renderToStaticMarkup(React.createElement(MemoryRouter, null, React.createElement(load())))
+ const source = html.match(/<source[^>]*>/)[0]
+ const fallback = html.match(/<img[^>]*>/)[0]
+ assert.ok(source.includes('media="(max-width: 767px)"'))
+ for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
+  const selected = width <= 767 ? source : fallback
+  assert.ok(selected.includes(data.digitalArenaArtwork[width <= 767 ? 'mobile' : 'desktop']), 'Picture source at ' + width)
+ }
+}
+
 // Mocked lifecycle checks, not browser layout or paint measurements.
 for (const reduced of [false, true]) {
  let effect, observer, reverted = false, entryOptions, effectCleanup
@@ -114,4 +154,4 @@ for (const reduced of [false, true]) {
  if (!reduced) { assert.ok(observer.disconnected); assert.equal(document.listener, null) }
 }
 
-console.log('Digital Arena: EN/AR/RTL, truthful teaser and inert QR slots, responsive lossless asset references, reduced motion, off-screen/tab pausing and cleanup passed. Browser layout not measured.');
+console.log('Digital Arena: EN/AR/RTL, truthful teaser and inert QR slots, responsive Q98 references, candidate integrity and preserved lossless originals, reduced motion, off-screen/tab pausing and cleanup passed. Browser layout not measured.');
